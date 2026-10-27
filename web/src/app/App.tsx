@@ -7,6 +7,10 @@ import {LessonPlayer} from './LessonPlayer';
 import {Progress} from './Progress';
 import {samples} from './samples';
 import {useJob} from './useJob';
+import {VisualPreview} from './VisualPreview';
+import {About} from './About';
+import {Library} from './Library';
+import {rememberLesson} from './library';
 import './styles.css';
 
 function readRoute() {
@@ -92,32 +96,33 @@ export function App() {
     }
   };
   const live = status.lesson ?? response;
+  useEffect(() => {if (live) rememberLesson(live);}, [live]);
   const props: RenderProps | null = sample?.props ?? (live ? {lesson: live.lesson, timeline: live.timeline,
     mediaBase: '', audioVariant: 'web', showCaptions: true} : null);
   const home = route.kind === '';
-  const unknown = (!home && !['sample', 'lesson', 'job'].includes(route.kind)) || (route.kind === 'sample' && !sample);
+  const unknown = (!home && !['sample', 'lesson', 'job', 'library', 'about'].includes(route.kind)) || (route.kind === 'sample' && !sample);
   return <div className="app-shell">
     <a className="skip-link" href="#main-content" onClick={(event) => {event.preventDefault(); document.getElementById('main-content')?.focus();}}>Skip to content</a>
     <header className="site-header"><a href="#/" className="brand" aria-label="Blu VisualTeacher home"><span className="brand-icon">b<span>·</span></span>
       <span>blu<span className="brand-sub">VisualTeacher</span></span></a>
-      <nav aria-label="Main navigation"><a href="#/">Create a lesson</a><a href="#/sample/python">Explore a sample <span>→</span></a></nav>
-      <span className="local-badge"><span /> Built for local learning</span></header>
+      <nav aria-label="Main navigation"><a href="#/" aria-current={home ? 'page' : undefined}>Create Lesson</a><a href="#/library" aria-current={route.kind === 'library' ? 'page' : undefined}>My Lessons</a><a href="#/about" aria-current={route.kind === 'about' ? 'page' : undefined}>About</a></nav>
+      <span className={`local-badge ${health?.ok && health.offline ? 'is-ready' : ''}`} title={health?.ok && health.offline ? 'Local AI is ready and offline mode is enabled' : 'Sample lessons available; local AI is not connected'}><span /> Offline AI <span className="badge-detail">{health?.ok && health.offline ? 'Ready' : 'Not connected'}</span></span></header>
     <main id="main-content" tabIndex={-1}>
       {home ? <>
-        <section className="hero"><div className="eyebrow"><span className="small-star">✧</span> LESS READING. MORE UNDERSTANDING.</div>
-          <h1>Make the <span>“why”</span> click.</h1><p>Turn a question into a short, animated lesson.<br />See it unfold. Hear it in your language. Learn at your pace.</p>
-          <div className="hero-features"><span>→ Visual, step by step</span><span>अ English · हिन्दी · ಕನ್ನಡ</span><span>◎ Runs locally</span></div></section>
+        <section className="hero"><div className="hero-pill"><span>✧</span> BIG IDEAS. MADE CLEAR.</div>
+          <h1>Turn any concept into<br />a <span>visual lesson.</span></h1><p>Describe what you want to learn and Blu will transform it into<br className="desktop-break" /> a short, narrated, animated explanation.</p>
+          <div className="hero-features"><span><i>✓</i> Made to make sense</span><span><i>अ</i> Learn in your language</span><span><i>⌂</i> Offline & private</span></div></section>
         <div className="workspace"><CreateForm config={config} health={health} busy={busy} onSubmit={(input) => {void submit(input);}} />
-          <aside className="samples-panel"><div className="section-heading"><div><span className="eyebrow">A LITTLE INSPIRATION</span><h2>See an idea come to life.</h2></div><span className="tag">3 SAMPLES</span></div>
-            <p className="muted">No setup needed. Explore these hand-written lessons.</p>
+          <VisualPreview /></div>
+          <section className="samples-panel"><div className="section-heading"><div><span className="eyebrow">CURIOSITY STARTS HERE</span><h2>Take a little knowledge break.</h2><p className="muted">Explore a sample. See what learning with Blu feels like.</p></div><a href="#/library" className="text-link">Explore lessons ↗</a></div>
             <div className="sample-cards">{samples.map((item, index) => <a className={`sample-card sample-${item.id}`} key={item.id} href={`#/sample/${item.id}`}>
               <div className="sample-art" aria-hidden="true"><span className="art-symbol">{item.symbol}</span><span className="art-dot one" /><span className="art-dot two" /><span className="art-line" /></div>
               <div className="sample-copy"><span className="eyebrow">{item.subject} <span>0{index + 1}</span></span><h3>{item.name}</h3><p>{item.detail}</p>
                 <span className="sample-link">Explore lesson <span>→</span></span></div></a>)}</div>
-            <div className="sample-note"><span>✧</span><p>Start with curiosity.<br /><strong>Leave with a clearer picture.</strong></p></div></aside></div>
-      </> : <><a className="back-link" href="#/">← Create another lesson</a>
+            </section>
+      </> : route.kind === 'library' ? <Library /> : route.kind === 'about' ? <About /> : <><a className="back-link" href="#/">← Create another lesson</a>
         <div className="lesson-heading"><div><span className="eyebrow">{sample ? 'THE SAMPLE COLLECTION' : 'YOUR LEARNING SPACE'}</span>
-          <h1>{props?.lesson.title ?? (loading ? 'Opening your lesson…' : 'One idea, coming together.')}</h1></div>
+          <h1>{props?.lesson.title ?? (loading ? 'Opening your lesson…' : 'Creating your visual lesson')}</h1></div>
           {sample && <span className="tag">HAND-WRITTEN · NOT AI-GENERATED</span>}</div>
         {sample && <div className="notice">Sample preview · estimated timing · no narration audio. Live lessons use audio-derived timing.</div>}
         {status.job?.fallback && <div className="notice warning" role="status">{status.job.fallback_reason} Playing our sample lesson instead.</div>}
@@ -126,8 +131,8 @@ export function App() {
         {!sample && route.jobId && <Progress job={status.job} compact={Boolean(props)} />}
         {unknown && <div role="alert" className="notice error">This page does not exist. <a href="#/">Return to the lesson creator.</a></div>}
       </>}
-      {(error || status.error) && <div role="alert" className="notice error">{error || status.error}<div className="error-actions">
-        <button onClick={() => {setError(''); setRetry((value) => value + 1);}}>Retry connection</button><a href="#/sample/python">Play the sample lesson</a></div></div>}
+      {(error || status.error) && <div role="alert" className="notice error"><h2>We couldn’t finish this lesson.</h2><p>{error || status.error}</p><div className="error-actions">
+        <button onClick={() => {setError(''); if (status.job?.status === 'error') location.hash = '/'; else setRetry((value) => value + 1);}}>Try Again</button><a href="#/sample/python">Use Sample Lesson</a></div></div>}
       <section className="backend-status" aria-label="Backend status"><div><span className={`status-dot ${health?.ok ? 'ready' : ''}`} />
         <strong>{health?.ok ? 'Local backend ready' : health ? 'Local models are warming up' : connectionError ? 'Local backend unavailable' : 'Checking local backend…'}</strong>
         <span>{health ? `${health.device_profile.toUpperCase()} · ${health.offline ? 'Offline mode' : 'Offline mode not confirmed'}` : 'Sample lessons are always available'}</span></div>

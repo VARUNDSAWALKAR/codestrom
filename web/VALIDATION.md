@@ -17,8 +17,10 @@
   cycle closing arrows, and out-of-order code/output scrubbing.
 - Long Hindi/Kannada text probes across all three lessons, preserving displayed
   code. These are font/layout probes, not real translations.
-- Desktop and 390px mobile layouts with no horizontal overflow; sample playback,
-  previous/next/replay, CC, SRT download, and input validation.
+- Desktop plus 320px and 390px mobile layouts with no horizontal overflow;
+  redesigned create, progress, player, library, and About routes; sample playback,
+  seeking, previous/next/replay, silent-sample volume state, CC, SRT download,
+  lesson-library search/filter/empty states, and input validation.
 - Contract-fixture workflow: one submission, 500 ms nonoverlapping polling,
   playback before MP4 readiness, final media refresh, reload, cached/fallback
   jobs, 404/422/500/network/job errors, and cleanup on navigation/completion.
@@ -26,10 +28,11 @@
   subjective stutter assessment.
 - No external lesson-app requests. Studio playback checked with its external
   development-tool update/bug requests blocked.
-- Full Python-loop MP4: 67.8 seconds, H.264, 1280×720, 30 fps, yuv420p, BT.709.
+- Fresh full Python-loop MP4: 67.8 seconds, H.264, 1280×720, 30 fps,
+  yuv420p, BT.709.
   Silent because mock audio is null. Export stdout parsed as JSON lines; CLI
   argument errors return one JSON error and exit 1. Matching SRT derives from
-  the same timeline captions. Outputs: `cache/test.mp4` and `cache/test.srt`.
+  the same timeline captions. Latest output: `cache/python_loop-final.mp4`.
 
 ## Unverified prerequisites
 

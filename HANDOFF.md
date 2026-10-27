@@ -10,7 +10,8 @@ the relevant documents under `docs/` before making changes.
 ## What you receive
 
 - `web/src/app/`: responsive lesson creator, progress UI, custom Player controls,
-  sample previews, and the typed FastAPI client.
+  searchable lesson library, About page, sample previews, and the typed FastAPI
+  client.
 - `web/src/lesson/`: all five scene components, captions, theme, fonts, timeline
   helpers, and runtime render-props checks.
 - `web/src/remotion/`: composition registration and the initial Python sample.
@@ -48,6 +49,11 @@ with him rather than changing its contract or inventing backend responses.
 4. Select a sample lesson. The three samples work without a backend. Live
    generation stays disabled until the real backend is available.
 5. In a second terminal in `web/`, run `npm run studio` for animation work.
+
+The application routes are `#/` (Create Lesson), `#/library` (My Lessons),
+`#/about`, `#/job/<id>`, `#/lesson/<id>?variant=…`, and
+`#/sample/<python|newton|water>`. My Lessons uses the documented optional
+`GET /api/lessons` route and also remembers lessons opened in that browser.
 
 ## Render the sample video
 
@@ -91,7 +97,8 @@ Satwik's local backend on port 8000. The exact endpoint shapes, job stages, and
 media readiness rules are in `docs/api-contracts.md`. No tokens or secrets are
 needed for local sample work.
 
-Already checked: 35 unit tests, desktop/mobile controls, 62 sample-frame checks,
+Already checked: 35 unit tests, desktop/mobile controls and layout, lesson
+library search/filter/empty states, generation progress, 62 sample-frame checks,
 all diagram layouts/counts, long Hindi/Kannada layout probes, deterministic
 rendering, and the silent 67.8-second H.264/yuv420p sample video. Detailed limits
 are in `web/VALIDATION.md`.

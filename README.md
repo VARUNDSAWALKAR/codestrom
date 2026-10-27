@@ -5,7 +5,8 @@ and MP4 exporter use the same JSON-driven `Lesson` composition.
 
 Implemented: title cards, code walkthroughs, flow/cycle/labelled diagrams,
 formulas, recaps, captions, local Noto fonts, a responsive lesson creator/player,
-and the typed frontend client for the documented FastAPI endpoints.
+a searchable lesson library, generation progress, and the typed frontend client
+for the documented FastAPI endpoints.
 
 Requires Node 24 and local Chromium for rendering. Dependencies are pinned in
 `web/package-lock.json`. This checkout now includes backend Tasks 1-3: FastAPI foundation, local Kokoro
@@ -14,9 +15,14 @@ silent samples still work independently. API and lesson-schema contracts are unc
 
 ## Preview
 
-![Blu VisualTeacher website](docs/previews/website.png)
+![Blu VisualTeacher website](docs/previews/app-desktop.png)
 
-[Mobile preview](docs/previews/mobile.png) · [Code walkthrough preview](docs/previews/code-walkthrough.png)
+[Mobile create screen](docs/previews/app-mobile.png) ·
+[Desktop lesson player](docs/previews/player-desktop.png) ·
+[Mobile lesson player](docs/previews/player-mobile.png) ·
+[My Lessons](docs/previews/library-desktop.png) ·
+[Generation progress](docs/previews/generation-progress.png) ·
+[Rendered code scene](docs/previews/code-walkthrough.png)
 
 These are screenshots of the running frontend. Samples have mock timing and
 no narration; live generation requires the local backend.
@@ -31,10 +37,11 @@ npm run dev
 npm run studio
 ```
 
-The backend serves health/config, local media and the built website on port 8000.
-Vite proxies `/api` and `/media` to it. Topic generation and job polling endpoints
-are not implemented yet; Gate 1 uses the CLI workflow below. The UI still
-clearly separates samples from live generation.
+The backend serves health/config, lesson jobs, local media and the built website
+on port 8000. Vite proxies `/api` and `/media` to it. The UI clearly separates
+samples from live generation. The My Lessons page reads the documented
+`GET /api/lessons` endpoint and retains lessons opened in the current browser
+as a fallback when that endpoint is unavailable.
 
 Build the website and renderer with `cd web && npm run build:demo`.
 Render from the repository root:
