@@ -1,0 +1,8 @@
+node_modules/
+web/dist/
+web/build/
+web/.validation/
+cache/
+.env
+.env.*
+!.env.example

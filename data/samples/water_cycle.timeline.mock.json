@@ -1,0 +1,220 @@
+{
+  "timeline_version": 1,
+  "lesson_id": "sample-water-cycle",
+  "language": "en",
+  "variant": "en-female-1",
+  "fps": 30,
+  "width": 1280,
+  "height": 720,
+  "duration_frames": 2147,
+  "audio": null,
+  "voice": {
+    "engine": "mock",
+    "voice_id": "",
+    "speed": 1.0
+  },
+  "tempo": 1.0,
+  "scenes": [
+    {
+      "scene_id": "s1",
+      "type": "title_card",
+      "start_frame": 0,
+      "duration_frames": 206,
+      "beats": [
+        {
+          "beat_id": "s1.intro",
+          "step_index": null,
+          "start_frame": 9,
+          "end_frame": 189,
+          "captions": [
+            {
+              "text": "The water on Earth moves in a never-ending loop called the water cycle.",
+              "start_frame": 9,
+              "end_frame": 189
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "s2",
+      "type": "diagram",
+      "start_frame": 206,
+      "duration_frames": 930,
+      "beats": [
+        {
+          "beat_id": "s2.intro",
+          "step_index": null,
+          "start_frame": 216,
+          "end_frame": 358,
+          "captions": [
+            {
+              "text": "The cycle has four main steps that repeat again and again.",
+              "start_frame": 216,
+              "end_frame": 358
+            }
+          ]
+        },
+        {
+          "beat_id": "s2.step0",
+          "step_index": 0,
+          "start_frame": 365,
+          "end_frame": 557,
+          "captions": [
+            {
+              "text": "First, the sun heats water in seas and lakes, and it rises as water vapour.",
+              "start_frame": 365,
+              "end_frame": 557
+            }
+          ]
+        },
+        {
+          "beat_id": "s2.step1",
+          "step_index": 1,
+          "start_frame": 565,
+          "end_frame": 732,
+          "captions": [
+            {
+              "text": "High in the sky, the vapour cools into tiny droplets that form clouds.",
+              "start_frame": 565,
+              "end_frame": 732
+            }
+          ]
+        },
+        {
+          "beat_id": "s2.step2",
+          "step_index": 2,
+          "start_frame": 739,
+          "end_frame": 919,
+          "captions": [
+            {
+              "text": "When the droplets join and grow heavy, they fall as rain, snow or hail.",
+              "start_frame": 739,
+              "end_frame": 919
+            }
+          ]
+        },
+        {
+          "beat_id": "s2.step3",
+          "step_index": 3,
+          "start_frame": 926,
+          "end_frame": 1118,
+          "captions": [
+            {
+              "text": "The water collects in rivers, lakes, seas and the ground, and the cycle starts again.",
+              "start_frame": 926,
+              "end_frame": 1118
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "s3",
+      "type": "diagram",
+      "start_frame": 1136,
+      "duration_frames": 630,
+      "beats": [
+        {
+          "beat_id": "s3.step0",
+          "step_index": 0,
+          "start_frame": 1145,
+          "end_frame": 1325,
+          "captions": [
+            {
+              "text": "Most of Earth's water is in the oceans and seas, and it is salty.",
+              "start_frame": 1145,
+              "end_frame": 1325
+            }
+          ]
+        },
+        {
+          "beat_id": "s3.step1",
+          "step_index": 1,
+          "start_frame": 1332,
+          "end_frame": 1487,
+          "captions": [
+            {
+              "text": "Much of the fresh water is frozen in ice caps and glaciers.",
+              "start_frame": 1332,
+              "end_frame": 1487
+            }
+          ]
+        },
+        {
+          "beat_id": "s3.step2",
+          "step_index": 2,
+          "start_frame": 1494,
+          "end_frame": 1611,
+          "captions": [
+            {
+              "text": "Some water is stored under the ground, as groundwater.",
+              "start_frame": 1494,
+              "end_frame": 1611
+            }
+          ]
+        },
+        {
+          "beat_id": "s3.step3",
+          "step_index": 3,
+          "start_frame": 1618,
+          "end_frame": 1748,
+          "captions": [
+            {
+              "text": "Lakes and rivers hold only a tiny part of it.",
+              "start_frame": 1618,
+              "end_frame": 1748
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "s4",
+      "type": "recap",
+      "start_frame": 1766,
+      "duration_frames": 381,
+      "beats": [
+        {
+          "beat_id": "s4.step0",
+          "step_index": 0,
+          "start_frame": 1775,
+          "end_frame": 1880,
+          "captions": [
+            {
+              "text": "The sun's heat drives the whole water cycle.",
+              "start_frame": 1775,
+              "end_frame": 1880
+            }
+          ]
+        },
+        {
+          "beat_id": "s4.step1",
+          "step_index": 1,
+          "start_frame": 1887,
+          "end_frame": 2004,
+          "captions": [
+            {
+              "text": "The four steps are evaporation, condensation, precipitation and collection.",
+              "start_frame": 1887,
+              "end_frame": 2004
+            }
+          ]
+        },
+        {
+          "beat_id": "s4.step2",
+          "step_index": 2,
+          "start_frame": 2012,
+          "end_frame": 2129,
+          "captions": [
+            {
+              "text": "Earth keeps reusing the same water, again and again.",
+              "start_frame": 2012,
+              "end_frame": 2129
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

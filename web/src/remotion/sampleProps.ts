@@ -1,0 +1,353 @@
+// Copied from data/samples/python_loop.props.json; keep in sync with that fixture.
+import type {RenderProps} from '../lesson/types';
+
+export const sampleProps: RenderProps = {
+  "lesson": {
+    "schema_version": "1.0",
+    "lesson_id": "fallback-python-loop",
+    "topic": "How does a Python for loop work?",
+    "level": "beginner",
+    "target_seconds": 60,
+    "language": "en",
+    "source": "fallback",
+    "model": "hand-written",
+    "prompt_version": "none",
+    "warnings": [],
+    "title": "How does a Python for loop work?",
+    "subject": "programming",
+    "keep_terms": [
+      "Python",
+      "for",
+      "loop",
+      "range",
+      "print"
+    ],
+    "scenes": [
+      {
+        "id": "s1",
+        "type": "title_card",
+        "heading": "How does a Python for loop work?",
+        "subtitle": "Repeat one instruction for every value",
+        "narration": "A loop repeats the same instruction for each value in a sequence. Let's watch one run, step by step.",
+        "steps": []
+      },
+      {
+        "id": "s2",
+        "type": "code_walkthrough",
+        "heading": "Step 1: Read the code",
+        "narration": "Here is a loop with just two lines of Python.",
+        "code": "for i in range(3):\n    print(i)",
+        "code_language": "python",
+        "steps": [
+          {
+            "text": "range(3) → 0, 1, 2",
+            "note": "",
+            "lines": [
+              1
+            ],
+            "output": "",
+            "narration": "range of three gives three values: zero, one and two."
+          },
+          {
+            "text": "i takes each value",
+            "note": "",
+            "lines": [
+              1
+            ],
+            "output": "",
+            "narration": "The variable i takes these values one at a time."
+          },
+          {
+            "text": "runs once per value",
+            "note": "",
+            "lines": [
+              2
+            ],
+            "output": "0\n1\n2",
+            "narration": "The indented line runs once for every value, and print shows the value of i."
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "type": "diagram",
+        "heading": "Step 2: Watch each pass",
+        "narration": "Now let's follow the loop, one pass at a time.",
+        "layout": "flow",
+        "steps": [
+          {
+            "text": "i = 0",
+            "note": "prints 0",
+            "narration": "In the first pass, i is zero, so the loop prints zero."
+          },
+          {
+            "text": "i = 1",
+            "note": "prints 1",
+            "narration": "In the second pass, i is one, so it prints one."
+          },
+          {
+            "text": "i = 2",
+            "note": "prints 2",
+            "narration": "In the third pass, i is two, so it prints two."
+          },
+          {
+            "text": "Loop ends",
+            "note": "no values left",
+            "narration": "No values are left, so the loop stops."
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "type": "recap",
+        "heading": "Remember",
+        "narration": "",
+        "steps": [
+          {
+            "text": "A for loop repeats code for each value",
+            "note": "",
+            "narration": "A for loop repeats its indented code once for each value."
+          },
+          {
+            "text": "range(3) gives 0, 1 and 2",
+            "note": "",
+            "narration": "range of three gives three values, starting from zero."
+          },
+          {
+            "text": "The loop stops when the values run out",
+            "note": "",
+            "narration": "When the values run out, the loop stops."
+          }
+        ]
+      }
+    ]
+  },
+  "timeline": {
+    "timeline_version": 1,
+    "lesson_id": "fallback-python-loop",
+    "language": "en",
+    "variant": "en-female-1",
+    "fps": 30,
+    "width": 1280,
+    "height": 720,
+    "duration_frames": 2034,
+    "audio": null,
+    "voice": {
+      "engine": "mock",
+      "voice_id": "",
+      "speed": 1.0
+    },
+    "tempo": 1.0,
+    "scenes": [
+      {
+        "scene_id": "s1",
+        "type": "title_card",
+        "start_frame": 0,
+        "duration_frames": 269,
+        "beats": [
+          {
+            "beat_id": "s1.intro",
+            "step_index": null,
+            "start_frame": 9,
+            "end_frame": 251,
+            "captions": [
+              {
+                "text": "A loop repeats the same instruction for each value in a sequence.",
+                "start_frame": 9,
+                "end_frame": 168
+              },
+              {
+                "text": "Let's watch one run, step by step.",
+                "start_frame": 168,
+                "end_frame": 251
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "scene_id": "s2",
+        "type": "code_walkthrough",
+        "start_frame": 269,
+        "duration_frames": 630,
+        "beats": [
+          {
+            "beat_id": "s2.intro",
+            "step_index": null,
+            "start_frame": 278,
+            "end_frame": 408,
+            "captions": [
+              {
+                "text": "Here is a loop with just two lines of Python.",
+                "start_frame": 278,
+                "end_frame": 408
+              }
+            ]
+          },
+          {
+            "beat_id": "s2.step0",
+            "step_index": 0,
+            "start_frame": 415,
+            "end_frame": 545,
+            "captions": [
+              {
+                "text": "range of three gives three values: zero, one and two.",
+                "start_frame": 415,
+                "end_frame": 545
+              }
+            ]
+          },
+          {
+            "beat_id": "s2.step1",
+            "step_index": 1,
+            "start_frame": 552,
+            "end_frame": 682,
+            "captions": [
+              {
+                "text": "The variable i takes these values one at a time.",
+                "start_frame": 552,
+                "end_frame": 682
+              }
+            ]
+          },
+          {
+            "beat_id": "s2.step2",
+            "step_index": 2,
+            "start_frame": 689,
+            "end_frame": 881,
+            "captions": [
+              {
+                "text": "The indented line runs once for every value, and print shows the value of i.",
+                "start_frame": 689,
+                "end_frame": 881
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "scene_id": "s3",
+        "type": "diagram",
+        "start_frame": 899,
+        "duration_frames": 730,
+        "beats": [
+          {
+            "beat_id": "s3.intro",
+            "step_index": null,
+            "start_frame": 908,
+            "end_frame": 1038,
+            "captions": [
+              {
+                "text": "Now let's follow the loop, one pass at a time.",
+                "start_frame": 908,
+                "end_frame": 1038
+              }
+            ]
+          },
+          {
+            "beat_id": "s3.step0",
+            "step_index": 0,
+            "start_frame": 1045,
+            "end_frame": 1200,
+            "captions": [
+              {
+                "text": "In the first pass, i is zero, so the loop prints zero.",
+                "start_frame": 1045,
+                "end_frame": 1200
+              }
+            ]
+          },
+          {
+            "beat_id": "s3.step1",
+            "step_index": 1,
+            "start_frame": 1207,
+            "end_frame": 1349,
+            "captions": [
+              {
+                "text": "In the second pass, i is one, so it prints one.",
+                "start_frame": 1207,
+                "end_frame": 1349
+              }
+            ]
+          },
+          {
+            "beat_id": "s3.step2",
+            "step_index": 2,
+            "start_frame": 1356,
+            "end_frame": 1498,
+            "captions": [
+              {
+                "text": "In the third pass, i is two, so it prints two.",
+                "start_frame": 1356,
+                "end_frame": 1498
+              }
+            ]
+          },
+          {
+            "beat_id": "s3.step3",
+            "step_index": 3,
+            "start_frame": 1506,
+            "end_frame": 1610,
+            "captions": [
+              {
+                "text": "No values are left, so the loop stops.",
+                "start_frame": 1506,
+                "end_frame": 1610
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "scene_id": "s4",
+        "type": "recap",
+        "start_frame": 1629,
+        "duration_frames": 405,
+        "beats": [
+          {
+            "beat_id": "s4.step0",
+            "step_index": 0,
+            "start_frame": 1638,
+            "end_frame": 1780,
+            "captions": [
+              {
+                "text": "A for loop repeats its indented code once for each value.",
+                "start_frame": 1638,
+                "end_frame": 1780
+              }
+            ]
+          },
+          {
+            "beat_id": "s4.step1",
+            "step_index": 1,
+            "start_frame": 1787,
+            "end_frame": 1904,
+            "captions": [
+              {
+                "text": "range of three gives three values, starting from zero.",
+                "start_frame": 1787,
+                "end_frame": 1904
+              }
+            ]
+          },
+          {
+            "beat_id": "s4.step2",
+            "step_index": 2,
+            "start_frame": 1912,
+            "end_frame": 2016,
+            "captions": [
+              {
+                "text": "When the values run out, the loop stops.",
+                "start_frame": 1912,
+                "end_frame": 2016
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "mediaBase": "",
+  "audioVariant": "web",
+  "showCaptions": true
+};

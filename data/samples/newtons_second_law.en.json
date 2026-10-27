@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "lesson_id": "sample-newtons-second-law",
+  "topic": "What is Newton's second law?",
+  "level": "beginner",
+  "target_seconds": 60,
+  "language": "en",
+  "source": "sample",
+  "model": "hand-written",
+  "prompt_version": "none",
+  "warnings": [],
+  "title": "What is Newton's second law?",
+  "subject": "physics",
+  "keep_terms": ["Newton"],
+  "scenes": [
+    {
+      "id": "s1",
+      "type": "title_card",
+      "heading": "What is Newton's second law?",
+      "subtitle": "Force, mass and acceleration",
+      "narration": "Newton's second law tells us how a force changes the motion of an object.",
+      "steps": []
+    },
+    {
+      "id": "s2",
+      "type": "formula",
+      "heading": "The law in one line",
+      "narration": "The law says that force equals mass times acceleration.",
+      "expression": "F = m × a",
+      "steps": [
+        {"text": "F", "note": "net force, in newtons", "narration": "F stands for the net force on the object, measured in newtons."},
+        {"text": "m", "note": "mass, in kilograms", "narration": "m stands for mass, measured in kilograms."},
+        {"text": "a", "note": "acceleration, in m/s²", "narration": "The last symbol stands for acceleration, which tells us how fast the velocity changes."}
+      ]
+    },
+    {
+      "id": "s3",
+      "type": "diagram",
+      "heading": "Example: pushing a cart",
+      "narration": "Let's try it with numbers.",
+      "layout": "flow",
+      "steps": [
+        {"text": "m = 2 kg", "note": "mass of the cart", "narration": "A cart has a mass of two kilograms."},
+        {"text": "F = 10 N", "note": "your push", "narration": "You push it with a net force of ten newtons."},
+        {"text": "a = 10 ÷ 2 = 5 m/s²", "note": "acceleration", "narration": "So the acceleration is ten divided by two, which is five metres per second squared."}
+      ]
+    },
+    {
+      "id": "s4",
+      "type": "recap",
+      "heading": "Remember",
+      "narration": "",
+      "steps": [
+        {"text": "Bigger force → bigger acceleration", "note": "", "narration": "For the same mass, a bigger force gives a bigger acceleration."},
+        {"text": "Bigger mass → smaller acceleration", "note": "", "narration": "For the same force, a heavier object speeds up more slowly."},
+        {"text": "F = m × a", "note": "", "narration": "In short, force equals mass times acceleration."}
+      ]
+    }
+  ]
+}

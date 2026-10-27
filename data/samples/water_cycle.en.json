@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0",
+  "lesson_id": "sample-water-cycle",
+  "topic": "How does the water cycle work?",
+  "level": "beginner",
+  "target_seconds": 75,
+  "language": "en",
+  "source": "sample",
+  "model": "hand-written",
+  "prompt_version": "none",
+  "warnings": [],
+  "title": "How does the water cycle work?",
+  "subject": "other",
+  "keep_terms": [],
+  "scenes": [
+    {
+      "id": "s1",
+      "type": "title_card",
+      "heading": "How does the water cycle work?",
+      "subtitle": "Water keeps moving around our planet",
+      "narration": "The water on Earth moves in a never-ending loop called the water cycle.",
+      "steps": []
+    },
+    {
+      "id": "s2",
+      "type": "diagram",
+      "heading": "Four steps that repeat",
+      "narration": "The cycle has four main steps that repeat again and again.",
+      "layout": "cycle",
+      "center": "Water cycle",
+      "steps": [
+        {"text": "Evaporation", "note": "sun heats water", "narration": "First, the sun heats water in seas and lakes, and it rises as water vapour."},
+        {"text": "Condensation", "note": "vapour cools", "narration": "High in the sky, the vapour cools into tiny droplets that form clouds."},
+        {"text": "Precipitation", "note": "rain, snow, hail", "narration": "When the droplets join and grow heavy, they fall as rain, snow or hail."},
+        {"text": "Collection", "note": "back to seas", "narration": "The water collects in rivers, lakes, seas and the ground, and the cycle starts again."}
+      ]
+    },
+    {
+      "id": "s3",
+      "type": "diagram",
+      "heading": "Where is Earth's water?",
+      "narration": "",
+      "layout": "labelled",
+      "center": "Water on Earth",
+      "steps": [
+        {"text": "Oceans and seas", "note": "most of it", "narration": "Most of Earth's water is in the oceans and seas, and it is salty."},
+        {"text": "Ice and glaciers", "note": "frozen fresh water", "narration": "Much of the fresh water is frozen in ice caps and glaciers."},
+        {"text": "Under the ground", "note": "groundwater", "narration": "Some water is stored under the ground, as groundwater."},
+        {"text": "Lakes and rivers", "note": "a tiny part", "narration": "Lakes and rivers hold only a tiny part of it."}
+      ]
+    },
+    {
+      "id": "s4",
+      "type": "recap",
+      "heading": "Remember",
+      "narration": "",
+      "steps": [
+        {"text": "The sun powers the water cycle", "note": "", "narration": "The sun's heat drives the whole water cycle."},
+        {"text": "Evaporation → condensation → precipitation → collection", "note": "", "narration": "The four steps are evaporation, condensation, precipitation and collection."},
+        {"text": "Earth reuses the same water", "note": "", "narration": "Earth keeps reusing the same water, again and again."}
+      ]
+    }
+  ]
+}

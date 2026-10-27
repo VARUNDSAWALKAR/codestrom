@@ -1,0 +1,48 @@
+{
+  "name": "blu-visualteacher-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "typecheck": "tsc --noEmit",
+    "build": "npm run typecheck && vite build",
+    "bundle": "remotion bundle",
+    "build:demo": "npm run build && npm run bundle",
+    "studio": "remotion studio --port 3000",
+    "test": "node --import tsx tests/all.ts",
+    "fonts": "node scripts/copy-fonts.mjs",
+    "test:browser": "node scripts/verify-browser.mjs",
+    "test:render": "node scripts/verify-render.mjs",
+    "test:app": "node --import tsx scripts/verify-app.mjs",
+    "test:edges": "node scripts/verify-edges.mjs",
+    "test:studio": "node scripts/verify-studio.mjs",
+    "postinstall": "npm run fonts"
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.539",
+    "@remotion/cli": "4.0.539",
+    "@remotion/fonts": "4.0.539",
+    "@remotion/player": "4.0.539",
+    "@remotion/renderer": "4.0.539",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "remotion": "4.0.539"
+  },
+  "devDependencies": {
+    "@fontsource/noto-sans": "5.3.0",
+    "@fontsource/noto-sans-bengali": "5.3.0",
+    "@fontsource/noto-sans-devanagari": "5.3.0",
+    "@fontsource/noto-sans-kannada": "5.3.0",
+    "@fontsource/noto-sans-mono": "5.3.0",
+    "@fontsource/noto-sans-tamil": "5.3.0",
+    "@fontsource/noto-sans-telugu": "5.3.0",
+    "@types/node": "24.10.1",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "playwright-core": "1.56.1",
+    "tsx": "4.20.6",
+    "typescript": "5.9.3",
+    "vite": "8.3.5"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "about": "Topic set for the planner and end-to-end runs (test-cases.md §5). must_include = scene types a good plan should contain.",
+  "topics": [
+    {"id": "t01", "topic": "How does a Python for loop work?", "level": "beginner", "target_seconds": 45, "language": "en", "subject": "programming", "must_include": ["code_walkthrough"]},
+    {"id": "t02", "topic": "How does a while loop work in Python?", "level": "beginner", "target_seconds": 60, "language": "hi", "subject": "programming", "must_include": ["code_walkthrough"]},
+    {"id": "t03", "topic": "What is an if-else statement?", "level": "beginner", "target_seconds": 60, "language": "kn", "subject": "programming", "must_include": ["code_walkthrough"]},
+    {"id": "t04", "topic": "What is a function in Python?", "level": "beginner", "target_seconds": 60, "language": "en", "subject": "programming", "must_include": ["code_walkthrough"]},
+    {"id": "t05", "topic": "How do Python lists work?", "level": "beginner", "target_seconds": 60, "language": "hi", "subject": "programming", "must_include": ["code_walkthrough"]},
+    {"id": "t06", "topic": "How does binary search work?", "level": "intermediate", "target_seconds": 75, "language": "en", "subject": "programming", "must_include": ["code_walkthrough", "diagram"]},
+    {"id": "t07", "topic": "What is recursion?", "level": "intermediate", "target_seconds": 75, "language": "kn", "subject": "programming", "must_include": ["code_walkthrough"]},
+    {"id": "t08", "topic": "What is Ohm's law?", "level": "beginner", "target_seconds": 60, "language": "hi", "subject": "physics", "must_include": ["formula"]},
+    {"id": "t09", "topic": "What is Newton's first law of motion?", "level": "beginner", "target_seconds": 45, "language": "kn", "subject": "physics", "must_include": ["diagram"]},
+    {"id": "t10", "topic": "What is the difference between speed and velocity?", "level": "beginner", "target_seconds": 60, "language": "en", "subject": "physics", "must_include": ["diagram"]},
+    {"id": "t11", "topic": "What happens when methane burns?", "level": "beginner", "target_seconds": 60, "language": "hi", "subject": "chemistry", "must_include": ["formula"]},
+    {"id": "t12", "topic": "What happens when an acid reacts with a base?", "level": "beginner", "target_seconds": 60, "language": "kn", "subject": "chemistry", "must_include": ["formula"]},
+    {"id": "t13", "topic": "How does photosynthesis work?", "level": "beginner", "target_seconds": 60, "language": "en", "subject": "biology", "must_include": ["diagram"]},
+    {"id": "t14", "topic": "How does the human heart pump blood?", "level": "beginner", "target_seconds": 75, "language": "hi", "subject": "biology", "must_include": ["diagram"]},
+    {"id": "t15", "topic": "What is the Pythagoras theorem?", "level": "beginner", "target_seconds": 60, "language": "kn", "subject": "math", "must_include": ["formula"]},
+    {"id": "t16", "topic": "How do you find the area of a circle?", "level": "beginner", "target_seconds": 45, "language": "en", "subject": "math", "must_include": ["formula"]},
+    {"id": "t17", "topic": "How does the water cycle work?", "level": "beginner", "target_seconds": 60, "language": "ta", "subject": "other", "must_include": ["diagram"]},
+    {"id": "t18", "topic": "What are the three states of matter?", "level": "beginner", "target_seconds": 45, "language": "te", "subject": "physics", "must_include": ["diagram"]},
+    {"id": "t19", "topic": "How does a for loop work in JavaScript?", "level": "beginner", "target_seconds": 60, "language": "bn", "subject": "programming", "must_include": ["code_walkthrough"]},
+    {"id": "t20", "topic": "What is a variable?", "level": "beginner", "target_seconds": 30, "language": "mr", "subject": "programming", "must_include": ["code_walkthrough"]}
+  ]
+}

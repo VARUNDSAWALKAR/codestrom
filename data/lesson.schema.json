@@ -1,0 +1,126 @@
+{
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string",
+      "enum": [
+        "programming",
+        "physics",
+        "chemistry",
+        "biology",
+        "math",
+        "other"
+      ]
+    },
+    "keep_terms": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 8
+    },
+    "scenes": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "title_card",
+              "code_walkthrough",
+              "diagram",
+              "formula",
+              "recap"
+            ]
+          },
+          "heading": {
+            "type": "string"
+          },
+          "narration": {
+            "type": "string"
+          },
+          "subtitle": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "code_language": {
+            "type": "string",
+            "enum": [
+              "python",
+              "javascript",
+              "java",
+              "c",
+              "cpp",
+              "other"
+            ]
+          },
+          "layout": {
+            "type": "string",
+            "enum": [
+              "flow",
+              "cycle",
+              "labelled"
+            ]
+          },
+          "center": {
+            "type": "string"
+          },
+          "expression": {
+            "type": "string"
+          },
+          "steps": {
+            "type": "array",
+            "maxItems": 6,
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string"
+                },
+                "note": {
+                  "type": "string"
+                },
+                "lines": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                "output": {
+                  "type": "string"
+                },
+                "narration": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "text",
+                "narration"
+              ]
+            }
+          }
+        },
+        "required": [
+          "type",
+          "heading",
+          "narration",
+          "steps"
+        ]
+      }
+    }
+  },
+  "required": [
+    "title",
+    "subject",
+    "keep_terms",
+    "scenes"
+  ]
+}

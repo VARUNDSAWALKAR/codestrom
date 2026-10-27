@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0",
+  "lesson_id": "fallback-python-loop",
+  "topic": "How does a Python for loop work?",
+  "level": "beginner",
+  "target_seconds": 60,
+  "language": "en",
+  "source": "fallback",
+  "model": "hand-written",
+  "prompt_version": "none",
+  "warnings": [],
+  "title": "How does a Python for loop work?",
+  "subject": "programming",
+  "keep_terms": ["Python", "for", "loop", "range", "print"],
+  "scenes": [
+    {
+      "id": "s1",
+      "type": "title_card",
+      "heading": "How does a Python for loop work?",
+      "subtitle": "Repeat one instruction for every value",
+      "narration": "A loop repeats the same instruction for each value in a sequence. Let's watch one run, step by step.",
+      "steps": []
+    },
+    {
+      "id": "s2",
+      "type": "code_walkthrough",
+      "heading": "Step 1: Read the code",
+      "narration": "Here is a loop with just two lines of Python.",
+      "code": "for i in range(3):\n    print(i)",
+      "code_language": "python",
+      "steps": [
+        {
+          "text": "range(3) → 0, 1, 2",
+          "note": "",
+          "lines": [1],
+          "output": "",
+          "narration": "range of three gives three values: zero, one and two."
+        },
+        {
+          "text": "i takes each value",
+          "note": "",
+          "lines": [1],
+          "output": "",
+          "narration": "The variable i takes these values one at a time."
+        },
+        {
+          "text": "runs once per value",
+          "note": "",
+          "lines": [2],
+          "output": "0\n1\n2",
+          "narration": "The indented line runs once for every value, and print shows the value of i."
+        }
+      ]
+    },
+    {
+      "id": "s3",
+      "type": "diagram",
+      "heading": "Step 2: Watch each pass",
+      "narration": "Now let's follow the loop, one pass at a time.",
+      "layout": "flow",
+      "steps": [
+        {"text": "i = 0", "note": "prints 0", "narration": "In the first pass, i is zero, so the loop prints zero."},
+        {"text": "i = 1", "note": "prints 1", "narration": "In the second pass, i is one, so it prints one."},
+        {"text": "i = 2", "note": "prints 2", "narration": "In the third pass, i is two, so it prints two."},
+        {"text": "Loop ends", "note": "no values left", "narration": "No values are left, so the loop stops."}
+      ]
+    },
+    {
+      "id": "s4",
+      "type": "recap",
+      "heading": "Remember",
+      "narration": "",
+      "steps": [
+        {"text": "A for loop repeats code for each value", "note": "", "narration": "A for loop repeats its indented code once for each value."},
+        {"text": "range(3) gives 0, 1 and 2", "note": "", "narration": "range of three gives three values, starting from zero."},
+        {"text": "The loop stops when the values run out", "note": "", "narration": "When the values run out, the loop stops."}
+      ]
+    }
+  ]
+}
