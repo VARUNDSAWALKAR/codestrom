@@ -1,10 +1,10 @@
 import {diagramGeometry} from '../scenes/geometry';
 import {theme} from '../theme';
 import type {DiagramScene, Language, TimelineScene} from '../types';
-import type {VisualPrimitive, VisualSpec} from './types';
+import type {RenderVisualSpec, VisualPrimitive} from './types';
 
 /** Converts the current Lesson v1 diagram contract into the richer renderer-owned VisualSpec. */
-export function diagramVisualSpec(scene: DiagramScene, timelineScene: TimelineScene, language: Language): VisualSpec {
+export function diagramVisualSpec(scene: DiagramScene, timelineScene: TimelineScene, language: Language): RenderVisualSpec {
   const geometry = diagramGeometry(scene.layout, scene.steps.length);
   const beatId = (index: number) => timelineScene.beats.find((beat) => beat.step_index === index)?.beat_id ?? `${scene.id}.step${index}`;
   const primitives: VisualPrimitive[] = geometry.connectors.map((connector, index) => ({

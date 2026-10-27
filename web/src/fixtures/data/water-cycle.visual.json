@@ -1,0 +1,406 @@
+{
+  "origin": "cached canonical lesson",
+  "source": {
+    "schema_version": "1.0",
+    "lesson_id": "c1f63f0ed69b",
+    "topic": "Water Cycle",
+    "level": "beginner",
+    "target_seconds": 60,
+    "language": "en",
+    "source": "llm",
+    "model": "qwen3:4b-instruct-2507-q4_K_M",
+    "prompt_version": "p12-task4",
+    "warnings": [],
+    "title": "Water Cycle",
+    "subject": "biology",
+    "keep_terms": [
+      "evaporation",
+      "condensation",
+      "precipitation",
+      "collection"
+    ],
+    "scenes": [
+      {
+        "id": "s1",
+        "type": "title_card",
+        "heading": "Water Cycle",
+        "narration": "The water cycle shows how water moves through Earth's systems. It starts with evaporation and ends with collection.",
+        "steps": [],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s2",
+        "type": "diagram",
+        "heading": "Title Card",
+        "narration": "The water cycle shows how water moves through Earth's systems. It starts with evaporation and ends with collection.",
+        "steps": [
+          {
+            "text": "Evaporation",
+            "narration": "Sun heats water from oceans and lakes.",
+            "note": "Water turns into vapor and rises into air.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Condensation",
+            "narration": "Water vapor cools and forms clouds.",
+            "note": "Vapor turns into tiny droplets in the sky.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Precipitation",
+            "narration": "Clouds release rain or snow when full.",
+            "note": "Water falls back to Earth's surface.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Collection",
+            "narration": "Rain flows into rivers, lakes, and oceans.",
+            "note": "Water returns to bodies of water.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s3",
+        "type": "diagram",
+        "heading": "Water Cycle Process",
+        "narration": "Water moves in a cycle: evaporation, condensation, precipitation, and collection. This keeps Earth’s water balanced.",
+        "steps": [
+          {
+            "text": "Evaporation",
+            "narration": "Sun heats surface water, turning it into vapor.",
+            "note": "Water rises into the atmosphere.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Condensation",
+            "narration": "Vapor cools and forms tiny droplets in clouds.",
+            "note": "Clouds grow as droplets combine.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Precipitation",
+            "narration": "When clouds get heavy, water falls as rain or snow.",
+            "note": "Water returns to land and oceans.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Collection",
+            "narration": "Water flows into rivers, lakes, and back to oceans.",
+            "note": "The cycle repeats continuously.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      }
+    ]
+  },
+  "spec": {
+    "visual_schema_version": "visual-v1",
+    "lesson_id": "c1f63f0ed69b",
+    "source_fingerprint": "f454e5806233eb9e9e88ec1dd3957a8fa08810d3fff735873ee75d94188a6763",
+    "provenance": {
+      "prompt_version": "visual-p2",
+      "model": "authored-fixture",
+      "model_identity": "author-review-pending",
+      "capability_version": "primitives-v1",
+      "asset_version": "assets-v1-empty",
+      "semantics_version": "geometry-actions-v2",
+      "configuration_fingerprint": "60a24270a5a8db00f14e70237acd27d22c7f4d1cab9533667b608b72b6d41e35"
+    },
+    "scenes": [
+      {
+        "scene_id": "s1",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "legacy_scene",
+          "reason": "Existing scene retained"
+        }
+      },
+      {
+        "scene_id": "s2",
+        "layout": "spatial",
+        "mechanism": "Heat-driven phase changes and return of surface water",
+        "accuracy": "illustrative",
+        "limitations": [
+          "Illustrative geometry, no physical or temporal simulation"
+        ],
+        "objects": [
+          {
+            "id": "sun",
+            "role": "Solar heat",
+            "style": "accent",
+            "label": null,
+            "kind": "circle",
+            "position": {
+              "x": 0.15,
+              "y": 0.16
+            },
+            "radius": 0.09
+          },
+          {
+            "id": "water",
+            "role": "Surface reservoir",
+            "style": "primary",
+            "label": null,
+            "kind": "ellipse",
+            "position": {
+              "x": 0.28,
+              "y": 0.82
+            },
+            "rx": 0.2,
+            "ry": 0.08
+          },
+          {
+            "id": "cloud",
+            "role": "Condensed droplets",
+            "style": "primary",
+            "label": null,
+            "kind": "ellipse",
+            "position": {
+              "x": 0.72,
+              "y": 0.18
+            },
+            "rx": 0.12,
+            "ry": 0.08
+          },
+          {
+            "id": "vapor",
+            "role": "Illustrative water markers",
+            "style": "primary",
+            "label": null,
+            "kind": "particles",
+            "positions": [
+              {
+                "x": 0.36,
+                "y": 0.7
+              },
+              {
+                "x": 0.372,
+                "y": 0.6599999999999999
+              },
+              {
+                "x": 0.384,
+                "y": 0.62
+              },
+              {
+                "x": 0.396,
+                "y": 0.58
+              },
+              {
+                "x": 0.408,
+                "y": 0.5399999999999999
+              },
+              {
+                "x": 0.42,
+                "y": 0.49999999999999994
+              },
+              {
+                "x": 0.432,
+                "y": 0.45999999999999996
+              },
+              {
+                "x": 0.444,
+                "y": 0.41999999999999993
+              }
+            ],
+            "radius": 0.006
+          },
+          {
+            "id": "rise",
+            "role": "Evaporation schematic",
+            "style": "primary",
+            "label": null,
+            "kind": "path",
+            "start": {
+              "x": 0.35,
+              "y": 0.75
+            },
+            "segments": [
+              {
+                "kind": "cubic",
+                "control1": {
+                  "x": 0.42,
+                  "y": 0.5
+                },
+                "control2": {
+                  "x": 0.5,
+                  "y": 0.2
+                },
+                "end": {
+                  "x": 0.64,
+                  "y": 0.2
+                }
+              }
+            ]
+          },
+          {
+            "id": "drop",
+            "role": "Water parcel",
+            "style": "primary",
+            "label": null,
+            "kind": "marker",
+            "position": {
+              "x": 0.35,
+              "y": 0.75
+            },
+            "radius": 0.008
+          },
+          {
+            "id": "rain",
+            "role": "Precipitation direction",
+            "style": "primary",
+            "label": null,
+            "kind": "arrow",
+            "start": {
+              "x": 0.72,
+              "y": 0.3
+            },
+            "end": {
+              "x": 0.72,
+              "y": 0.72
+            }
+          },
+          {
+            "id": "label",
+            "role": "Source label",
+            "style": "primary",
+            "label": {
+              "kind": "source",
+              "field": "text",
+              "step_index": 0
+            },
+            "kind": "text",
+            "position": {
+              "x": 0.45,
+              "y": 0.9
+            },
+            "width": 0.2,
+            "height": 0.18
+          }
+        ],
+        "relationships": [
+          {
+            "kind": "points_toward",
+            "source": "cloud",
+            "target": "water"
+          }
+        ],
+        "actions": [
+          {
+            "id": "a0",
+            "target": "drop",
+            "beat_id": "s2.step0",
+            "start": 0.0,
+            "end": 0.6,
+            "kind": "trace",
+            "path_id": "rise",
+            "from_progress": 0.0,
+            "to_progress": 1.0
+          },
+          {
+            "id": "a1",
+            "target": "cloud",
+            "beat_id": "s2.step1",
+            "start": 0.0,
+            "end": 0.6,
+            "kind": "reveal",
+            "from_opacity": 0.0,
+            "to_opacity": 1.0
+          },
+          {
+            "id": "a2",
+            "target": "rain",
+            "beat_id": "s2.step2",
+            "start": 0.0,
+            "end": 0.6,
+            "kind": "draw",
+            "from_progress": 0.0,
+            "to_progress": 1.0
+          },
+          {
+            "id": "a3",
+            "target": "water",
+            "beat_id": "s2.step3",
+            "start": 0.0,
+            "end": 0.6,
+            "kind": "highlight",
+            "from_style": "primary",
+            "to_style": "highlight"
+          }
+        ],
+        "fallback": null
+      },
+      {
+        "scene_id": "s3",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "legacy_scene",
+          "reason": "Existing scene retained"
+        }
+      }
+    ]
+  },
+  "review_notes": [
+    "Reservoir, sun, cloud and parcel route replace sentence boxes.",
+    "Cloud fullness explanation and repeated source scenes are preserved source limitations.",
+    "Beat0 traces vapor upward; beat1 shows cloud; beat2 draws rain; beat3 highlights reservoir."
+  ],
+  "expected": {
+    "layout": "spatial",
+    "objects": 8,
+    "actions": 4,
+    "specialized_scene_ids": [
+      "s2"
+    ],
+    "fallback_scenes": 2
+  }
+}

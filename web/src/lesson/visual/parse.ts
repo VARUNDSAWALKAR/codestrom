@@ -1,5 +1,5 @@
 import type {Language} from '../types';
-import type {PrimitiveStyle, VisualAction, VisualPrimitive, VisualSpec} from './types';
+import type {PrimitiveStyle, RenderVisualSpec, VisualAction, VisualPrimitive} from './types';
 
 type JsonObject = Record<string, unknown>;
 const languages = ['en', 'hi', 'kn', 'ta', 'te', 'bn', 'mr'] as const;
@@ -116,13 +116,13 @@ function primitive(value: unknown, name: string, ids: Set<string>): VisualPrimit
 }
 
 /** Strict inert-data boundary. Unknown fields and malformed primitives are rejected. */
-export function parseVisualSpec(value: unknown): VisualSpec {
+export function parseRenderVisualSpec(value: unknown): RenderVisualSpec {
   const raw = object(value, 'visualSpec');
   noUnknown(raw, ['version', 'id', 'language', 'width', 'height', 'layout', 'primitives', 'background', 'code'], 'visualSpec');
   if (raw.version !== 1 || raw.width !== 1280 || raw.height !== 720) throw new Error('VisualSpec must be version 1 at 1280×720');
   const language = choice(raw.language, languages, 'visualSpec.language') as Language;
   const ids = new Set<string>();
-  const result: VisualSpec = {version: 1, id: text(raw.id, 'visualSpec.id'), language, width: 1280, height: 720,
+  const result: RenderVisualSpec = {version: 1, id: text(raw.id, 'visualSpec.id'), language, width: 1280, height: 720,
     layout: choice(raw.layout, layouts, 'visualSpec.layout'), primitives: array(raw.primitives, 'visualSpec.primitives').map((item, index) => primitive(item, `visualSpec.primitives[${index}]`, ids))};
   if (raw.background !== undefined) result.background = paint(raw.background, 'visualSpec.background');
   if (raw.code !== undefined) {

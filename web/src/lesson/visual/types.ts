@@ -55,7 +55,8 @@ export type VisualAction = RevealAction | DrawAction | MoveAction | HighlightAct
 
 export type LayoutKind = 'spatial' | 'flow' | 'grid' | 'network' | 'coordinate' | 'comparison' | 'code';
 
-export interface VisualSpec {
+/** Internal pixel-space scene graph compiled by the renderer. Not the backend visual-v1 envelope. */
+export interface RenderVisualSpec {
   version: 1;
   id: string;
   language: Language;

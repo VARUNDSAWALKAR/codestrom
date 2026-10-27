@@ -2,11 +2,11 @@ import {useMemo} from 'react';
 import {useCurrentFrame, useVideoConfig} from 'remotion';
 import {relativeToAbsolute} from '../timing';
 import type {TimelineScene} from '../types';
-import type {VisualSpec} from './types';
+import type {RenderVisualSpec} from './types';
 import {SvgPrimitive} from './SvgPrimitive';
 import {interpretVisualSpec} from './interpreter';
 
-export function VisualSpecRenderer({spec, timelineScene}: {spec: VisualSpec; timelineScene: TimelineScene}) {
+export function VisualSpecRenderer({spec, timelineScene}: {spec: RenderVisualSpec; timelineScene: TimelineScene}) {
   const relativeFrame = useCurrentFrame(); const {fps} = useVideoConfig();
   const absoluteFrame = relativeToAbsolute(relativeFrame, timelineScene);
   const interpreted = useMemo(() => interpretVisualSpec(spec, timelineScene), [spec, timelineScene]);

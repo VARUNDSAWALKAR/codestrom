@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
-import {diagramVisualSpec, flowLayout, gridLayout, interpretVisualSpec, networkLayout, parseVisualSpec, resolveActions} from '../src/lesson/visual';
+import {diagramVisualSpec, flowLayout, gridLayout, interpretVisualSpec, networkLayout, parseRenderVisualSpec, resolveActions} from '../src/lesson/visual';
 import {sampleProps} from '../src/remotion/sampleProps';
 
 const scene = sampleProps.lesson.scenes.find((item) => item.type === 'diagram');
@@ -10,19 +10,19 @@ test('Lesson v1 diagrams compile into deterministic VisualSpec primitives tied t
   assert.ok(scene?.type === 'diagram' && timelineScene);
   const first = diagramVisualSpec(scene, timelineScene, sampleProps.lesson.language);
   assert.deepEqual(first, diagramVisualSpec(scene, timelineScene, sampleProps.lesson.language));
-  assert.equal(parseVisualSpec(first).primitives.length, first.primitives.length);
+  assert.equal(parseRenderVisualSpec(first).primitives.length, first.primitives.length);
   const actionBeats = first.primitives.flatMap((primitive) => primitive.actions?.map((action) => action.beatId) ?? []);
   assert.ok(actionBeats.every((id) => timelineScene.beats.some((beat) => beat.beat_id === id)));
 });
 
 test('strict parser rejects executable-looking extras, duplicate ids, and malformed transforms', () => {
   assert.ok(scene?.type === 'diagram' && timelineScene);
-  assert.throws(() => parseVisualSpec({...diagramVisualSpec(scene, timelineScene, 'en'), eval: 'alert(1)'}), /unknown field/);
+  assert.throws(() => parseRenderVisualSpec({...diagramVisualSpec(scene, timelineScene, 'en'), eval: 'alert(1)'}), /unknown field/);
   const duplicate = diagramVisualSpec(scene, timelineScene, 'en'); duplicate.primitives.push(duplicate.primitives[0]!);
-  assert.throws(() => parseVisualSpec(duplicate), /Duplicate primitive id/);
+  assert.throws(() => parseRenderVisualSpec(duplicate), /Duplicate primitive id/);
   const malformed = diagramVisualSpec(scene, timelineScene, 'en');
   malformed.primitives[0]!.actions = [{type: 'transform', beatId: timelineScene.beats[0]!.beat_id, from: {}, to: {x: 2}}];
-  assert.throws(() => parseVisualSpec(malformed), /must contain a transform value/);
+  assert.throws(() => parseRenderVisualSpec(malformed), /must contain a transform value/);
   const unknownBeat = diagramVisualSpec(scene, timelineScene, 'en');
   unknownBeat.primitives[0]!.actions = [{type: 'draw', beatId: 'missing.beat'}];
   assert.throws(() => interpretVisualSpec(unknownBeat, timelineScene), /unknown beat/);

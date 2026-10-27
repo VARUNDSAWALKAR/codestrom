@@ -1,6 +1,6 @@
 import type {TimelineScene} from '../types';
-import {parseVisualSpec} from './parse';
-import type {VisualPrimitive, VisualSpec} from './types';
+import {parseRenderVisualSpec} from './parse';
+import type {RenderVisualSpec, VisualPrimitive} from './types';
 
 function visit(primitives: readonly VisualPrimitive[], callback: (primitive: VisualPrimitive) => void): void {
   for (const primitive of primitives) {
@@ -10,8 +10,8 @@ function visit(primitives: readonly VisualPrimitive[], callback: (primitive: Vis
 }
 
 /** Parses untrusted JSON and binds every visual trigger to a real narration beat. */
-export function interpretVisualSpec(value: unknown, timelineScene: TimelineScene): VisualSpec {
-  const spec = parseVisualSpec(value);
+export function interpretVisualSpec(value: unknown, timelineScene: TimelineScene): RenderVisualSpec {
+  const spec = parseRenderVisualSpec(value);
   const beats = new Set(timelineScene.beats.map((beat) => beat.beat_id));
   visit(spec.primitives, (primitive) => {
     for (const action of primitive.actions ?? []) {

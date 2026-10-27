@@ -1,4 +1,4 @@
-export {parseVisualSpec} from './parse';
+export {parseRenderVisualSpec} from './parse';
 export {interpretVisualSpec} from './interpreter';
 export {VisualSpecRenderer} from './VisualSpecRenderer';
 export {flowLayout, gridLayout, networkLayout, coordinateLayout, comparisonLayout} from './layout';

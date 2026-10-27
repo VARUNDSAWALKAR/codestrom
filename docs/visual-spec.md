@@ -1,32 +1,23 @@
-# VisualSpec v1 — frontend rendering boundary
+# VisualSpec contracts in the frontend
 
-VisualSpec is a renderer-owned, inert JSON format for VQ2. The current Lesson v1 backend does not emit it yet: `web/src/lesson/visual/adapters.ts` converts validated Lesson v1 diagrams into this format. A future backend field must be added to the Python schema and validated there before it reaches the renderer.
+The proposed backend contract is `visual-v1`, defined on `feature/vq1-backend` by `backend/app/visuals/schema.py` and its exported JSON Schema. It remains separate from Lesson v1, Timeline v1, and production RenderProps while frontend feasibility is tested.
 
-## Boundary
+## Backend `visual-v1`
 
-- `version` is `1`; the canvas is always `1280×720`.
-- `language` uses the Lesson v1 language enum.
-- `layout` is `spatial`, `flow`, `grid`, `network`, `coordinate`, `comparison`, or `code`.
-- `primitives` is a tree of `rect`, `circle`, `ellipse`, `polygon`, `path`, `arrow`, `text`, and `group` objects.
-- Primitive IDs are unique across the full tree. Unknown fields are rejected.
-- Styling is inline and uses local colors only. URL paints and remote assets are rejected.
-- VisualSpec is data. It never becomes HTML, code, a dynamic import, or an evaluated function.
+The exact TypeScript mirror is `web/src/types/visualSpec.ts`. The strict runtime boundary is `web/src/utils/parseVisualSpec.ts`.
 
-## Timeline actions
+- Geometry uses normalized content coordinates in `[0,1]`. The renderer maps them into the safe 1280×720 content area.
+- Objects are rectangles, circles, ellipses, polygons, lines/arrows, typed paths, text, organizational groups, markers, highlight regions, particles, or closed-manifest assets.
+- Relationships store topology and constraints separately from drawable connector objects.
+- Scene layouts are `flow_cycle`, `spatial`, `array_grid`, `graph_network`, `coordinate_plane`, `comparison`, or `code_walkthrough`.
+- Actions are `reveal`, `draw`, `move`, `highlight`, `transform`, or `trace`. Their `start` and `end` values are fractions of an existing narration beat.
+- Legacy scenes have no specialized data and carry an explicit fallback reason.
+- Unknown fields, invalid ranges, missing references, duplicate IDs, and actions tied to nonexistent source beats are rejected.
 
-Each action references an existing absolute-timeline `beat_id`. `offsetFrames` is relative to the beat start, and `durationFrames` controls only the visual transition, never scene or audio duration.
+The three local authored fixture envelopes in `web/src/fixtures/data/` were copied unchanged from `backend/tests/fixtures/visuals/` on the feature branch. `web/src/fixtures/index.ts` validates and clones them, and can add a deterministic silent mock timeline for isolated frontend development. Production rendering must use the measured backend timeline.
 
-Supported actions:
+## Renderer scene graph
 
-- `reveal`: spring-based opacity and scale entrance.
-- `draw`: path-length stroke tracing.
-- `move`: interpolated x/y movement.
-- `highlight`: a deterministic focus pulse.
-- `transform`: interpolated translate, rotate, and scale values.
-- `trace`: path tracing with an active color and glow.
+`web/src/lesson/visual/` contains the renderer's internal pixel-space scene graph, now named `RenderVisualSpec`. It is compiled from the existing Lesson v1 diagrams and is not the backend `visual-v1` envelope. Keeping the names and boundaries distinct prevents the normalized backend contract from being passed directly to pixel-space primitives.
 
-`interpretVisualSpec` parses the JSON and rejects action or code-highlight references that do not match a real beat in the current `TimelineScene`. `VisualSpecRenderer` then converts Remotion's sequence-relative frame to the absolute timeline frame and resolves actions from that value. This keeps browser playback, backward scrubbing, out-of-order frame rendering, and MP4 export deterministic.
-
-## Layout engine
-
-`web/src/lesson/visual/layout.ts` precomputes educational geometry. It includes flow, grid/array, graph/network, coordinate-plane, and side-by-side comparison layouts. Existing code walkthroughs remain in `CodeWalkthrough.tsx`, where syntax tokenization and line highlights are already driven by timeline beats.
+A later integration phase should compile a validated backend `VisualSpec` plus localized source labels and a measured timeline into `RenderVisualSpec`. It must not add VisualSpec silently to production RenderProps before both owners confirm that contract.
