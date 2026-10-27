@@ -22,6 +22,7 @@ silent samples still work independently. API and lesson-schema contracts are unc
 [Mobile lesson player](docs/previews/player-mobile.png) ·
 [My Lessons](docs/previews/library-desktop.png) ·
 [Generation progress](docs/previews/generation-progress.png) ·
+[About and architecture](docs/previews/about-desktop.png) ·
 [Rendered code scene](docs/previews/code-walkthrough.png)
 
 These are screenshots of the running frontend. Samples have mock timing and

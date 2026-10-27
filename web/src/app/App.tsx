@@ -100,13 +100,17 @@ export function App() {
   const props: RenderProps | null = sample?.props ?? (live ? {lesson: live.lesson, timeline: live.timeline,
     mediaBase: '', audioVariant: 'web', showCaptions: true} : null);
   const home = route.kind === '';
+  const aiStatus = health?.ok && health.offline ? 'ready' : health ? 'starting' : 'disconnected';
+  const aiStatusLabel = aiStatus === 'ready' ? 'Ready' : aiStatus === 'starting' ? 'Starting' : 'Not connected';
   const unknown = (!home && !['sample', 'lesson', 'job', 'library', 'about'].includes(route.kind)) || (route.kind === 'sample' && !sample);
   return <div className="app-shell">
     <a className="skip-link" href="#main-content" onClick={(event) => {event.preventDefault(); document.getElementById('main-content')?.focus();}}>Skip to content</a>
     <header className="site-header"><a href="#/" className="brand" aria-label="Blu VisualTeacher home"><span className="brand-icon">b<span>·</span></span>
       <span>blu<span className="brand-sub">VisualTeacher</span></span></a>
       <nav aria-label="Main navigation"><a href="#/" aria-current={home ? 'page' : undefined}>Create Lesson</a><a href="#/library" aria-current={route.kind === 'library' ? 'page' : undefined}>My Lessons</a><a href="#/about" aria-current={route.kind === 'about' ? 'page' : undefined}>About</a></nav>
-      <span className={`local-badge ${health?.ok && health.offline ? 'is-ready' : ''}`} title={health?.ok && health.offline ? 'Local AI is ready and offline mode is enabled' : 'Sample lessons available; local AI is not connected'}><span /> Offline AI <span className="badge-detail">{health?.ok && health.offline ? 'Ready' : 'Not connected'}</span></span></header>
+      <span className={`local-badge is-${aiStatus}`} role="status" aria-label={`Offline AI: ${aiStatusLabel}`}
+        title={aiStatus === 'ready' ? 'Local AI is ready and offline mode is enabled' : aiStatus === 'starting' ? 'The local backend is connected and its models are starting' : 'Sample lessons are available; the local AI backend is not connected'}>
+        <span aria-hidden="true" /> Offline AI <span className="badge-detail">{aiStatusLabel}</span></span></header>
     <main id="main-content" tabIndex={-1}>
       {home ? <>
         <section className="hero"><div className="hero-pill"><span>✧</span> BIG IDEAS. MADE CLEAR.</div>

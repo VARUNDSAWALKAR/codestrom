@@ -6,6 +6,13 @@ export function About() {
       ['03', 'Keep your learning local', 'Generation runs on your local backend. Your topic and lessons stay on your machine, with no cloud AI service.'],
       ['04', 'Take the lesson with you', 'Save a rendered MP4 and subtitles to revisit a lesson at your own pace, even without opening Blu.'],
     ].map(([n, title, description]) => <article key={n}><span className="about-number">{n}</span><h2>{title}</h2><p>{description}</p></article>)}</div>
+    <section className="architecture-card" aria-labelledby="architecture-title"><div className="architecture-intro"><span className="eyebrow">FROM QUESTION TO SOMETHING YOU CAN SEE</span>
+      <h2 id="architecture-title">One local learning pipeline.</h2><p>Every scene comes from validated lesson data, and the same timeline drives playback and export.</p></div>
+      <ol className="architecture-flow">
+        {['Your topic', 'Local AI', 'Visual scenes', 'Voice + captions', 'Lesson player', 'MP4 export'].map((step, index) =>
+          <li key={step}><span>{String(index + 1).padStart(2, '0')}</span><strong>{step}</strong>{index < 5 && <i aria-hidden="true">→</i>}</li>)}
+      </ol><p className="architecture-note"><span aria-hidden="true">⌂</span> Your topic, generated lesson, and media stay on your machine.</p>
+    </section>
     <div className="about-start"><h2>Start with something you’re curious about.</h2><p>The included sample lessons work without the AI backend. Samples use estimated timing and are silent.</p><a className="button primary" href="#/">Create a lesson →</a><a className="button secondary" href="#/sample/python">Explore a sample</a></div>
   </section>;
 }

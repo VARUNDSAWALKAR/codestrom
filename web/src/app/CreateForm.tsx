@@ -23,7 +23,7 @@ export function CreateForm({config, health, busy, onSubmit}: {
   };
   const duration = config?.target_seconds ?? {min: 30, max: 90, step: 15, default: 60};
   const durations = Array.from({length: Math.floor((duration.max - duration.min) / duration.step) + 1}, (_, i) => duration.min + i * duration.step);
-  return <form className="create-form" onSubmit={submit} noValidate aria-label="Create your lesson">
+  return <form className="create-form" onSubmit={submit} noValidate aria-label="Create your lesson" aria-busy={busy}>
     <div className="section-heading"><div><span className="eyebrow">A LITTLE CURIOSITY GOES A LONG WAY</span><h2>Create your lesson</h2></div>
       <span className="form-title-icon" aria-hidden="true">✧</span></div>
     <label htmlFor="topic">What would you like to understand?</label>
@@ -58,7 +58,8 @@ export function CreateForm({config, health, busy, onSubmit}: {
     </div>
     <details className="advanced-settings"><summary>More options</summary><label>Speech speed<select aria-label="Speech speed" value={input.speed} onChange={(event) => setInput({...input, speed: Number(event.target.value)})}>
       {(config?.speeds ?? [0.85, 1, 1.15]).map((speed) => <option key={speed} value={speed}>{speed}×{speed === 1 ? ' · Natural' : speed < 1 ? ' · Slower' : ' · Faster'}</option>)}</select></label></details>
-    <button className="button primary generate" type="submit" disabled={!health?.ok || !config || busy} aria-describedby="generation-help">
+    <button className="button primary generate" type="submit" disabled={!health?.ok || !config || busy} aria-describedby="generation-help"
+      title={!health?.ok || !config ? 'Connect the local backend to generate a lesson' : busy ? 'Submitting your lesson' : 'Generate this lesson locally'}>
       <span aria-hidden="true">✧</span> {busy ? 'Submitting…' : 'Generate Visual Lesson'} <span aria-hidden="true">→</span></button>
     <p className="privacy-note"><span aria-hidden="true">⌑</span> Runs locally · Your lesson stays private</p>
     <p id="generation-help" className="form-footnote backend-hint">{health?.ok && config ? 'Your local AI is ready. Let’s make something click.' : 'Connect the local backend to generate. You can explore the sample lessons now.'}</p>

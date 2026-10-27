@@ -11,13 +11,13 @@ export function Progress({job, compact = false}: {job: Job | null; compact?: boo
   const finished = stages.filter((stage) => ['done', 'cached', 'skipped'].includes(stage.status)).length;
   const exporting = stages.some((stage) => stage.name === 'export' && stage.status === 'running');
   const failed = job?.status === 'error';
-  return <section className={`progress-card ${compact ? 'compact' : ''}`} aria-label="Generation progress">
+  return <section className={`progress-card ${compact ? 'compact' : ''}`} aria-label="Generation progress" aria-busy={Boolean(job && !['done', 'error'].includes(job.status))}>
     {!compact && <div className={`generation-illustration ${failed ? 'is-error' : job?.status === 'done' ? 'is-done' : 'is-working'}`} aria-hidden="true">
       <span className="generation-orbit" /><span className="generation-book">{failed ? '!' : job?.status === 'done' ? '✓' : '✧'}</span>
       <span className="generation-spark one">+</span><span className="generation-spark two">✦</span></div>}
     <div className="section-heading"><div><span className="eyebrow">ONE IDEA. A WHOLE NEW WAY TO SEE IT.</span>
       <h2>{job?.status === 'done' ? 'Your lesson is ready' : failed ? 'We couldn’t finish this lesson.' : 'Creating your visual lesson'}</h2></div>
-      {job && <span className="tag">{(job.total_ms / 1000).toFixed(1)} s elapsed</span>}</div>
+      {job && <span className="tag">{(job.total_ms / 1000).toFixed(1)} s · {job.device_profile.toUpperCase()}</span>}</div>
     <p className="generation-summary" role="status">{failed ? 'The local AI pipeline encountered an issue. You can try creating the lesson again or explore a sample.' :
       job?.status === 'done' ? 'Your explanation is ready to watch, revisit, and download.' :
       job?.status === 'queued' ? `Waiting in the local queue · position ${job.queue_position}` : 'A clear explanation is coming together, one step at a time.'}</p>

@@ -51,6 +51,7 @@ async function home() {
 try {
   await home();
   await page.getByText('Local backend unavailable', {exact: true}).waitFor();
+  await page.getByRole('status', {name: 'Offline AI: Not connected', exact: true}).waitFor();
   assert.equal(await page.getByRole('button', {name: 'Generate Visual Lesson'}).isDisabled(), true);
   await page.screenshot({path: new URL('app-desktop.png', artifacts).pathname, fullPage: true});
   await page.goto('http://127.0.0.1:5173/#/library');
@@ -60,6 +61,7 @@ try {
   await page.screenshot({path: new URL('library-desktop.png', artifacts).pathname, fullPage: true});
   await page.goto('http://127.0.0.1:5173/#/about');
   await page.getByRole('heading', {name: 'A clearer way to learn.'}).waitFor();
+  await page.getByRole('heading', {name: 'One local learning pipeline.'}).waitFor();
   await page.screenshot({path: new URL('about-desktop.png', artifacts).pathname, fullPage: true});
   for (const id of ['python', 'newton', 'water']) {
     await page.goto(`http://127.0.0.1:5173/#/sample/${id}`);
@@ -104,6 +106,7 @@ try {
   await page.setViewportSize({width: 1440, height: 1100});
   mode = 'success'; await home();
   await page.getByText('Local backend ready', {exact: true}).waitFor();
+  await page.getByRole('status', {name: 'Offline AI: Ready', exact: true}).waitFor();
   const generate = page.getByRole('button', {name: 'Generate Visual Lesson'});
   await page.getByLabel('What would you like to understand?', {exact: true}).press('Enter'); await page.getByRole('alert').filter({hasText: 'Type a topic first'}).waitFor();
   assert.equal(submissions, 0);
