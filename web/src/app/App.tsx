@@ -129,6 +129,15 @@ export function App() {
         <div className="workspace" id="lesson-creator"><CreateForm config={config} health={health} busy={busy} fieldErrors={fieldErrors}
           onClearErrors={() => {setFieldErrors({}); setError('');}} onSubmit={(input) => {void submit(input);}} />
           <VisualPreview /></div>
+          <section className="experience-panel" aria-labelledby="experience-title"><div className="experience-heading"><div><span className="eyebrow">FROM QUESTION TO AHA</span>
+            <h2 id="experience-title">Learning that moves with you.</h2></div><p>Every lesson turns one idea into a small journey you can see, hear, and revisit.</p></div>
+            <div className="experience-grid">{[
+              ['01', 'Ask anything', 'Start with a question or choose a curiosity prompt.', '✦', 'ask'],
+              ['02', 'Watch it unfold', 'Follow code, diagrams, captions, and narration in sync.', '◉', 'watch'],
+              ['03', 'Keep the clarity', 'Replay scenes or save the MP4 and subtitles for later.', '↗', 'keep'],
+            ].map(([number, title, description, symbol, tone]) => <article className={`experience-card is-${tone}`} key={number}>
+              <div className="experience-card-top"><span>{number}</span><i aria-hidden="true">{symbol}</i></div><h3>{title}</h3><p>{description}</p><span className="experience-line" aria-hidden="true" /></article>)}</div>
+          </section>
           <section className="samples-panel"><div className="section-heading"><div><span className="eyebrow">CURIOSITY STARTS HERE</span><h2>Take a little knowledge break.</h2><p className="muted">Explore a sample. See what learning with Blu feels like.</p></div><a href="#/sample/python" className="text-link">Open a sample ↗</a></div>
             <div className="sample-cards">{samples.map((item, index) => <a className={`sample-card sample-${item.id}`} key={item.id} href={`#/sample/${item.id}`}>
               <div className="sample-art" aria-hidden="true"><span className="art-symbol">{item.symbol}</span><span className="art-dot one" /><span className="art-dot two" /><span className="art-line" /></div>

@@ -72,6 +72,8 @@ Blu should feel like a **learning observatory for ideas**: a deep midnight canva
 
 Electric educational blue owns primary actions and current state. Cyan and pale periwinkle trace concepts, captions, and motion. Midnight `background` and navy `surface` create the observatory depth; `border` and restrained blue light carry hierarchy. Green, amber, and red retain status meaning and always pair with text or symbols. Focus uses `focus` with a visible three-pixel outline.
 
+Subject and journey accents add controlled variety: aqua communicates active explanation, orchid marks reflection and saved learning, amber highlights captions and playback, coral distinguishes diagram moments, and mint signals output or completion. These accents stay inside bounded cards and instruments so lesson content remains the focus.
+
 ## Typography
 
 Local Noto assets support Latin, Devanagari, and Kannada without network access. Display type uses tight spacing and a 600 weight; product copy stays readable and modest. Code and technical values use the local mono face. Uppercase eyebrows are short structural labels, not decorative paragraphs. Native-script labels use script-appropriate local fonts and never italic styling.
@@ -79,6 +81,8 @@ Local Noto assets support Latin, Devanagari, and Kannada without network access.
 ## Layout
 
 The app is capped at `page-max` with fluid `page-gutter`. The create route uses a two-column studio layout and collapses below 780px. Player and chapter navigation use a main-plus-sidebar grid, then stack on smaller screens. Controls keep a 44px minimum touch target. Async content reserves card geometry; loading and error text do not move the primary action.
+
+The home experience follows a clear rhythm: cinematic promise, hands-on creator and live specimen, three-step learning journey, then playable samples. This creates discovery without delaying the primary task.
 
 ## Elevation & Depth
 
