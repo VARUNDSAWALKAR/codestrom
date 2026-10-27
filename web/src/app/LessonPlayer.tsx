@@ -87,7 +87,7 @@ export function LessonPlayer({props, preview, response, job}: {
   return <div className="lesson-layout"><div className="player-main"><section className="player-card" aria-label="Lesson player">
     <div className="player-label"><span className="tag">{preview ? 'SAMPLE PREVIEW' : 'YOUR LESSON'}</span>
       <span>{language} · {Math.round(duration)} seconds{!hasAudio ? ' · Silent sample' : ''}</span></div>
-    <div className="video-shell"><Player ref={ref} component={Lesson} inputProps={{lesson: props.lesson, timeline: playbackTimeline,
+    <div className="video-shell"><Player ref={ref} component={Lesson} inputProps={{...props, timeline: playbackTimeline,
       mediaBase: '', audioVariant: 'web', showCaptions: captions}}
       durationInFrames={props.timeline.duration_frames} fps={props.timeline.fps}
       compositionWidth={1280} compositionHeight={720} clickToPlay controls={false} playbackRate={playbackRate}
