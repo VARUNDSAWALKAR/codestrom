@@ -1,21 +1,21 @@
 ---
 version: alpha
 name: "Blu VisualTeacher"
-description: "A calm visual learning studio that turns local AI output into inspectable animated lessons."
+description: "A cinematic learning observatory that turns local AI output into inspectable animated lessons."
 colors:
-  primary: "#2464E8"
-  primary-strong: "#165CD9"
-  cyan: "#168ED7"
-  violet: "#6558DD"
-  background: "#F6F8FC"
-  surface: "#FFFFFF"
-  text: "#15223B"
-  text-muted: "#637188"
-  border: "#DFE6F0"
+  primary: "#5B8CFF"
+  primary-strong: "#4771E4"
+  cyan: "#52D7EF"
+  violet: "#AAB8FF"
+  background: "#060913"
+  surface: "#10182B"
+  text: "#F4F7FF"
+  text-muted: "#94A4C1"
+  border: "#263554"
   success: "#2E9E77"
   warning: "#D97706"
   danger: "#B9433E"
-  code-surface: "#0F1D36"
+  code-surface: "#070D19"
   focus: "#719DF6"
 typography:
   body:
@@ -53,7 +53,7 @@ components:
 
 ### Creative North Star
 
-Blu should feel like an **animated lesson storyboard on a precise studio desk**: pale working surfaces, dark navy technical panels, blue timeline marks, and small instructional annotations. The signature is the live lesson specimen beside the creation form—it proves the product visually before asking for trust.
+Blu should feel like a **learning observatory for ideas**: a deep midnight canvas, fine constellation points, electric blue paths, and floating concept instruments. The signature is an orbit of code, diagram, and caption nodes around the Blu idea engine, followed by the live lesson specimen that proves the product visually before asking for trust.
 
 ### Product context and register
 
@@ -62,14 +62,15 @@ Blu should feel like an **animated lesson storyboard on a precise studio desk**:
 - **Locales and language policy:** application chrome is English. English lesson generation is enabled. हिन्दी and ಕನ್ನಡ appear only as disabled “Coming soon” choices until translation and voice integration is approved.
 - **Usage scene:** laptop-first lesson creation and playback, with touch-friendly phone playback and controls.
 - **Register:** hybrid. The home hero carries brand expression; create, progress, error, and player surfaces prioritize product clarity.
-- **Memorable signature:** the dark “lesson specimen” showing code, state, output, and captions as one teaching surface.
+- **Memorable signature:** the concept observatory orbit and the dark “lesson specimen” showing code, state, output, and captions as one teaching surface.
 - **Restraint:** forms, pipeline state, diagnostics, errors, and downloads remain familiar and quiet.
+- **Reference boundary:** the supplied portfolio informed cinematic depth, ambient geometry, translucent navigation, and responsive composition only. Blu does not reuse its illustration, purple identity, personal-portfolio structure, wording, or components.
 - **Anti-references:** no chat bubbles, generic AI gradients across every surface, childish gamification, glass-heavy dashboards, or fake-success states.
 - **Token ownership/runtime mapping:** `web/src/app/styles.css` is the existing runtime source of truth. This file mirrors its accepted semantic values. Remotion scenes retain their separate documented tokens in `web/src/lesson/theme.ts`.
 
 ## Colors
 
-Deep educational blue owns primary actions and current state. Cyan and violet are expressive accents limited to the hero, generation illustration, and signature preview. White surfaces sit on blue-gray `background`; `border` and restrained shadows carry hierarchy. Green, amber, and red retain status meaning and always pair with text or symbols. Focus uses `focus` with a visible three-pixel outline.
+Electric educational blue owns primary actions and current state. Cyan and pale periwinkle trace concepts, captions, and motion. Midnight `background` and navy `surface` create the observatory depth; `border` and restrained blue light carry hierarchy. Green, amber, and red retain status meaning and always pair with text or symbols. Focus uses `focus` with a visible three-pixel outline.
 
 ## Typography
 

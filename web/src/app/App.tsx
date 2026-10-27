@@ -118,10 +118,15 @@ export function App() {
         <span aria-hidden="true" /> Offline AI <span className="badge-detail">{aiStatusLabel}</span></span></header>
     <main id="main-content" tabIndex={-1}>
       {home ? <>
-        <section className="hero"><div className="hero-pill"><span>✧</span> BIG IDEAS. MADE CLEAR.</div>
-          <h1>Turn any concept into<br />a <span>visual lesson.</span></h1><p>Describe what you want to learn and Blu will transform it into<br className="desktop-break" /> a short, narrated, animated explanation.</p>
-          <div className="hero-features"><span><i>✓</i> Made to make sense</span><span><i>अ</i> Learn in your language</span><span><i>⌂</i> Offline & private</span></div></section>
-        <div className="workspace"><CreateForm config={config} health={health} busy={busy} fieldErrors={fieldErrors}
+        <section className="hero"><div className="hero-copy"><div className="hero-pill"><span>✦</span> YOUR LOCAL LEARNING STUDIO</div>
+          <h1>Turn any concept into<br />a <span>visual lesson.</span></h1><p>Describe what you want to understand. Blu maps the idea into a short, narrated animation you can watch, revisit, and keep.</p>
+          <div className="hero-actions"><a className="button primary" href="#lesson-creator">Create a lesson <span aria-hidden="true">↘</span></a><a className="hero-sample-link" href="#/sample/python"><span aria-hidden="true">▶</span> Watch a sample</a></div>
+          <div className="hero-features"><span><i>✓</i> Built to make sense</span><span><i>अ</i> Multilingual-ready</span><span><i>⌂</i> Offline & private</span></div></div>
+          <div className="concept-orbit" aria-hidden="true"><span className="orbit-ring ring-one" /><span className="orbit-ring ring-two" />
+            <span className="orbit-node node-code">&lt;/&gt;<small>CODE</small></span><span className="orbit-node node-diagram">◇<small>DIAGRAM</small></span>
+            <span className="orbit-node node-caption">CC<small>CAPTIONS</small></span><span className="orbit-core"><b>blu</b><small>IDEA ENGINE</small></span>
+            <span className="orbit-caption">ONE IDEA · MANY WAYS TO SEE IT</span></div></section>
+        <div className="workspace" id="lesson-creator"><CreateForm config={config} health={health} busy={busy} fieldErrors={fieldErrors}
           onClearErrors={() => {setFieldErrors({}); setError('');}} onSubmit={(input) => {void submit(input);}} />
           <VisualPreview /></div>
           <section className="samples-panel"><div className="section-heading"><div><span className="eyebrow">CURIOSITY STARTS HERE</span><h2>Take a little knowledge break.</h2><p className="muted">Explore a sample. See what learning with Blu feels like.</p></div><a href="#/sample/python" className="text-link">Open a sample ↗</a></div>
