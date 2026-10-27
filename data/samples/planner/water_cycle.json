@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "lesson_id": "c1f63f0ed69b",
+  "topic": "Water Cycle",
+  "level": "beginner",
+  "target_seconds": 60,
+  "language": "en",
+  "source": "llm",
+  "model": "qwen3:4b-instruct-2507-q4_K_M",
+  "prompt_version": "p12-task4",
+  "title": "Water Cycle",
+  "subject": "biology",
+  "keep_terms": [
+    "evaporation",
+    "condensation",
+    "precipitation",
+    "collection"
+  ],
+  "scenes": [
+    {
+      "id": "s1",
+      "type": "title_card",
+      "heading": "Water Cycle",
+      "narration": "The water cycle shows how water moves through Earth's systems. It starts with evaporation and ends with collection.",
+      "steps": []
+    },
+    {
+      "id": "s2",
+      "type": "diagram",
+      "heading": "Title Card",
+      "narration": "The water cycle shows how water moves through Earth's systems. It starts with evaporation and ends with collection.",
+      "steps": [
+        {
+          "text": "Evaporation",
+          "narration": "Sun heats water from oceans and lakes.",
+          "note": "Water turns into vapor and rises into air."
+        },
+        {
+          "text": "Condensation",
+          "narration": "Water vapor cools and forms clouds.",
+          "note": "Vapor turns into tiny droplets in the sky."
+        },
+        {
+          "text": "Precipitation",
+          "narration": "Clouds release rain or snow when full.",
+          "note": "Water falls back to Earth's surface."
+        },
+        {
+          "text": "Collection",
+          "narration": "Rain flows into rivers, lakes, and oceans.",
+          "note": "Water returns to bodies of water."
+        }
+      ],
+      "layout": "flow"
+    },
+    {
+      "id": "s3",
+      "type": "diagram",
+      "heading": "Water Cycle Process",
+      "narration": "Water moves in a cycle: evaporation, condensation, precipitation, and collection. This keeps Earth’s water balanced.",
+      "steps": [
+        {
+          "text": "Evaporation",
+          "narration": "Sun heats surface water, turning it into vapor.",
+          "note": "Water rises into the atmosphere."
+        },
+        {
+          "text": "Condensation",
+          "narration": "Vapor cools and forms tiny droplets in clouds.",
+          "note": "Clouds grow as droplets combine."
+        },
+        {
+          "text": "Precipitation",
+          "narration": "When clouds get heavy, water falls as rain or snow.",
+          "note": "Water returns to land and oceans."
+        },
+        {
+          "text": "Collection",
+          "narration": "Water flows into rivers, lakes, and back to oceans.",
+          "note": "The cycle repeats continuously."
+        }
+      ],
+      "layout": "flow"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0",
+  "lesson_id": "d09d4030959b",
+  "topic": "Binary Search",
+  "level": "beginner",
+  "target_seconds": 60,
+  "language": "en",
+  "source": "llm",
+  "model": "qwen3:4b-instruct-2507-q4_K_M",
+  "prompt_version": "p12-task4",
+  "title": "title_card",
+  "subject": "programming",
+  "keep_terms": [
+    "sorted list",
+    "middle element",
+    "search range",
+    "index",
+    "loop"
+  ],
+  "scenes": [
+    {
+      "id": "s1",
+      "type": "title_card",
+      "heading": "Binary Search",
+      "narration": "Learn how binary search efficiently finds a value in a sorted list using middle checks and smart range updates.",
+      "steps": []
+    },
+    {
+      "id": "s2",
+      "type": "code_walkthrough",
+      "heading": "Binary Search in Python",
+      "narration": "Binary search finds a value in a sorted list by checking the middle element. If it's too low, we search the right half. If too high, we search the left. It repeats until found or exhausted.",
+      "steps": [
+        {
+          "text": "left, right = 0, len(arr) - 1",
+          "narration": "Initialize left and right pointers at start and end of sorted list.",
+          "lines": [
+            1
+          ]
+        },
+        {
+          "text": "while left <= right:",
+          "narration": "Loop while left is less than or equal to right.",
+          "lines": [
+            2
+          ]
+        },
+        {
+          "text": "mid = (left + right) // 2",
+          "narration": "Find middle index and compare value to target.",
+          "lines": [
+            3
+          ]
+        },
+        {
+          "text": "if arr[mid] == target: return mid",
+          "narration": "If middle matches target, return index. Else adjust search range.",
+          "lines": [
+            4
+          ]
+        }
+      ],
+      "code": "def binary_search(arr, target):\n    left, right = 0, len(arr) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return -1",
+      "code_language": "python"
+    },
+    {
+      "id": "s3",
+      "type": "diagram",
+      "heading": "How Binary Search Works",
+      "narration": "Start with full list. Pick middle element. If it matches, done. If too low, search right half. If too high, search left half. Repeat until found or list ends.",
+      "steps": [
+        {
+          "text": "List: [1, 3, 5, 7, 9]",
+          "narration": "Start with full sorted list.",
+          "note": "Must be sorted"
+        },
+        {
+          "text": "Check 5",
+          "narration": "Check middle element: 5.",
+          "note": "5 < target? No → 5 > target? Yes"
+        },
+        {
+          "text": "Search right half",
+          "narration": "Target is 7, so search right half.",
+          "note": "Now check [7, 9]"
+        },
+        {
+          "text": "Check 8 → not found",
+          "narration": "New middle: 8 → not found. Search left half.",
+          "note": "Now check [7]"
+        }
+      ],
+      "layout": "flow"
+    }
+  ]
+}

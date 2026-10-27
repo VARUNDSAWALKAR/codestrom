@@ -1,5 +1,7 @@
 # Architecture — Blu VisualTeacher
 
+> Task 4 override: see [offline planner contract](planner-task4.md). Planner calls use 180 s, keep_alive 10m, one repair, failure-only raw logs, and English content with requested-language metadata. Failed requests return structured errors; no unrelated fallback. Task 5 orchestration is not implemented.
+
 Build file · How the parts fit, where files live, and how it runs offline on GPU or CPU.
 Related: `pipeline.md` (each stage), `lesson-schema.md` (JSON contracts), `../AGENTS.md` (coding rules).
 

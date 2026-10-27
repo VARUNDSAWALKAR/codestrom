@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0",
+  "lesson_id": "22a57508cb0b",
+  "topic": "Photosynthesis",
+  "level": "beginner",
+  "target_seconds": 60,
+  "language": "en",
+  "source": "llm",
+  "model": "qwen3:4b-instruct-2507-q4_K_M",
+  "prompt_version": "p12-task4",
+  "title": "Photosynthesis",
+  "subject": "biology",
+  "keep_terms": [
+    "chloroplasts",
+    "sunlight",
+    "carbon dioxide",
+    "water",
+    "glucose",
+    "oxygen"
+  ],
+  "scenes": [
+    {
+      "id": "s1",
+      "type": "title_card",
+      "heading": "Photosynthesis",
+      "narration": "Photosynthesis is how plants make food using sunlight. It happens in chloroplasts. This process turns light into energy.",
+      "steps": []
+    },
+    {
+      "id": "s2",
+      "type": "diagram",
+      "heading": "What is Photosynthesis?",
+      "narration": "Photosynthesis is how plants make food using sunlight. It happens in chloroplasts. This process turns light into energy.",
+      "steps": [
+        {
+          "text": "Sunlight",
+          "narration": "Plants take in sunlight through leaves.",
+          "note": "Energy source from the sun"
+        },
+        {
+          "text": "Water + CO₂",
+          "narration": "They absorb water from the soil and carbon dioxide from air.",
+          "note": "Raw materials for food"
+        },
+        {
+          "text": "Glucose + Oxygen",
+          "narration": "Inside chloroplasts, these materials are converted into glucose and oxygen.",
+          "note": "Plant food and released oxygen"
+        }
+      ],
+      "layout": "flow"
+    },
+    {
+      "id": "s3",
+      "type": "diagram",
+      "heading": "Why Is This Important?",
+      "narration": "Photosynthesis produces oxygen we breathe and food for plants and animals. It balances the Earth's air and food systems.",
+      "steps": [
+        {
+          "text": "O₂ released",
+          "narration": "Oxygen is released into the atmosphere.",
+          "note": "Supports animal life"
+        },
+        {
+          "text": "Glucose used",
+          "narration": "Glucose provides energy for plant growth.",
+          "note": "Fuel for plant life"
+        },
+        {
+          "text": "Balanced ecosystem",
+          "narration": "This cycle keeps Earth's air and food systems balanced.",
+          "note": "Sustains life on Earth"
+        }
+      ],
+      "layout": "flow"
+    }
+  ]
+}

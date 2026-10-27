@@ -1,5 +1,7 @@
 # API contracts — Blu VisualTeacher
 
+> Task 4 override: see [offline planner contract](planner-task4.md). Planner calls use 180 s, keep_alive 10m, one repair, failure-only raw logs, and English content with requested-language metadata. Failed requests return structured errors; no unrelated fallback. Task 5 orchestration is not implemented.
+
 Build file · Every endpoint and its JSON. Backend: `backend/app/main.py` (Satwik). Client: `web/src/app/api.ts` (Varun).
 **This is a contract: change it only together, in the same commit as the code.**
 

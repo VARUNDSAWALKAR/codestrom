@@ -1,5 +1,7 @@
 # Prompts — Blu VisualTeacher
 
+> Task 4 override: see [offline planner contract](planner-task4.md). Planner calls use 180 s, keep_alive 10m, one repair, failure-only raw logs, and English content with requested-language metadata. Failed requests return structured errors; no unrelated fallback. Task 5 orchestration is not implemented.
+
 Build file · The planner prompt, its example, the repair prompt and the Ollama call. Code: `backend/app/planner/prompt.py`, `ollama_client.py`.
 **`PROMPT_VERSION = "p1"`.** Bump it on every change (it's part of the cache key) and log the change in §8.
 
