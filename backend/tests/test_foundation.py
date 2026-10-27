@@ -76,7 +76,8 @@ class FoundationTests(unittest.TestCase):
             self.assertEqual(client.get("/media/missing.mp4").status_code, 404)
             self.assertEqual(client.get("/docs").status_code, 404)
             self.assertEqual(client.get("/api/missing").json()["error"]["code"], "404")
-            self.assertEqual(client.post("/api/lessons", json={}).status_code, 404)
+            self.assertEqual(client.post("/api/lessons", json={}).status_code, 422)
+            self.assertEqual(client.post("/api/lessons", json={"topic": "Water Cycle", "language": "hi"}).status_code, 422)  # production is English-only
         self.assertFalse(application.state.runner._thread.is_alive())
 
     def test_built_web_mount_is_optional(self) -> None:

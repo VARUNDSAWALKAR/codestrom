@@ -19,11 +19,21 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from .cache import Cache
 from .config import DeviceProfile, Language
+from .contracts import ErrorDetail, LessonRequest
 
 StageName = Literal["plan", "validate", "translate", "voice", "timeline", "export"]
 STAGES: tuple[StageName, ...] = ("plan", "validate", "translate", "voice", "timeline", "export")
 StageStatus = Literal["pending", "running", "done", "cached", "skipped", "error"]
+ExportStatus = Literal["pending", "running", "completed", "failed", "skipped"]
 logger = logging.getLogger(__name__)
+
+
+class PipelineError(Exception):
+    """A stage failure with a stable code; the job keeps it as `error_detail`."""
+
+    def __init__(self, code: str, message: str) -> None:
+        super().__init__(message)
+        self.code = code
 
 
 class StageRecord(BaseModel):
@@ -42,12 +52,16 @@ class JobRecord(BaseModel):
     lesson_id: str
     variant: str
     playable: bool = False
+    preview_ready: bool = False  # set only after the preview files were verified on disk
+    export_status: ExportStatus = "pending"  # "skipped" only in mock mode (no MP4 is rendered)
+    mock: bool = False  # True for every MOCK_PIPELINE job; never an Ollama-generated lesson
     fallback: bool = False
     fallback_reason: str | None = None
     progress: float = Field(default=0.0, ge=0.0, le=1.0)
     stages: list[StageRecord] = Field(default_factory=lambda: [StageRecord(name=s) for s in STAGES])
     warnings: list[str] = Field(default_factory=list)
     error: str | None = None
+    error_detail: ErrorDetail | None = None
     total_ms: int = 0
     device_profile: DeviceProfile
 
@@ -58,6 +72,7 @@ class JobContext(BaseModel):
     model_config = ConfigDict(validate_assignment=True)
     job: JobRecord
     language: Language
+    request: LessonRequest | None = None
 
 
 class RunRecord(BaseModel):
@@ -104,11 +119,18 @@ class PeakRSS:
 class JobRunner:
     def __init__(self, cache: Cache, profile: DeviceProfile,
                  stages: Mapping[StageName, StageFunction] | None = None,
-                 fallback: FallbackFunction | None = None) -> None:
+                 fallback: FallbackFunction | None = None,
+                 on_failure: Literal["fallback", "fail"] = "fallback") -> None:
+        """`on_failure="fail"` (Task 5): a failed stage ends the job as `error` with a
+        structured `error_detail`; no fallback lesson is substituted and artifacts
+        already written (e.g. the preview) are kept."""
         self.cache = cache
         self.profile = profile
         self._stages = dict(stages or {})
         self._fallback = fallback
+        self._on_failure = on_failure
+        self._started: dict[str, float] = {}
+        self._running: str | None = None
         self._condition = Condition()
         self._pending: deque[JobContext] = deque()
         self._jobs: dict[str, JobRecord] = {}
@@ -119,6 +141,12 @@ class JobRunner:
     def queue_length(self) -> int:
         with self._condition:
             return len(self._pending)
+
+    @property
+    def active_count(self) -> int:
+        """Queued jobs plus the one being processed (what `max_queued_jobs` is measured against)."""
+        with self._condition:
+            return len(self._pending) + (1 if self._running is not None else 0)
 
     def start(self) -> None:
         with self._condition:
@@ -136,15 +164,38 @@ class JobRunner:
         if self._thread is not None:
             self._thread.join()
 
-    def submit(self, lesson_id: str, variant: str, language: Language) -> JobRecord:
+    def find_active(self, lesson_id: str, variant: str) -> JobRecord | None:
+        with self._condition:
+            for job in self._jobs.values():
+                if (job.lesson_id, job.variant) == (lesson_id, variant) and job.status in {"queued", "running"}:
+                    return self.snapshot(job.job_id)
+        return None
+
+    def latest(self, lesson_id: str, variant: str) -> JobRecord | None:
+        with self._condition:
+            matches = [j for j in self._jobs.values() if (j.lesson_id, j.variant) == (lesson_id, variant)]
+            return self.snapshot(matches[-1].job_id) if matches else None
+
+    def add_completed(self, job: JobRecord) -> JobRecord:
+        """Register a job that needs no work (the variant is already complete in the cache)."""
+        with self._condition:
+            self._jobs[job.job_id] = job.model_copy(deep=True)
+            return self.snapshot(job.job_id)
+
+    def update(self, ctx: JobContext) -> None:
+        """Publish the job now (e.g. preview ready or export progress), not at the next stage boundary."""
+        self._publish(ctx, self._started.get(ctx.job.job_id, perf_counter()))
+
+    def submit(self, lesson_id: str, variant: str, language: Language,
+               request: LessonRequest | None = None, mock: bool = False) -> JobRecord:
         with self._condition:
             if self._closing or self._thread is None or not self._thread.is_alive():
                 raise RuntimeError("Job runner is not accepting jobs")
-            if set(self._stages) != set(STAGES) or self._fallback is None:
+            if set(self._stages) != set(STAGES) or (self._fallback is None and self._on_failure != "fail"):
                 raise RuntimeError("Pipeline stages and fallback are not implemented yet")
             self.cache.lesson_dir(lesson_id, variant)  # validates cache identifiers
-            job = JobRecord(lesson_id=lesson_id, variant=variant, device_profile=self.profile)
-            ctx = JobContext(job=job, language=language)
+            job = JobRecord(lesson_id=lesson_id, variant=variant, device_profile=self.profile, mock=mock)
+            ctx = JobContext(job=job, language=language, request=request)
             self._jobs[job.job_id] = job.model_copy(deep=True)
             self._pending.append(ctx)
             self._condition.notify()
@@ -171,7 +222,9 @@ class JobRunner:
                 if not self._pending:
                     return
                 ctx = self._pending.popleft()
+                self._running = ctx.job.job_id
             started = perf_counter()
+            self._started[ctx.job.job_id] = started
             try:
                 self._run(ctx, started)
             except Exception as exc:
@@ -180,6 +233,9 @@ class JobRunner:
                 ctx.job.status = "error"
                 ctx.job.error = str(exc)
                 self._publish(ctx, started)
+            finally:
+                with self._condition:
+                    self._running = None
 
     def _run(self, ctx: JobContext, started: float) -> None:
         ctx.job.status = "running"
@@ -191,6 +247,8 @@ class JobRunner:
                 stage.note = "English requires no translation"
             elif stage.status not in {"cached", "skipped"}:
                 stage.status = "running"
+            if name == "export" and stage.status == "running":
+                ctx.job.export_status = "running"
             self._publish(ctx, started)
             stage_started = perf_counter()
             failure: Exception | None = None
@@ -212,6 +270,16 @@ class JobRunner:
                 job_id=ctx.job.job_id, stage=name, ms=stage.ms, rss_mb=stage.rss_mb,
                 device=self.profile, ok=failure is None, note=stage.note,
             ))
+            if name == "export":
+                ctx.job.export_status = ("failed" if failure is not None else
+                                         "skipped" if stage.status == "skipped" else "completed")
+            if failure is not None and self._on_failure == "fail":
+                ctx.job.status = "error"
+                ctx.job.error = str(failure)
+                ctx.job.error_detail = ErrorDetail(stage=name, code=getattr(failure, "code", "stage_failed"),
+                                                   message=str(failure))
+                self._publish(ctx, started)
+                return
             if failure is not None:
                 ctx.job.fallback = True
                 ctx.job.fallback_reason = str(failure)
@@ -225,8 +293,8 @@ class JobRunner:
                     ctx.job.status = "done"
                     self._publish(ctx, started)
                     return
-            if name == "timeline":
-                ctx.job.playable = True
+            if name == "timeline" and self._on_failure == "fallback":
+                ctx.job.playable = True  # fail-mode jobs become playable only via the verified preview callback
             self._publish(ctx, started)
         ctx.job.status = "done"
         ctx.job.progress = 1.0

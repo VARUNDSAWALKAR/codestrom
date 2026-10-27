@@ -76,6 +76,8 @@ class Settings(BaseModel):
     export_fps: Literal[30] = 30
     default_language: Language = "en"
     default_target_seconds: int = Field(default=60, ge=30, le=90)
+    max_queued_jobs: int = Field(default=2, ge=0)  # waiting jobs beyond the running one before POST answers 429
+    mock_pipeline: bool = False  # MOCK_PIPELINE=1: development-only fixture pipeline; off by default
 
     @field_validator("ollama_url")
     @classmethod

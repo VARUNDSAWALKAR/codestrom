@@ -164,6 +164,13 @@ class PlanResult(ContractModel):
     notes: list[str] = Field(default_factory=list)
 
 
+def lesson_key(request: PlanRequest, model: str) -> str:
+    """Content-addressed lesson id; also used by Task 5 to name the lesson before planning."""
+    subject = effective_subject(request.topic, request.subject)
+    return plan_key(request.topic, request.level, request.target_seconds, model,
+                    f"{PROMPT_VERSION}:{subject or 'auto'}", "1.0")
+
+
 def plan_lesson(request: PlanRequest, settings: Settings, *,
                 transport: httpx.BaseTransport | None = None,
                 debug_dir: Path = ROOT / "scratch" / "planner") -> PlanResult:
@@ -176,8 +183,7 @@ def plan_lesson(request: PlanRequest, settings: Settings, *,
     model = settings.planner_model(profile)
     result = PlanResult(request=request, model=model)
     subject = effective_subject(request.topic, request.subject)
-    key = plan_key(request.topic, request.level, request.target_seconds, model,
-                   f"{PROMPT_VERSION}:{subject or 'auto'}", "1.0")
+    key = lesson_key(request, model)
     cache = Cache(settings.cache_dir)
     path = cache.lesson_dir(key) / "plan.json"
     metadata = dict(schema_version="1.0", lesson_id=key, topic=request.topic,
