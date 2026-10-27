@@ -6,3 +6,25 @@ cache/
 .env
 .env.*
 !.env.example
+
+# Backend, local models, environments and verification outputs
+models/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*-env/
+scratch/
+*.mp4
+*.webm
+*.onnx
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.bin
+*.log
+*.tmp
+.coverage
+htmlcov/

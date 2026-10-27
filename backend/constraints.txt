@@ -1,0 +1,2 @@
+# Parler-TTS requires this existing version. Never upgrade it.
+transformers==4.46.1

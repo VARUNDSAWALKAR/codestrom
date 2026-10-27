@@ -1,3 +1,7 @@
+> Historical frontend-only handoff from Varun. Backend Tasks 1-3 are now
+> consolidated in this checkout; see [README.md](README.md) and
+> [Gate 1 validation](docs/gate1-validation.md) for current status.
+
 # Blu VisualTeacher — collaborator handoff
 
 This handoff contains the current frontend implementation. Read `AGENTS.md`, `CLAUDE.md`, and

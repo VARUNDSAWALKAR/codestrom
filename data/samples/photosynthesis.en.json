@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "lesson_id": "sample-photosynthesis",
+  "topic": "How does photosynthesis work?",
+  "level": "beginner",
+  "target_seconds": 60,
+  "language": "en",
+  "source": "sample",
+  "model": "assistant-authored",
+  "prompt_version": "none",
+  "warnings": [],
+  "title": "How does photosynthesis work?",
+  "subject": "biology",
+  "keep_terms": ["photosynthesis", "chlorophyll", "chloroplasts", "glucose"],
+  "scenes": [
+    {
+      "id": "s1", "type": "title_card",
+      "heading": "How does photosynthesis work?",
+      "subtitle": "Turning sunlight into stored energy",
+      "narration": "Plants use sunlight to make sugar from water and carbon dioxide. This process is called photosynthesis.",
+      "steps": []
+    },
+    {
+      "id": "s2", "type": "diagram", "layout": "labelled", "center": "Inside a leaf",
+      "heading": "What does a plant need?",
+      "narration": "Photosynthesis happens inside chloroplasts, tiny structures in plant cells.",
+      "steps": [
+        {"text": "Sunlight", "note": "Energy source", "narration": "Chlorophyll, the green pigment in chloroplasts, absorbs light energy."},
+        {"text": "Water", "note": "Absorbed by roots", "narration": "Roots absorb water from the soil, and it travels up to the leaves."},
+        {"text": "Carbon dioxide", "note": "Taken in from air", "narration": "Carbon dioxide enters leaves through tiny openings called stomata."}
+      ]
+    },
+    {
+      "id": "s3", "type": "diagram", "layout": "labelled", "center": "Photosynthesis",
+      "heading": "What does photosynthesis produce?",
+      "narration": "Light energy powers reactions that build sugars and release oxygen.",
+      "steps": [
+        {"text": "Glucose", "note": "Sugar stores energy", "narration": "The plant uses sugars such as glucose for energy and growth, or stores them as starch."},
+        {"text": "Oxygen", "note": "Released into air", "narration": "Oxygen is released from water during photosynthesis. Much of it passes into the air."}
+      ]
+    },
+    {
+      "id": "s4", "type": "recap", "heading": "Remember", "narration": "",
+      "steps": [
+        {"text": "Light powers sugar production", "narration": "Photosynthesis changes light energy into chemical energy stored in sugar."},
+        {"text": "Water + carbon dioxide → sugar + oxygen", "narration": "Remember the ingredients: water and carbon dioxide. The products are sugar and oxygen."}
+      ]
+    }
+  ]
+}
