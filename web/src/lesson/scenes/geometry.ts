@@ -8,18 +8,21 @@ export function diagramGeometry(layout: DiagramScene['layout'], count: number): 
   if (count < 2 || count > 6) throw new Error('Diagram requires 2–6 steps');
   let boxes: Box[];
   if (layout === 'flow') {
-    const width = Math.min(240, (1152 - (Math.min(count, 3) - 1) * 72) / Math.min(count, 3));
+    const prominentWidth: Record<number, number> = {2: 360, 3: 300, 4: 252};
+    const width = Math.min(250, (1152 - (Math.min(count, 3) - 1) * 72) / Math.min(count, 3));
     boxes = Array.from({length: count}, (_, index) => {
       const rowSize = count <= 4 ? count : index < 3 ? 3 : count - 3;
-      const w = count <= 4 ? Math.min(240, (1152 - (count - 1) * 72) / count) : width;
+      const w = count <= 4 ? prominentWidth[count] ?? width : width;
+      const gap = count <= 4 ? count === 2 ? 100 : count === 4 ? 48 : 80 : 72;
       const slot = count <= 4 ? index : index % 3;
-      return {x: (1280 - (rowSize * w + (rowSize - 1) * 72)) / 2 + slot * (w + 72) + w / 2,
-        y: count <= 4 ? 330 : index < 3 ? 230 : 450, width: w, height: 112};
+      return {x: (1280 - (rowSize * w + (rowSize - 1) * gap)) / 2 + slot * (w + gap) + w / 2,
+        y: count <= 4 ? 330 : index < 3 ? 230 : 450, width: w, height: count <= 4 ? 140 : 112};
     });
   } else if (layout === 'cycle') {
     boxes = Array.from({length: count}, (_, index) => {
       const angle = -Math.PI / 2 + index * 2 * Math.PI / count;
-      return {x: 640 + 380 * Math.cos(angle), y: 350 + 170 * Math.sin(angle), width: 200, height: 84};
+      return {x: 640 + 380 * Math.cos(angle), y: 350 + 170 * Math.sin(angle),
+        width: count <= 4 ? 240 : 200, height: count <= 4 ? 108 : 84};
     });
   } else {
     const slots: Record<number, [number, number][]> = {
@@ -29,7 +32,7 @@ export function diagramGeometry(layout: DiagramScene['layout'], count: number): 
       5: [[240, 210], [1040, 210], [240, 490], [1040, 490], [640, 540]],
       6: [[240, 210], [1040, 210], [240, 490], [1040, 490], [240, 350], [1040, 350]],
     };
-    boxes = (slots[count] ?? []).map(([x, y]) => ({x, y, width: 280, height: 80}));
+    boxes = (slots[count] ?? []).map(([x, y]) => ({x, y, width: count <= 4 ? 310 : 280, height: count <= 4 ? 104 : 80}));
   }
   const connectors: Connector[] = [];
   for (let index = 0; index < count; index++) {

@@ -32,6 +32,10 @@ test('code highlighting, output reveal, and backward scrubbing derive only from 
 test('line ranges are deduplicated and nonconsecutive highlights stay separate', () => {
   assert.deepEqual(lineRuns([3, 1, 2, 2, 7, 9, 10]), [{start: 1, count: 3}, {start: 7, count: 1}, {start: 9, count: 2}]);
 });
+test('Binary Search multi-line steps preserve the schema’s one-based line indexing', () => {
+  assert.deepEqual(lineRuns([5, 6, 8, 9]), [{start: 5, count: 2}, {start: 8, count: 2}]);
+  assert.deepEqual(lineRuns([1, 3, 4]), [{start: 1, count: 1}, {start: 3, count: 2}]);
+});
 test('every supported language is tokenized as inert text, preserving whitespace and HTML-like input', () => {
   const code = '    print("<script>never run</script>", 3) // comment';
   for (const language of ['python', 'javascript', 'java', 'c', 'cpp', 'other'] as CodeLanguage[]) {

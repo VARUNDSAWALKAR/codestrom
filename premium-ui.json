@@ -1,0 +1,21 @@
+{
+  "profile": "product-admin",
+  "sourceRoots": ["web/src"],
+  "locale": "en",
+  "canonicalMap": "UX-CONTRACT.md",
+  "requiredCapabilities": ["Select/Listbox", "Form", "Scrollbar"],
+  "ownership": {
+    "Select/Listbox": "native",
+    "Form": "CreateForm",
+    "Scrollbar": "global CSS"
+  },
+  "requiredCommands": ["unit", "build", "bundle"],
+  "commands": {
+    "unit": "cd web && npm test",
+    "build": "cd web && npm run build",
+    "bundle": "cd web && npx remotion bundle"
+  },
+  "evidence": {
+    "failurePaths": "web/scripts/verify-app.mjs"
+  }
+}

@@ -29,6 +29,7 @@ export function LessonPlayer({props, preview, response, job}: {
   const [captions, setCaptions] = useState(true);
   const [volume, setVolume] = useState(1);
   const [muted, setMuted] = useState(false);
+  const [playbackRate, setPlaybackRate] = useState(1);
   const [srt, setSrt] = useState('');
   const current = activeScene(props.timeline, frame);
   const index = Math.max(0, props.timeline.scenes.findIndex((scene) => scene === current));
@@ -67,15 +68,17 @@ export function LessonPlayer({props, preview, response, job}: {
       if (event.code === 'Space') { event.preventDefault(); ref.current?.toggle(); }
       if (event.key === 'ArrowLeft') { event.preventDefault(); go(-1); }
       if (event.key === 'ArrowRight') { event.preventDefault(); go(1); }
+      if (event.key.toLowerCase() === 'c') setCaptions((value) => !value);
       if (event.key.toLowerCase() === 'r') replay();
     };
     document.addEventListener('keydown', keyboard);
     return () => document.removeEventListener('keydown', keyboard);
   });
-  const download = (url: string) => `${url}${url.includes('?') ? '&' : '?'}download=1`;
   const mp4 = response?.media.mp4;
-  const exporting = job?.stages.some((stage) => stage.name === 'export' && stage.status === 'running');
-  const hasAudio = props.timeline.audio !== null;
+  const exportPending = job?.export_status === 'pending' || job?.export_status === 'running';
+  const exportFailed = job?.export_status === 'failed' || response?.export_status === 'failed';
+  const hasAudio = response ? response.media.audio_web !== null : props.timeline.audio !== null;
+  const playbackTimeline = hasAudio || props.timeline.audio === null ? props.timeline : {...props.timeline, audio: null};
   const duration = props.timeline.duration_frames / props.timeline.fps;
   const language = languageNames[props.lesson.language];
   const voice = !hasAudio ? 'Silent sample' : /(^|-)female(-|$)/.test(props.timeline.variant) ? 'Female' :
@@ -84,9 +87,10 @@ export function LessonPlayer({props, preview, response, job}: {
   return <div className="lesson-layout"><div className="player-main"><section className="player-card" aria-label="Lesson player">
     <div className="player-label"><span className="tag">{preview ? 'SAMPLE PREVIEW' : 'YOUR LESSON'}</span>
       <span>{language} · {Math.round(duration)} seconds{!hasAudio ? ' · Silent sample' : ''}</span></div>
-    <div className="video-shell"><Player ref={ref} component={Lesson} inputProps={{...props, showCaptions: captions}}
+    <div className="video-shell"><Player ref={ref} component={Lesson} inputProps={{lesson: props.lesson, timeline: playbackTimeline,
+      mediaBase: '', audioVariant: 'web', showCaptions: captions}}
       durationInFrames={props.timeline.duration_frames} fps={props.timeline.fps}
-      compositionWidth={1280} compositionHeight={720} clickToPlay controls={false}
+      compositionWidth={1280} compositionHeight={720} clickToPlay controls={false} playbackRate={playbackRate}
       style={{width: '100%', aspectRatio: '16 / 9'}}
       errorFallback={({error}) => <div role="alert" className="notice error">Could not display this lesson: {error.message}</div>} /></div>
     <div className="seek-row"><input className="seek-slider" aria-label="Lesson timeline" type="range" min={0} max={props.timeline.duration_frames - 1} step={1}
@@ -104,23 +108,25 @@ export function LessonPlayer({props, preview, response, job}: {
         <input aria-label="Narration volume" type="range" min={0} max={1} step={0.05} value={muted ? 0 : volume} disabled={!hasAudio}
           aria-valuetext={`${Math.round((muted ? 0 : volume) * 100)} percent`}
           onChange={(event) => {ref.current?.setVolume(Number(event.target.value)); ref.current?.unmute();}} /></div>
-        <button className={captions ? 'selected' : ''} aria-label="Captions" aria-pressed={captions} title="Toggle captions" onClick={() => setCaptions(!captions)}>CC</button></div></div>
+        <label className="speed-control"><span className="sr-only">Playback speed</span><select aria-label="Playback speed" value={playbackRate}
+          onChange={(event) => setPlaybackRate(Number(event.target.value))}>{[0.75, 1, 1.25, 1.5].map((rate) => <option value={rate} key={rate}>{rate}×</option>)}</select></label>
+        <button className={captions ? 'selected' : ''} aria-label="Captions" aria-pressed={captions} title="Toggle captions (C)" onClick={() => setCaptions(!captions)}>CC</button></div></div>
   </section>
     <div className="download-row"><div className="download-metadata"><strong>Your lesson, ready to revisit.</strong>
       <p>{Math.round(duration)} sec · {props.timeline.scenes.length} scenes · {language}</p></div>
-      <div className="download-actions">{mp4 ? <a className="button primary" href={download(mp4)} download><ControlIcon name="download" />Download MP4</a> :
+      <div className="download-actions">{mp4 ? <a className="button primary" href={mp4} download><ControlIcon name="download" />Download MP4</a> :
         <button className="button primary" disabled title={preview ? 'Render the sample with the local export CLI.' : 'Available when the backend provides the MP4.'}>
-          <ControlIcon name="download" />{exporting ? `Rendering MP4 · ${Math.round((job?.progress ?? 0) * 100)}%` : 'MP4 unavailable'}</button>}
-      <a className="button secondary" href={response?.media.srt ? download(response.media.srt) : srt}
+          <ControlIcon name="download" />{exportPending ? `Rendering ${Math.round((job?.progress ?? 0) * 100)}%` : 'MP4 unavailable'}</button>}
+      <a className="button secondary" href={response?.media.srt ?? srt}
         download={`${props.lesson.lesson_id}_${props.lesson.language}.srt`}><ControlIcon name="download" />Subtitles (.SRT)</a></div>
       <a className="another-lesson" href="#/">Generate another lesson →</a>
       {preview && <p className="download-note">Hand-written sample. MP4 download becomes available after rendering.</p>}
+      {exportFailed && <div className="notice error export-error" role="alert"><strong>Video export failed</strong><span>The lesson is still ready to watch.</span><a href="#/">Try again</a></div>}
     </div>
     <details className="lesson-diagnostics"><summary>Lesson details & warnings</summary><p>{preview ? 'Supplied sample with an estimated mock timeline.' : `Variant: ${props.timeline.variant}`}</p>
       {(response?.meta.warnings ?? props.lesson.warnings).length > 0 ? <ul>{(response?.meta.warnings ?? props.lesson.warnings).map((warning, i) => <li key={i}>{warning}</li>)}</ul> : <p>No lesson warnings.</p>}
-      <details><summary>Lesson JSON</summary><pre className="json-panel">{JSON.stringify(props.lesson, null, 2)}</pre></details>
-      {job && <table><caption>Measured backend stage times</caption><thead><tr><th>Stage</th><th>Seconds</th><th>Peak RAM</th></tr></thead>
-        <tbody>{job.stages.map((stage) => <tr key={stage.name}><td>{stage.name}</td><td>{stage.ms === null ? '—' : (stage.ms / 1000).toFixed(2)}</td><td>{stage.rss_mb === null ? '—' : `${stage.rss_mb} MB`}</td></tr>)}</tbody></table>}
+      {job && <><p><strong>Device profile:</strong> {job.device_profile.toUpperCase()}</p><table><caption>Measured backend stage telemetry</caption><thead><tr><th>Stage</th><th>Milliseconds</th><th>Peak RAM</th></tr></thead>
+        <tbody>{job.stages.map((stage) => <tr key={stage.name}><td>{stage.name}</td><td>{stage.ms === null ? '—' : `${stage.ms} ms`}</td><td>{stage.rss_mb === null ? '—' : `${stage.rss_mb} MB`}</td></tr>)}</tbody></table></>}
     </details>
   </div><aside className="lesson-sidebar" aria-label="Lesson navigation and settings"><section className="chapters-card">
     <div className="section-heading"><h2>Lesson Chapters</h2><span className="tag">{props.timeline.scenes.length} SCENES</span></div>

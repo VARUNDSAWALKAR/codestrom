@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
 import type {RenderProps} from '../lesson/types';
-import {createLesson, getConfig, getHealth, getLesson, wait,
+import {ApiError, createLesson, getConfig, getHealth, getLesson, wait,
   type AppConfig, type CreateLessonRequest, type Health, type LessonResponse} from './api';
 import {CreateForm} from './CreateForm';
 import {LessonPlayer} from './LessonPlayer';
@@ -9,8 +9,6 @@ import {samples} from './samples';
 import {useJob} from './useJob';
 import {VisualPreview} from './VisualPreview';
 import {About} from './About';
-import {Library} from './Library';
-import {rememberLesson} from './library';
 import './styles.css';
 
 function readRoute() {
@@ -20,7 +18,7 @@ function readRoute() {
   let id = parts[2] ?? '';
   try { id = decodeURIComponent(id); } catch { id = ''; }
   return {kind: parts[1] ?? '', id, variant: parameters.get('variant') ?? undefined,
-    jobId: parts[1] === 'job' ? parts[2] : parameters.get('job') ?? undefined};
+    jobId: parts[1] === 'job' ? id : parameters.get('job') ?? undefined};
 }
 
 export function App() {
@@ -30,6 +28,7 @@ export function App() {
   const [connectionError, setConnectionError] = useState('');
   const [configError, setConfigError] = useState('');
   const [error, setError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState<LessonResponse | null>(null);
@@ -84,30 +83,36 @@ export function App() {
     if (submissionLock.current) return;
     submissionLock.current = true;
     const controller = new AbortController(); submission.current = controller;
-    setBusy(true); setError('');
+    setBusy(true); setError(''); setFieldErrors({});
     try {
       const created = await createLesson(input, controller.signal);
       if (!controller.signal.aborted) location.hash = `/job/${encodeURIComponent(created.job_id)}`;
     } catch (reason) {
-      if (!controller.signal.aborted) setError(reason instanceof Error ? reason.message : 'Could not submit lesson.');
+      if (!controller.signal.aborted) {
+        if (reason instanceof ApiError && reason.status === 422) {
+          setFieldErrors(Object.fromEntries(reason.fields.map((item) => [item.field, item.message])));
+        }
+        setError(reason instanceof Error ? reason.message : 'Could not submit lesson.');
+      }
     } finally {
       submissionLock.current = false;
       if (!controller.signal.aborted) setBusy(false);
     }
   };
   const live = status.lesson ?? response;
-  useEffect(() => {if (live) rememberLesson(live);}, [live]);
   const props: RenderProps | null = sample?.props ?? (live ? {lesson: live.lesson, timeline: live.timeline,
     mediaBase: '', audioVariant: 'web', showCaptions: true} : null);
   const home = route.kind === '';
-  const aiStatus = health?.ok && health.offline ? 'ready' : health ? 'starting' : 'disconnected';
+  const aiStatus = health?.models.planner.ready && health.offline ? 'ready' : health ? 'starting' : 'disconnected';
   const aiStatusLabel = aiStatus === 'ready' ? 'Ready' : aiStatus === 'starting' ? 'Starting' : 'Not connected';
-  const unknown = (!home && !['sample', 'lesson', 'job', 'library', 'about'].includes(route.kind)) || (route.kind === 'sample' && !sample);
+  const unknown = (!home && !['sample', 'lesson', 'job', 'about'].includes(route.kind)) || (route.kind === 'sample' && !sample);
+  const mockMode = health?.mock === true || health?.mock_pipeline === true || config?.mock === true || status.job?.mock === true || live?.mock === true;
   return <div className="app-shell">
     <a className="skip-link" href="#main-content" onClick={(event) => {event.preventDefault(); document.getElementById('main-content')?.focus();}}>Skip to content</a>
+    {mockMode && <div className="mock-banner" role="status"><strong>MOCK MODE</strong><span>Fixture data is active. Outputs are for integration testing.</span></div>}
     <header className="site-header"><a href="#/" className="brand" aria-label="Blu VisualTeacher home"><span className="brand-icon">b<span>·</span></span>
       <span>blu<span className="brand-sub">VisualTeacher</span></span></a>
-      <nav aria-label="Main navigation"><a href="#/" aria-current={home ? 'page' : undefined}>Create Lesson</a><a href="#/library" aria-current={route.kind === 'library' ? 'page' : undefined}>My Lessons</a><a href="#/about" aria-current={route.kind === 'about' ? 'page' : undefined}>About</a></nav>
+      <nav aria-label="Main navigation"><a href="#/" aria-current={home ? 'page' : undefined}>Create Lesson</a><a href="#/about" aria-current={route.kind === 'about' ? 'page' : undefined}>About</a></nav>
       <span className={`local-badge is-${aiStatus}`} role="status" aria-label={`Offline AI: ${aiStatusLabel}`}
         title={aiStatus === 'ready' ? 'Local AI is ready and offline mode is enabled' : aiStatus === 'starting' ? 'The local backend is connected and its models are starting' : 'Sample lessons are available; the local AI backend is not connected'}>
         <span aria-hidden="true" /> Offline AI <span className="badge-detail">{aiStatusLabel}</span></span></header>
@@ -116,31 +121,31 @@ export function App() {
         <section className="hero"><div className="hero-pill"><span>✧</span> BIG IDEAS. MADE CLEAR.</div>
           <h1>Turn any concept into<br />a <span>visual lesson.</span></h1><p>Describe what you want to learn and Blu will transform it into<br className="desktop-break" /> a short, narrated, animated explanation.</p>
           <div className="hero-features"><span><i>✓</i> Made to make sense</span><span><i>अ</i> Learn in your language</span><span><i>⌂</i> Offline & private</span></div></section>
-        <div className="workspace"><CreateForm config={config} health={health} busy={busy} onSubmit={(input) => {void submit(input);}} />
+        <div className="workspace"><CreateForm config={config} health={health} busy={busy} fieldErrors={fieldErrors}
+          onClearErrors={() => {setFieldErrors({}); setError('');}} onSubmit={(input) => {void submit(input);}} />
           <VisualPreview /></div>
-          <section className="samples-panel"><div className="section-heading"><div><span className="eyebrow">CURIOSITY STARTS HERE</span><h2>Take a little knowledge break.</h2><p className="muted">Explore a sample. See what learning with Blu feels like.</p></div><a href="#/library" className="text-link">Explore lessons ↗</a></div>
+          <section className="samples-panel"><div className="section-heading"><div><span className="eyebrow">CURIOSITY STARTS HERE</span><h2>Take a little knowledge break.</h2><p className="muted">Explore a sample. See what learning with Blu feels like.</p></div><a href="#/sample/python" className="text-link">Open a sample ↗</a></div>
             <div className="sample-cards">{samples.map((item, index) => <a className={`sample-card sample-${item.id}`} key={item.id} href={`#/sample/${item.id}`}>
               <div className="sample-art" aria-hidden="true"><span className="art-symbol">{item.symbol}</span><span className="art-dot one" /><span className="art-dot two" /><span className="art-line" /></div>
               <div className="sample-copy"><span className="eyebrow">{item.subject} <span>0{index + 1}</span></span><h3>{item.name}</h3><p>{item.detail}</p>
                 <span className="sample-link">Explore lesson <span>→</span></span></div></a>)}</div>
             </section>
-      </> : route.kind === 'library' ? <Library /> : route.kind === 'about' ? <About /> : <><a className="back-link" href="#/">← Create another lesson</a>
+      </> : route.kind === 'about' ? <About /> : <><a className="back-link" href="#/">← Create another lesson</a>
         <div className="lesson-heading"><div><span className="eyebrow">{sample ? 'THE SAMPLE COLLECTION' : 'YOUR LEARNING SPACE'}</span>
           <h1>{props?.lesson.title ?? (loading ? 'Opening your lesson…' : 'Creating your visual lesson')}</h1></div>
           {sample && <span className="tag">HAND-WRITTEN · NOT AI-GENERATED</span>}</div>
         {sample && <div className="notice">Sample preview · estimated timing · no narration audio. Live lessons use audio-derived timing.</div>}
-        {status.job?.fallback && <div className="notice warning" role="status">{status.job.fallback_reason} Playing our sample lesson instead.</div>}
-        {loading && <div className="empty-state" role="status">Loading the lesson from the local backend…</div>}
+        {loading && <div className="lesson-skeleton" role="status"><span>Loading the lesson from the local backend…</span><i /><i /><i /></div>}
         {props && <LessonPlayer key={`${props.lesson.lesson_id}-${props.timeline.variant}-${Boolean(sample)}`} props={props} preview={Boolean(sample)} response={sample ? null : live} job={sample ? null : status.job} />}
         {!sample && route.jobId && <Progress job={status.job} compact={Boolean(props)} />}
         {unknown && <div role="alert" className="notice error">This page does not exist. <a href="#/">Return to the lesson creator.</a></div>}
       </>}
       {(error || status.error) && <div role="alert" className="notice error"><h2>We couldn’t finish this lesson.</h2><p>{error || status.error}</p><div className="error-actions">
-        <button onClick={() => {setError(''); if (status.job?.status === 'error') location.hash = '/'; else setRetry((value) => value + 1);}}>Try Again</button><a href="#/sample/python">Use Sample Lesson</a></div></div>}
-      <section className="backend-status" aria-label="Backend status"><div><span className={`status-dot ${health?.ok ? 'ready' : ''}`} />
-        <strong>{health?.ok ? 'Local backend ready' : health ? 'Local models are warming up' : connectionError ? 'Local backend unavailable' : 'Checking local backend…'}</strong>
+        <button onClick={() => {setError(''); setFieldErrors({}); if (status.job?.status === 'error') location.hash = '/'; else setRetry((value) => value + 1);}}>Try Again</button></div></div>}
+      <section className={`backend-status ${health ? '' : 'is-loading'}`} aria-label="Backend status"><div><span className={`status-dot ${health?.models.planner.ready ? 'ready' : ''}`} />
+        <strong>{health?.models.planner.ready ? 'Local planner ready' : health ? 'Local planner is warming up' : connectionError ? 'Local backend unavailable' : 'Checking local backend…'}</strong>
         <span>{health ? `${health.device_profile.toUpperCase()} · ${health.offline ? 'Offline mode' : 'Offline mode not confirmed'}` : 'Sample lessons are always available'}</span></div>
-        <div className="health-chips">{health && <><span>Planner {health.models.planner.ready ? '✓' : '○'}</span><span>Translator {health.models.translator.ready ? '✓' : '○'}</span><span>Voice {health.models.tts_kokoro.ready ? '✓' : '○'}</span><span>Renderer {health.renderer.bundle_ready ? '✓' : '○'}</span></>}
+        <div className="health-chips">{health ? <><span>Planner {health.models.planner.ready ? '✓' : '○'}</span><span className="is-muted">Translator — not connected</span><span>Voice · warms up on first use</span><span>Renderer {health.renderer.bundle_ready ? '✓' : '○'}</span></> : <><span className="skeleton-chip" /><span className="skeleton-chip" /></>}
           <button onClick={() => setConnectionRetry((value) => value + 1)}>Refresh status</button></div>
         {(configError || connectionError) && <p className="muted">{configError || connectionError}</p>}
       </section>
