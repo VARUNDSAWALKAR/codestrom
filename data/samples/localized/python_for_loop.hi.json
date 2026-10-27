@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0",
+  "lesson_id": "f099d19873e7",
+  "topic": "Python for loop",
+  "level": "beginner",
+  "target_seconds": 60,
+  "language": "hi",
+  "source": "llm",
+  "model": "qwen3:4b-instruct-2507-q4_K_M",
+  "prompt_version": "p12-task4",
+  "warnings": [],
+  "title": "title_card",
+  "subject": "programming",
+  "keep_terms": [
+    "for loop",
+    "range",
+    "iteration",
+    "loop body"
+  ],
+  "scenes": [
+    {
+      "id": "s1",
+      "type": "title_card",
+      "heading": "पायथन for Loop",
+      "narration": "सीखें कि पायथन में for loop का उपयोग कैसे करें ताकि range में प्रत्येक वस्तु के लिए क्रियाओं को दोहराया जा सके।",
+      "steps": [],
+      "subtitle": "",
+      "code": "",
+      "code_language": "other",
+      "layout": "flow",
+      "center": "",
+      "expression": ""
+    },
+    {
+      "id": "s2",
+      "type": "code_walkthrough",
+      "heading": "पायथन for Loop उदाहरण",
+      "narration": "एक for loop सूची में प्रत्येक वस्तु के लिए कोड दोहराता है या range। यहाँ, यह 5 बार चलता है, 0 से 4 तक।",
+      "steps": [
+        {
+          "text": "range(5) में i के लिएः",
+          "narration": "लूप'range(5) में i के लिएः'से शुरू होता है। यह i को 0, 1, 2, 3, 4 मानों पर सेट करता है।",
+          "note": "",
+          "lines": [
+            1
+          ],
+          "output": "",
+          "in_expression": true
+        },
+        {
+          "text": "print(f'Count: {i}')",
+          "narration": "अंदर, यह'Count:'प्रिंट करता है जिसके बाद i का वर्तमान मूल्य आता है।",
+          "note": "",
+          "lines": [
+            2
+          ],
+          "output": "",
+          "in_expression": true
+        }
+      ],
+      "subtitle": "",
+      "code": "for i in range(5):\n    print(f'Count: {i}')",
+      "code_language": "python",
+      "layout": "flow",
+      "center": "",
+      "expression": ""
+    },
+    {
+      "id": "s3",
+      "type": "diagram",
+      "heading": "For Loop प्रवाह",
+      "narration": "लूप शुरू होता है, जाँच करता है कि क्या यह हो गया है, शरीर को चलाता है, फिर समाप्त होने तक दोहराता है।",
+      "steps": [
+        {
+          "text": "शुरू करें।",
+          "narration": "लूप i = 0 से शुरू होता है।",
+          "note": "प्रारंभिक मूल्य समुच्चय",
+          "lines": [],
+          "output": "",
+          "in_expression": true
+        },
+        {
+          "text": "शरीर को निष्पादित करें",
+          "narration": "वर्तमान i के साथ print कथन चलाएँ।",
+          "note": "'Count: 0'प्रिंट करें",
+          "lines": [],
+          "output": "",
+          "in_expression": true
+        },
+        {
+          "text": "वृद्धि i",
+          "narration": "i को अगले मूल्य पर बढ़ाएँ, तब तक दोहराएँ जब तक कि i 5 तक न पहुँच जाए।",
+          "note": "अगला iteration शुरू होता है",
+          "lines": [],
+          "output": "",
+          "in_expression": true
+        },
+        {
+          "text": "एंड लूप",
+          "narration": "जब i 5 तक पहुँचता है, तो लूप समाप्त हो जाता है।",
+          "note": "अंतिम मूल्य तक पहुँच गया",
+          "lines": [],
+          "output": "",
+          "in_expression": true
+        }
+      ],
+      "subtitle": "",
+      "code": "",
+      "code_language": "other",
+      "layout": "flow",
+      "center": "",
+      "expression": ""
+    }
+  ]
+}

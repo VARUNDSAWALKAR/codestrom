@@ -12,19 +12,25 @@ export function useJob(jobId: string | undefined, retry: number) {
     const {signal} = controller;
     void (async () => {
       let opened = false;
+      let lastExportStatus: Job['export_status'] | null = null;
       const deadline = performance.now() + 12 * 60 * 1000;
       while (!signal.aborted && performance.now() < deadline) {
         const current = await getJob(jobId, signal);
         if (signal.aborted) return;
         setJob(current);
-        if (current.playable && (!opened || current.status === 'done' || current.status === 'error')) {
+        const exportFinished = current.export_status === 'completed' || current.export_status === 'failed' || current.export_status === 'skipped';
+        if (current.preview_ready && (!opened || (exportFinished && current.export_status !== lastExportStatus))) {
           const response = await getLesson(current.lesson_id, current.variant, signal);
           if (signal.aborted) return;
-          setLesson(response); opened = true;
+          setLesson(response); opened = true; lastExportStatus = current.export_status;
         }
-        if (current.status === 'error') throw new Error(current.error ?? 'The lesson job failed.');
+        if (current.status === 'error' && !(current.preview_ready && current.export_status === 'failed')) {
+          const detail = current.error_detail;
+          throw new Error(detail ? `Failed during ${detail.stage}: ${detail.message}` : current.error ?? 'The lesson job failed.');
+        }
+        if (exportFinished && current.preview_ready) return;
         if (current.status === 'done') {
-          if (!current.playable) throw new Error('The job finished without a playable lesson.');
+          if (!current.preview_ready) throw new Error('The job finished without a playable lesson.');
           return;
         }
         await wait(500, signal);

@@ -61,7 +61,14 @@ class Settings(BaseModel):
     ffmpeg: str = "ffmpeg"
     ffprobe: str = "ffprobe"
     indictrans_model: Path = Path("indictrans2")
+    localize_max_english_fraction: float = Field(default=0.2, ge=0, le=1)
+    localize_cpu_threads: int = Field(default=4, ge=1)
+    approved_languages: tuple[Language, ...] = ("en",)
     parler_model: Path = Path("indic-parler-tts")
+    parler_description_tokenizer: Path = Path("parler-description-tokenizer")
+    parler_cpu_threads: int = Field(default=4, ge=1)
+    parler_seed: int = Field(default=7, ge=0, le=2**32-1)
+    parler_max_new_tokens: int = Field(default=2400, ge=128, le=4000)
     enable_parler: bool = True
     device: Literal["auto", "cuda", "cpu"] = "auto"
     low_ram: bool = False
@@ -79,6 +86,13 @@ class Settings(BaseModel):
     max_queued_jobs: int = Field(default=2, ge=0)  # waiting jobs beyond the running one before POST answers 429
     mock_pipeline: bool = False  # MOCK_PIPELINE=1: development-only fixture pipeline; off by default
 
+    @field_validator("approved_languages", mode="before")
+    @classmethod
+    def parse_approved_languages(cls, value):
+        if isinstance(value, str):
+            return tuple(dict.fromkeys(part.strip() for part in value.split(",") if part.strip()))
+        return value
+
     @field_validator("ollama_url")
     @classmethod
     def localhost_only(cls, value: str) -> str:
@@ -94,7 +108,7 @@ class Settings(BaseModel):
         for name in ("models_dir", "cache_dir", "web_dist", "render_bundle", "render_script"):
             path = getattr(self, name)
             object.__setattr__(self, name, (ROOT / path).resolve())
-        for name in ("kokoro_model", "kokoro_voices", "indictrans_model", "parler_model"):
+        for name in ("kokoro_model", "kokoro_voices", "indictrans_model", "parler_model", "parler_description_tokenizer"):
             object.__setattr__(self, name, (self.models_dir / getattr(self, name)).resolve())
         return self
 

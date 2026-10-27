@@ -1,0 +1,479 @@
+{
+  "lesson": {
+    "schema_version": "1.0",
+    "lesson_id": "c1f63f0ed69b",
+    "topic": "Water Cycle",
+    "level": "beginner",
+    "target_seconds": 60,
+    "language": "hi",
+    "source": "llm",
+    "model": "qwen3:4b-instruct-2507-q4_K_M",
+    "prompt_version": "p12-task4",
+    "warnings": [
+      "scenes.1.steps.0.note: localized length 46 exceeds display guide 32",
+      "scenes.1.steps.1.note: localized length 48 exceeds display guide 32",
+      "scenes.1.steps.2.note: localized length 36 exceeds display guide 32",
+      "scenes.2.steps.1.note: localized length 44 exceeds display guide 32",
+      "scenes.2.steps.2.note: localized length 34 exceeds display guide 32"
+    ],
+    "title": "जल चक्र",
+    "subject": "biology",
+    "keep_terms": [
+      "evaporation",
+      "condensation",
+      "precipitation",
+      "collection"
+    ],
+    "scenes": [
+      {
+        "id": "s1",
+        "type": "title_card",
+        "heading": "जल चक्र",
+        "narration": "जल चक्र से पता चलता है कि पृथ्वी की प्रणालियों के माध्यम से पानी कैसे चलता है। यह evaporation से शुरू होता है और collection के साथ समाप्त होता है।",
+        "steps": [],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s2",
+        "type": "diagram",
+        "heading": "शीर्षक कार्ड",
+        "narration": "जल चक्र से पता चलता है कि पृथ्वी की प्रणालियों के माध्यम से पानी कैसे चलता है। यह evaporation से शुरू होता है और collection के साथ समाप्त होता है।",
+        "steps": [
+          {
+            "text": "Evaporation",
+            "narration": "सूर्य महासागरों और झीलों के पानी को गर्म करता है।",
+            "note": "पानी वाष्प में बदल जाता है और हवा में उगता है।",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Condensation",
+            "narration": "जल वाष्प ठंडा हो जाता है और बादल बन जाता है।",
+            "note": "वाष्प आकाश में छोटी-छोटी बूंदों में बदल जाता है।",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Precipitation",
+            "narration": "बादल भर जाने पर बारिश या बर्फ छोड़ते हैं।",
+            "note": "पानी पृथ्वी की सतह पर वापस गिरता है।",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Collection",
+            "narration": "वर्षा नदियों, झीलों और महासागरों में बहती है।",
+            "note": "जल निकायों में पानी लौटता है।",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s3",
+        "type": "diagram",
+        "heading": "जल चक्र प्रक्रिया",
+        "narration": "पानी एक चक्र में चलता हैः evaporation, condensation, precipitation, और collection। यह पृथ्वी के पानी को संतुलित रखता है।",
+        "steps": [
+          {
+            "text": "Evaporation",
+            "narration": "सूर्य सतह के पानी को गर्म करता है, इसे वाष्प में बदल देता है।",
+            "note": "पानी वायुमंडल में उगता है।",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Condensation",
+            "narration": "वाष्प ठंडा हो जाता है और बादलों में छोटी बूंदों का निर्माण करता है।",
+            "note": "जैसे-जैसे बूंदें जुड़ती हैं, बादल बढ़ते हैं।",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Precipitation",
+            "narration": "जब बादल भारी हो जाते हैं, तो पानी बारिश या बर्फ के रूप में गिरता है।",
+            "note": "जल भूमि और महासागरों में लौटता है।",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Collection",
+            "narration": "पानी नदियों, झीलों और वापस महासागरों में बहता है।",
+            "note": "यह चक्र लगातार दोहराता रहता है।",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      }
+    ]
+  },
+  "localization_quality": "complete",
+  "english_fraction": 0.0,
+  "diagnostics": [
+    {
+      "path": "title",
+      "status": "translated",
+      "source": "Water Cycle",
+      "target": "जल चक्र",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.0.heading",
+      "status": "translated",
+      "source": "Water Cycle",
+      "target": "जल चक्र",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.0.narration",
+      "status": "translated",
+      "source": "The water cycle shows how water moves through Earth's systems. It starts with evaporation and ends with collection.",
+      "target": "जल चक्र से पता चलता है कि पृथ्वी की प्रणालियों के माध्यम से पानी कैसे चलता है। यह evaporation से शुरू होता है और collection के साथ समाप्त होता है।",
+      "protected": [
+        "evaporation",
+        "collection"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.heading",
+      "status": "translated",
+      "source": "Title Card",
+      "target": "शीर्षक कार्ड",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.narration",
+      "status": "translated",
+      "source": "The water cycle shows how water moves through Earth's systems. It starts with evaporation and ends with collection.",
+      "target": "जल चक्र से पता चलता है कि पृथ्वी की प्रणालियों के माध्यम से पानी कैसे चलता है। यह evaporation से शुरू होता है और collection के साथ समाप्त होता है।",
+      "protected": [
+        "evaporation",
+        "collection"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.0.text",
+      "status": "protected",
+      "source": "Evaporation",
+      "target": "Evaporation",
+      "protected": [
+        "Evaporation"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.0.note",
+      "status": "translated",
+      "source": "Water turns into vapor and rises into air.",
+      "target": "पानी वाष्प में बदल जाता है और हवा में उगता है।",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.0.narration",
+      "status": "translated",
+      "source": "Sun heats water from oceans and lakes.",
+      "target": "सूर्य महासागरों और झीलों के पानी को गर्म करता है।",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.1.text",
+      "status": "protected",
+      "source": "Condensation",
+      "target": "Condensation",
+      "protected": [
+        "Condensation"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.1.note",
+      "status": "translated",
+      "source": "Vapor turns into tiny droplets in the sky.",
+      "target": "वाष्प आकाश में छोटी-छोटी बूंदों में बदल जाता है।",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.1.narration",
+      "status": "translated",
+      "source": "Water vapor cools and forms clouds.",
+      "target": "जल वाष्प ठंडा हो जाता है और बादल बन जाता है।",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.2.text",
+      "status": "protected",
+      "source": "Precipitation",
+      "target": "Precipitation",
+      "protected": [
+        "Precipitation"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.2.note",
+      "status": "translated",
+      "source": "Water falls back to Earth's surface.",
+      "target": "पानी पृथ्वी की सतह पर वापस गिरता है।",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.2.narration",
+      "status": "translated",
+      "source": "Clouds release rain or snow when full.",
+      "target": "बादल भर जाने पर बारिश या बर्फ छोड़ते हैं।",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.3.text",
+      "status": "protected",
+      "source": "Collection",
+      "target": "Collection",
+      "protected": [
+        "Collection"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.3.note",
+      "status": "translated",
+      "source": "Water returns to bodies of water.",
+      "target": "जल निकायों में पानी लौटता है।",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.3.narration",
+      "status": "translated",
+      "source": "Rain flows into rivers, lakes, and oceans.",
+      "target": "वर्षा नदियों, झीलों और महासागरों में बहती है।",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.heading",
+      "status": "translated",
+      "source": "Water Cycle Process",
+      "target": "जल चक्र प्रक्रिया",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.narration",
+      "status": "translated",
+      "source": "Water moves in a cycle: evaporation, condensation, precipitation, and collection. This keeps Earth’s water balanced.",
+      "target": "पानी एक चक्र में चलता हैः evaporation, condensation, precipitation, और collection। यह पृथ्वी के पानी को संतुलित रखता है।",
+      "protected": [
+        "evaporation",
+        "condensation",
+        "precipitation",
+        "collection"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.0.text",
+      "status": "protected",
+      "source": "Evaporation",
+      "target": "Evaporation",
+      "protected": [
+        "Evaporation"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.0.note",
+      "status": "translated",
+      "source": "Water rises into the atmosphere.",
+      "target": "पानी वायुमंडल में उगता है।",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.0.narration",
+      "status": "translated",
+      "source": "Sun heats surface water, turning it into vapor.",
+      "target": "सूर्य सतह के पानी को गर्म करता है, इसे वाष्प में बदल देता है।",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.1.text",
+      "status": "protected",
+      "source": "Condensation",
+      "target": "Condensation",
+      "protected": [
+        "Condensation"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.1.note",
+      "status": "translated",
+      "source": "Clouds grow as droplets combine.",
+      "target": "जैसे-जैसे बूंदें जुड़ती हैं, बादल बढ़ते हैं।",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.1.narration",
+      "status": "translated",
+      "source": "Vapor cools and forms tiny droplets in clouds.",
+      "target": "वाष्प ठंडा हो जाता है और बादलों में छोटी बूंदों का निर्माण करता है।",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.2.text",
+      "status": "protected",
+      "source": "Precipitation",
+      "target": "Precipitation",
+      "protected": [
+        "Precipitation"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.2.note",
+      "status": "translated",
+      "source": "Water returns to land and oceans.",
+      "target": "जल भूमि और महासागरों में लौटता है।",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.2.narration",
+      "status": "translated",
+      "source": "When clouds get heavy, water falls as rain or snow.",
+      "target": "जब बादल भारी हो जाते हैं, तो पानी बारिश या बर्फ के रूप में गिरता है।",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.3.text",
+      "status": "protected",
+      "source": "Collection",
+      "target": "Collection",
+      "protected": [
+        "Collection"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.3.note",
+      "status": "translated",
+      "source": "The cycle repeats continuously.",
+      "target": "यह चक्र लगातार दोहराता रहता है।",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.3.narration",
+      "status": "translated",
+      "source": "Water flows into rivers, lakes, and back to oceans.",
+      "target": "पानी नदियों, झीलों और वापस महासागरों में बहता है।",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    }
+  ],
+  "warnings": [
+    "scenes.1.steps.0.note: localized length 46 exceeds display guide 32",
+    "scenes.1.steps.1.note: localized length 48 exceeds display guide 32",
+    "scenes.1.steps.2.note: localized length 36 exceeds display guide 32",
+    "scenes.2.steps.1.note: localized length 44 exceeds display guide 32",
+    "scenes.2.steps.2.note: localized length 34 exceeds display guide 32"
+  ],
+  "stats": {
+    "unique_strings": 21,
+    "cache_hits": 0,
+    "batches": 2,
+    "model_strings": 21,
+    "restore_retries": 0,
+    "script_retries": 0,
+    "script_failures": 0,
+    "protected_fields": 8,
+    "eligible_narration_beats": 11,
+    "english_narration_beats": 0,
+    "fallback_fields": 0,
+    "narration_char_expansion": 1.2046109510086456,
+    "narration_word_expansion": 1.5044247787610618,
+    "elapsed_ms": 7161
+  },
+  "metadata": {
+    "source_plan": "3f515c22d9f75736251e3a7f6b8912d48b2fcdb306055458977918ad9842d7a0",
+    "target_tag": "hin_Deva",
+    "language": "hi",
+    "model": "indictrans2-en-indic-dist-200M:081d3659565d59da9880a9c893c600aa693372984507ac2b3b13ddbf68ef09a6",
+    "version": "localize-v1",
+    "mask_version": "spans-v1-id101",
+    "variant": "hi-female-1",
+    "lesson_id": "c1f63f0ed69b"
+  },
+  "cached": false
+}

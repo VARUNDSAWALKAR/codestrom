@@ -3,7 +3,7 @@
 Each operation is a thin bridge: it builds the typed context the existing stage function expects
 from the PipelineRun, calls it, and maps failures to PipelineError codes. Nothing here loads a
 model at import time; Kokoro loads on the first uncached voice beat and is reused afterwards.
-Production is English-only until translation and multilingual voices are integrated.
+Hindi localization is available only with explicit language approval; Kannada voice is deferred.
 """
 
 from __future__ import annotations
@@ -16,8 +16,11 @@ from threading import Event, Lock, Thread
 
 import httpx
 
-from .config import Settings
+from .config import Settings, get_settings
 from .contracts import LessonRequest
+from .language_policy import approved_languages
+from .localize import localize_lesson
+from .localize.translate import localization_artifact_valid
 from .export.ffmpeg import validate_mp4
 from .export.render import ExportContext, check_inputs, props_sha1, render_props, run_export
 from .jobs import PipelineError
@@ -26,13 +29,15 @@ from .planner.ollama_client import PlanRequest, plan_lesson
 from .planner.schema import Lesson
 from .speech.engines import NarrationContext, run_voice
 from .speech.kokoro_engine import KokoroEngine
+from .speech.parler_engine import get_parler_engine
 from .timeline.build import run_timeline
 
 logger = logging.getLogger(__name__)
 PROGRESS_INTERVAL = 0.5  # seconds between progress publishes while the exporter runs
 PROBE_TTL = 5.0  # seconds a planner-availability answer is reused by GET /api/health
-LANGUAGE_MESSAGE = ("Hindi/Kannada need translation and voice integration that is not connected yet; "
-                    "only English ('en') lessons are available")
+LANGUAGE_MESSAGE = ("Hindi requires explicit approval via APPROVED_LANGUAGES=en,hi after human review; "
+                    "Kannada requires separate human approval after Task 7 review (APPROVED_LANGUAGES=en,hi,kn) "
+                    "and ENABLE_PARLER=1")
 
 
 class ProductionKokoro(KokoroEngine):
@@ -81,10 +86,42 @@ def unload_planner(settings: Settings, model: str, transport: httpx.BaseTranspor
         client.post("/api/chat", json={"model": model, "keep_alive": 0}).raise_for_status()
 
 
+def mp4_structure_complete(path: Path) -> bool:
+    """True when the top-level MP4 boxes tile the file exactly and include moov and mdat.
+
+    ffprobe alone accepts a truncated faststart file (moov sits first, so the duration still reads
+    correctly), hence this extra structural check; it cannot detect corruption inside intact boxes."""
+    size = path.stat().st_size
+    position, kinds = 0, set()
+    with path.open("rb") as stream:
+        while position < size:
+            stream.seek(position)
+            header = stream.read(16)
+            if len(header) < 8:
+                return False
+            length, kind = int.from_bytes(header[:4], "big"), header[4:8]
+            if length == 1:
+                if len(header) < 16:
+                    return False
+                length = int.from_bytes(header[8:16], "big")
+            elif length == 0:
+                length = size - position
+            if length < 8 or position + length > size:
+                return False
+            kinds.add(kind)
+            position += length
+    return {b"moov", b"mdat"} <= kinds
+
+
 def export_complete(folder: Path, settings: Settings) -> bool:
-    """A finished export has valid inputs, a props.sha1 matching the current props, and a probe-valid MP4."""
+    """A finished export has valid inputs, a props.sha1 matching the current props, an MP4 whose boxes
+    are complete, and an ffprobe-valid MP4."""
     try:
+        if not mp4_structure_complete(folder / "lesson.mp4"):
+            return False
         lesson, timeline = check_inputs(folder)
+        if lesson.language != "en" and not localization_artifact_valid(folder, settings):
+            return False
         sha = folder / "props.sha1"
         if not sha.is_file() or sha.read_text(encoding="ascii", errors="replace").strip() != props_sha1(
                 render_props(lesson, timeline, settings)):
@@ -95,13 +132,13 @@ def export_complete(folder: Path, settings: Settings) -> bool:
         return False
 
 
-def precheck(request: LessonRequest) -> None:
-    if request.language != "en":
+def precheck(request: LessonRequest, settings: Settings | None = None) -> None:
+    if request.language not in approved_languages(settings or get_settings()):
         raise PipelineError("language_unavailable", LANGUAGE_MESSAGE)
 
 
 def plan(run: PipelineRun) -> None:
-    request = PlanRequest(topic=run.request.topic, level=run.request.level, language=run.request.language,
+    request = PlanRequest(topic=run.request.topic, level=run.request.level, language="en",
                           target_seconds=run.request.target_seconds, subject=run.request.subject)
     result = plan_lesson(request, run.settings)
     if result.error is not None or result.lesson is None:
@@ -129,10 +166,30 @@ def validate(run: PipelineRun) -> None:
 
 
 def localize(run: PipelineRun) -> None:
-    raise PipelineError("localize_unavailable", LANGUAGE_MESSAGE)
+    if run.lesson is None:
+        raise PipelineError("translate_failed", "Translation requires a validated canonical English lesson")
+    try:
+        result = localize_lesson(run.lesson, run.language, run.settings,
+                                 voice=run.request.voice, speed=run.request.speed)
+    except Exception as exc:
+        raise PipelineError("translate_failed", str(exc)) from exc
+    run.data["localization"] = result
+    for warning in result.warnings:
+        run.warn(warning)
+    if result.english_fraction > run.settings.localize_max_english_fraction:
+        raise PipelineError("translate_incomplete",
+                            f"English fallback narration fraction {result.english_fraction:.3f} exceeds "
+                            f"{run.settings.localize_max_english_fraction:.3f}; review localization.json diagnostics")
+    run.lesson = result.lesson
+    note = (f"{result.localization_quality}; English fallback {result.english_fraction:.3f}; "
+            f"{result.stats['cache_hits']}/{result.stats['unique_strings']} strings cached")
+    if result.cached:
+        run.cached(f"Localized lesson cache hit; {result.localization_quality}; English fallback {result.english_fraction:.3f}")
+    else:
+        run.note(note)
 
 
-def production_ops(on_tts_loaded: Callable[[], None] | None = None) -> PipelineOps:
+def production_ops(on_tts_loaded: Callable[[], None] | None = None, *, settings: Settings | None = None) -> PipelineOps:
     """Build the production operations. One Kokoro engine is created lazily and reused by every job."""
     engines: dict[Path, ProductionKokoro] = {}
     lock = Lock()
@@ -154,9 +211,12 @@ def production_ops(on_tts_loaded: Callable[[], None] | None = None) -> PipelineO
         assert run.lesson is not None
         context = NarrationContext(job=run.ctx.job, language=run.language, request=run.request,
                                    lesson=run.lesson, settings=run.settings, cache=run.cache,
-                                   engine=engine_for(run.settings), gender=run.request.voice, speed=run.request.speed)
+                                   engine=get_parler_engine(run.settings) if run.language == "kn" else engine_for(run.settings),
+                                   gender=run.request.voice, speed=run.request.speed)
         try:
             run_voice(context)
+        except PipelineError:
+            raise
         except Exception as exc:
             raise PipelineError("tts_failed", str(exc)) from exc
         run.data["narration"] = context
@@ -173,6 +233,11 @@ def production_ops(on_tts_loaded: Callable[[], None] | None = None) -> PipelineO
         run.preview_ready()
 
     def export(run: PipelineRun) -> None:
+        if (run.folder / "lesson.mp4").is_file() and not export_complete(run.folder, run.settings):
+            # The exporter would treat a fingerprint-matching MP4 as cached even if it is truncated;
+            # dropping its cache marker forces a real re-render (the exporter overwrites the MP4).
+            (run.folder / "props.sha1").unlink(missing_ok=True)
+            run.warn("Existing lesson.mp4 failed verification; re-rendering")
         context = ExportContext(job=run.ctx.job, language=run.language, request=run.request,
                                 settings=run.settings, cache=run.cache)
         stop = Event()
@@ -192,4 +257,5 @@ def production_ops(on_tts_loaded: Callable[[], None] | None = None) -> PipelineO
             thread.join()
 
     return PipelineOps(plan=plan, localize=localize, voice=voice, timeline=timeline, export=export,
-                       validate=validate, precheck=precheck, export_complete=export_complete, mock=False)
+                       validate=validate, precheck=lambda request: precheck(request, settings),
+                       export_complete=export_complete, mock=False)

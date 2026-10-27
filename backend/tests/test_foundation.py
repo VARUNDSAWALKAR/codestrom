@@ -60,7 +60,8 @@ class FoundationTests(unittest.TestCase):
             self.assertFalse(result.ok)
             self.assertTrue(result.offline)
             self.assertEqual(result.device_profile, "cpu")
-            self.assertFalse(result.models.tts_parler.enabled)
+            self.assertTrue(result.models.tts_parler.enabled)  # Task 7 supports CPU; still lazy/unloaded
+            self.assertFalse(result.models.tts_parler.ready)
             self.assertEqual(result.queue_length, 0)
             configuration = client.get("/api/config")
             self.assertEqual(configuration.status_code, 200)
@@ -68,7 +69,7 @@ class FoundationTests(unittest.TestCase):
             self.assertEqual(config.target_seconds.model_dump(), {"min": 30, "max": 90, "step": 15, "default": 60})
             self.assertEqual([x.code for x in config.languages[:3]], ["en", "hi", "kn"])
             self.assertEqual(config.languages[2].native, "ಕನ್ನಡ")
-            self.assertTrue(all(not x.available for x in config.languages))
+            self.assertEqual([x.code for x in config.languages if x.available], ["en"])  # production is English-only
             media = application.state.cache.lesson_dir("012345abcdef", "en-female-1")
             media.mkdir(parents=True)
             (media / "lesson.srt").write_text("sample captions", encoding="utf-8")

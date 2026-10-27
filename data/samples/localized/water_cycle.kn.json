@@ -1,0 +1,135 @@
+{
+  "schema_version": "1.0",
+  "lesson_id": "c1f63f0ed69b",
+  "topic": "Water Cycle",
+  "level": "beginner",
+  "target_seconds": 60,
+  "language": "kn",
+  "source": "llm",
+  "model": "qwen3:4b-instruct-2507-q4_K_M",
+  "prompt_version": "p12-task4",
+  "warnings": [
+    "scenes.1.steps.0.note: localized length 41 exceeds display guide 32",
+    "scenes.1.steps.1.note: localized length 42 exceeds display guide 32",
+    "scenes.1.steps.2.note: localized length 36 exceeds display guide 32",
+    "scenes.1.steps.3.note: localized length 36 exceeds display guide 32",
+    "scenes.2.steps.1.note: localized length 38 exceeds display guide 32",
+    "scenes.2.steps.2.note: localized length 36 exceeds display guide 32",
+    "scenes.2.steps.3.note: localized length 41 exceeds display guide 32"
+  ],
+  "title": "ನೀರಿನ ಚಕ್ರ",
+  "subject": "biology",
+  "keep_terms": [
+    "evaporation",
+    "condensation",
+    "precipitation",
+    "collection"
+  ],
+  "scenes": [
+    {
+      "id": "s1",
+      "type": "title_card",
+      "heading": "ನೀರಿನ ಚಕ್ರ",
+      "narration": "ನೀರಿನ ಚಕ್ರವು ಭೂಮಿಯ ವ್ಯವಸ್ಥೆಗಳ ಮೂಲಕ ನೀರು ಹೇಗೆ ಚಲಿಸುತ್ತದೆ ಎಂಬುದನ್ನು ತೋರಿಸುತ್ತದೆ. ಇದು evaporation ನಿಂದ ಪ್ರಾರಂಭವಾಗಿ collection ನೊಂದಿಗೆ ಕೊನೆಗೊಳ್ಳುತ್ತದೆ.",
+      "steps": [],
+      "subtitle": "",
+      "code": "",
+      "code_language": "other",
+      "layout": "flow",
+      "center": "",
+      "expression": ""
+    },
+    {
+      "id": "s2",
+      "type": "diagram",
+      "heading": "ಶೀರ್ಷಿಕೆ ಕಾರ್ಡ್",
+      "narration": "ನೀರಿನ ಚಕ್ರವು ಭೂಮಿಯ ವ್ಯವಸ್ಥೆಗಳ ಮೂಲಕ ನೀರು ಹೇಗೆ ಚಲಿಸುತ್ತದೆ ಎಂಬುದನ್ನು ತೋರಿಸುತ್ತದೆ. ಇದು evaporation ನಿಂದ ಪ್ರಾರಂಭವಾಗಿ collection ನೊಂದಿಗೆ ಕೊನೆಗೊಳ್ಳುತ್ತದೆ.",
+      "steps": [
+        {
+          "text": "Evaporation",
+          "narration": "ಸೂರ್ಯನು ಸಾಗರಗಳು ಮತ್ತು ಸರೋವರಗಳ ನೀರನ್ನು ಬಿಸಿಮಾಡುತ್ತಾನೆ.",
+          "note": "ನೀರು ಆವಿಯಾಗಿ ಮಾರ್ಪಟ್ಟು ಗಾಳಿಯಾಗಿ ಏರುತ್ತದೆ.",
+          "lines": [],
+          "output": "",
+          "in_expression": true
+        },
+        {
+          "text": "Condensation",
+          "narration": "ನೀರಿನ ಆವಿಯು ತಂಪಾಗುತ್ತದೆ ಮತ್ತು ಮೋಡಗಳನ್ನು ರೂಪಿಸುತ್ತದೆ.",
+          "note": "ಆವಿಯು ಆಕಾಶದಲ್ಲಿ ಸಣ್ಣ ಹನಿಗಳಾಗಿ ಬದಲಾಗುತ್ತದೆ.",
+          "lines": [],
+          "output": "",
+          "in_expression": true
+        },
+        {
+          "text": "Precipitation",
+          "narration": "ಮೋಡಗಳು ತುಂಬಿದಾಗ ಮಳೆ ಅಥವಾ ಹಿಮವನ್ನು ಬಿಡುತ್ತವೆ.",
+          "note": "ನೀರು ಮತ್ತೆ ಭೂಮಿಯ ಮೇಲ್ಮೈಗೆ ಬೀಳುತ್ತದೆ.",
+          "lines": [],
+          "output": "",
+          "in_expression": true
+        },
+        {
+          "text": "Collection",
+          "narration": "ಮಳೆ ನದಿಗಳು, ಸರೋವರಗಳು ಮತ್ತು ಸಾಗರಗಳಿಗೆ ಹರಿಯುತ್ತದೆ.",
+          "note": "ನೀರು ಮತ್ತೆ ನೀರಿನ ಮೂಲಗಳಿಗೆ ಮರಳುತ್ತದೆ.",
+          "lines": [],
+          "output": "",
+          "in_expression": true
+        }
+      ],
+      "subtitle": "",
+      "code": "",
+      "code_language": "other",
+      "layout": "flow",
+      "center": "",
+      "expression": ""
+    },
+    {
+      "id": "s3",
+      "type": "diagram",
+      "heading": "ನೀರಿನ ಚಕ್ರದ ಪ್ರಕ್ರಿಯೆ",
+      "narration": "ನೀರು ಒಂದು ಚಕ್ರದಲ್ಲಿ ಚಲಿಸುತ್ತದೆಃ evaporation, condensation, precipitation, ಮತ್ತು collection. ಇದು ಭೂಮಿಯ ನೀರನ್ನು ಸಮತೋಲನಗೊಳಿಸುತ್ತದೆ.",
+      "steps": [
+        {
+          "text": "Evaporation",
+          "narration": "ಸೂರ್ಯನು ಮೇಲ್ಮೈ ನೀರನ್ನು ಬಿಸಿಮಾಡುತ್ತಾನೆ, ಅದನ್ನು ಆವಿಯಾಗಿ ಪರಿವರ್ತಿಸುತ್ತಾನೆ.",
+          "note": "ನೀರು ವಾತಾವರಣಕ್ಕೆ ಏರುತ್ತದೆ.",
+          "lines": [],
+          "output": "",
+          "in_expression": true
+        },
+        {
+          "text": "Condensation",
+          "narration": "ಆವಿಯು ತಂಪಾಗುತ್ತದೆ ಮತ್ತು ಮೋಡಗಳಲ್ಲಿ ಸಣ್ಣ ಹನಿಗಳನ್ನು ರೂಪಿಸುತ್ತದೆ.",
+          "note": "ಹನಿಗಳು ಒಗ್ಗೂಡಿದಂತೆ ಮೋಡಗಳು ಬೆಳೆಯುತ್ತವೆ.",
+          "lines": [],
+          "output": "",
+          "in_expression": true
+        },
+        {
+          "text": "Precipitation",
+          "narration": "ಮೋಡಗಳು ಭಾರವಾದಾಗ, ನೀರು ಮಳೆ ಅಥವಾ ಹಿಮವಾಗಿ ಬೀಳುತ್ತದೆ.",
+          "note": "ನೀರು ಭೂಮಿ ಮತ್ತು ಸಾಗರಗಳಿಗೆ ಮರಳುತ್ತದೆ.",
+          "lines": [],
+          "output": "",
+          "in_expression": true
+        },
+        {
+          "text": "Collection",
+          "narration": "ನೀರು ನದಿಗಳು, ಸರೋವರಗಳಿಗೆ ಹರಿಯುತ್ತದೆ ಮತ್ತು ಮತ್ತೆ ಸಾಗರಗಳಿಗೆ ಹರಿಯುತ್ತದೆ.",
+          "note": "ಈ ಚಕ್ರವು ನಿರಂತರವಾಗಿ ಪುನರಾವರ್ತನೆಯಾಗುತ್ತದೆ.",
+          "lines": [],
+          "output": "",
+          "in_expression": true
+        }
+      ],
+      "subtitle": "",
+      "code": "",
+      "code_language": "other",
+      "layout": "flow",
+      "center": "",
+      "expression": ""
+    }
+  ]
+}

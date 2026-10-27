@@ -3,6 +3,11 @@
 Build file · Translation, term masking, voices, speech text, captions and fonts per language. Code: `backend/app/localize/`, `backend/app/speech/`, `web/src/lesson/fonts.ts`.
 Stage order and caching: `pipeline.md` §4–6.
 
+Task 7 current status: translation supports six Indic tags. English/Hindi keep
+Kokoro; Kannada has a lazy local Indic Parler-TTS adapter for CPU/configured CUDA.
+Code approval defaults to en; this deployment has en,hi after owner approval on
+27 October 2026. Kannada remains separately unapproved. Bonus voice rows are plans.
+
 ---
 
 ## 1. Language table
@@ -19,19 +24,43 @@ Parler voices are the model card's recommended speakers. Tamil has no recommende
 A language shows in the UI only if its engine for the current profile passed its listening test (`test-log.md`).
 
 ## 2. Translation (IndicTrans2 en→Indic dist-200M)
-Model folder: `MODELS_DIR\indictrans2` (the files sit directly in it). **Verified offline on the demo laptop, 27 Oct** (`test-log.md` T2).
-```python
-tok = AutoTokenizer.from_pretrained(path, trust_remote_code=True)
-model = AutoModelForSeq2SeqLM.from_pretrained(path, trust_remote_code=True)   # .to("cuda").half() on gpu
-ip = IndicProcessor(inference=True)        # from IndicTransToolkit import IndicProcessor  (v1.1.1)
-batch = ip.preprocess_batch(texts, src_lang="eng_Latn", tgt_lang=tag)
-enc = tok(batch, truncation=True, padding="longest", max_length=256, return_tensors="pt")
-out = model.generate(**enc, max_length=256, num_beams=4)   # num_beams=2 on cpu
-result = ip.postprocess_batch(tok.batch_decode(out, skip_special_tokens=True), lang=tag)
-```
-- Batch size 16. All strings of one lesson go in one call.
-- Skip a string that has no real words outside protected spans (§3), e.g. `i = 0`, `F = m × a`.
-- Cache: `cache/translations/<lang>.json`, key `sha1(text + model)`.
+Public interface: `localize_lesson(lesson, lang, settings, translator=None)`;
+optional keyword `voice`/`speed` select variant paths. Returns a validated
+`LocalizeResult` with lesson, quality, English fallback fraction, diagnostics,
+warnings, statistics and provenance. The fake translator protocol exposes
+`identity` and `translate(texts, target_tag, num_beams=...)` for tests.
+
+Model folder: configured `INDICTRANS_MODEL`, default `MODELS_DIR/indictrans2`.
+Lazy singleton per local path/device profile; existing local Python implementation
+is trusted, `local_files_only=True`, offline flags forced before imports. CPU
+float32, GPU float16, device from config; Transformers remains **4.46.1**.
+Toolkit `IndicProcessor` handles eng_Latn → the target tag. Source overflow beyond
+256 tokens fails explicitly; protected content is never silently truncated.
+
+- Deduplicate source strings and infer in chunks of 16, CPU beams 2; script retry beams 5.
+- Translate only lesson title; scene heading/narration/subtitle/center; step
+  text/note/narration. Code/language/layout/expression/lines/output/keep_terms,
+  IDs and structure are preserved. Unknown future string fields warn.
+- Translate prose around expressions; skip only fields with no prose outside
+  protected spans. Localized display-length overages warn without truncation.
+- String cache `cache/translations/<lang>.json` uses SHA-256 of masked source,
+  target tag, model asset identity, localization version and masking fingerprint.
+  Entries include a checksum and are rechecked for script/protection on reuse.
+- Variant `lesson.json` plus checked `localization.json` commit record include
+  source-plan hash, language/tag, model, versions, variant, quality and diagnostics.
+  Both are atomic replacements; missing/stale/mismatched records are rejected.
+  No localization metadata is inserted into Lesson v1.
+- `LOCALIZE_MAX_ENGLISH_FRACTION=0.2`: production rejects excessive English
+  fallback at `translate`, before TTS. Denominator is eligible narration beats;
+  code-only beats and protected Latin technical terms are excluded. Quality is
+  `partial` if any field falls back, even when narration fraction is acceptable.
+- LOW_RAM release is synchronized and follows persisted caches/artifacts. Health
+  reports readiness only while successful initialization is resident.
+
+CLI (translation only, no TTS/MP4):
+`python -m backend.localize_lesson --lesson c1f63f0ed69b --lang hi --show 6`.
+An English plan path may replace the ID; `--lang kn` produces Kannada fixtures.
+CLI returns 2 for an English fallback fraction exceeding the configured ceiling.
 
 **Script check** after each string: at least 70% of its letters (outside protected spans) must be in the target script's Unicode block (Devanagari `0900–097F`, Bengali `0980–09FF`, Tamil `0B80–0BFF`, Telugu `0C00–0C7F`, Kannada `0C80–0CFF`). Fail → retranslate with `num_beams=5`; fail again → keep English for that string and add a warning.
 
@@ -45,11 +74,22 @@ The PS tip: keep code, numbers and technical terms in English where students wou
 2. **Replace** each span with a numbered placeholder.
 3. **Translate.**
 4. **Restore** the original English text into each placeholder.
-5. **Check:** every placeholder appears exactly once and none is left over. If not, translate that string again without masking and log a warning.
+5. **Check:** every placeholder appears exactly once; none is lost, duplicated or
+   left over. Restoration failure gets one unmasked retry; accept it only with
+   protected spans verbatim and a passing target-script check. Otherwise retain
+   the English field and record a structured reason. Script failure gets one
+   beam-5 retry; continued failure also retains English with diagnostics.
 
-**Placeholder format: decided by test T7** (`test-cases.md`) before translation is built. Candidates in order: `<ID101>`-style (IndicProcessor's own placeholder style, numbered from 101), then `[T1]`, then no masking. Pick the first that survives 10 of 10 round trips.
+**T7 measured, 27 Oct 2026:** `<ID101>` survived hi 10/10, kn 9/10;
+`[T1]` hi 9/10, kn 4/10; unmasked exact technical-term survival 0/10 each.
+No format passed 10/10 in both languages. Use ID placeholders with mandatory
+checks/fallback; never assume unconditional survival. Kannada's failed ID was
+transliterated as `<ಐಡಿ101>`. Full inputs/outputs: `scratch/task6/t7.json`.
+Units (including plain SI units), identifiers, numbers and sub/superscript tokens
+are protected; code-derived identifiers and formula fragments join keep_terms.
 
-What the test on 27 Oct showed: unmasked, IndicTrans2 already wrote "loop" as लूप (spoken English in Devanagari), which is fine. Masking matters for words it would otherwise *translate*, e.g. "range" → सीमा ("limit"), which would be wrong in a lesson.
+Unmasked `range` became `सीमा` in Hindi and `ವ್ಯಾಪ್ತಿ` in Kannada. Technical
+terms must stay exact, even when transliteration would sound similar.
 
 ## 4. Speech text (`speech/textnorm.py`)
 Input: the localized narration for one beat.
@@ -66,25 +106,46 @@ audio, sr = k.create(text, voice="hf_alpha", speed=1.0, lang="hi")   # sr = 2400
 ```
 | Voice | Gender | Used for |
 |---|---|---|
-| `hf_alpha` | female | en (Indian-accented), hi, and kn/ta/te/bn/mr on the cpu profile |
+| `hf_alpha` | female | en (Indian-accented), approved hi |
 | `hm_omega` | male | same |
-`speed` = the learner's speed (0.85 / 1.0 / 1.15). Load once at startup; one call per beat.
+`speed` = the learner's speed (0.85 / 1.0 / 1.15). Load lazily once; one call per beat.
 
-### Indic Parler-TTS (GPU profile)
-```python
-model = ParlerTTSForConditionalGeneration.from_pretrained(path, torch_dtype=torch.bfloat16).to("cuda")
-tok = AutoTokenizer.from_pretrained(path)
-desc_tok = AutoTokenizer.from_pretrained(model.config.text_encoder._name_or_path)   # flan-t5 tokenizer
-```
-- **Offline trap:** `desc_tok` loads the flan-t5 tokenizer by name from the Hugging Face cache. If T4 fails offline on that line, run it once online to cache it.
-- Description (fill speaker and pace): *"{speaker} speaks at a {pace} pace with a clear, close-sounding voice. The recording is very clear audio with no background noise."* Pace: 0.85 → "slightly slow", 1.0 → "moderate", 1.15 → "slightly fast".
-- Batch every beat of a lesson in one `generate` (same description repeated, prompts padded). Use `return_dict_in_generate=True` and trim each output to its `audios_length`.
-- `torch.manual_seed(7)` before generating, so the voice stays steady.
-- Output rate `model.config.sampling_rate` (44.1 kHz) → resampled to 24 kHz.
-- If bf16 sounds wrong, use fp32 and unload the LLM first (`architecture.md` §5).
+### Indic Parler-TTS — implemented Kannada adapter (Task 7)
+
+AI4Bharat/Hugging Face Indic Parler-TTS, Apache-2.0. Prior verified experiment
+identifies revision `660bc53c64ae83150613264111708a0465211237`; actual cache identity
+hashes local assets/package versions. PARLER_MODEL defaults to
+MODELS_DIR/indic-parler-tts. PARLER_DESCRIPTION_TOKENIZER defaults to the separate
+MODELS_DIR/parler-description-tokenizer; never fetch the remote config name.
+
+- Local-only lazy model/tokenizers; no heavy load at import/en/hi requests.
+  CPU float32 / PARLER_CPU_THREADS=4; configured CUDA uses bfloat16.
+  Transformers remains 4.46.1; no model/package changes.
+- Female→Anu, male→Suresh are distinct named controls recommended in the local
+  model card. Unknown speakers fail; naturalness/pronunciation still need review.
+- One clip per beat; sample=True, temperature 1, top_k 50, top_p 1, one beam,
+  cache=True, isolated per-beat PARLER_SEED=7. PARLER_MAX_NEW_TOKENS=2400;
+  near-cap output is an error, never silently truncated speech.
+- Fixed moderate-pace description; requested speed uses deterministic FFmpeg
+  atempo. kn-speech-v1 only applies established speech markup cleanup. Original
+  text/captions/code and Latin technical terms remain intact; no guessed phonetics.
+- Raw 44,100 Hz is normalized/resampled to validated 24,000 Hz mono PCM16.
+  Silent/nonfinite/corrupt/wrong-format audio is rejected.
+- Existing audio_key convention is extended for Kannada with canonical lesson
+  ID, original/normalized narration, kn/Parler, named speaker, speed, asset/package/
+  generation/normalization versions. .kn.json records validate SHA-256, spec,
+  sample rate and measured samples before reporting cached success.
+- Shared reentrant lock covers initialization, inference/RNG, sessions and release.
+  LOW_RAM releases after clip publication and waits for other active users.
+- CPU feasibility: load 6.258 s; Anu native 27.719 s synthesis / 6.293 s audio
+  (RTF 4.405), Suresh technical 18.503 / 4.807 s (RTF 3.849). Peak sampled RSS
+  6826.62 MiB. Budget about 7 GiB plus OS/render memory; this is not an 8-GB-laptop
+  performance acceptance. Measurements and warnings: task7-status.md.
 
 ### Engine choice (`speech/engines.py`)
-`engine_for(lang, voice, profile)` follows the table in `pipeline.md` §5. On any engine error for a beat, try the other engine once.
+`run_voice` dispatches en/hi through unchanged Kokoro and kn through its separate
+adapter. No alternate-engine fallback. ENABLE_PARLER=0 removes kn capability
+even if approved. All languages retain the canonical English plan identity.
 
 ## 6. Captions
 - Text = the beat's localized narration (not the speech text), so captions keep `keep_terms` and punctuation as written.

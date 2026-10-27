@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.0",
+  "lesson_id": "d09d4030959b",
+  "topic": "Binary Search",
+  "level": "beginner",
+  "target_seconds": 60,
+  "language": "kn",
+  "source": "llm",
+  "model": "qwen3:4b-instruct-2507-q4_K_M",
+  "prompt_version": "p12-task4",
+  "warnings": [
+    "scenes.1.steps.1.text: script_check_failed; retained English",
+    "scenes.1.steps.3.text: localized length 52 exceeds display guide 40",
+    "scenes.2.steps.1.note: script_check_failed; retained English"
+  ],
+  "title": "title_card",
+  "subject": "programming",
+  "keep_terms": [
+    "sorted list",
+    "middle element",
+    "search range",
+    "index",
+    "loop"
+  ],
+  "scenes": [
+    {
+      "id": "s1",
+      "type": "title_card",
+      "heading": "ಬೈನರಿ ಹುಡುಕಾಟ",
+      "narration": "ಮಧ್ಯಮ ಚೆಕ್ಗಳು ಮತ್ತು ಸ್ಮಾರ್ಟ್ ಶ್ರೇಣಿಯ ನವೀಕರಣಗಳನ್ನು ಬಳಸಿಕೊಂಡು ಬೈನರಿ ಹುಡುಕಾಟವು sorted list ನಲ್ಲಿ ಹೇಗೆ ಮೌಲ್ಯವನ್ನು ಪರಿಣಾಮಕಾರಿಯಾಗಿ ಕಂಡುಕೊಳ್ಳುತ್ತದೆ ಎಂಬುದನ್ನು ತಿಳಿದುಕೊಳ್ಳಿ.",
+      "steps": [],
+      "subtitle": "",
+      "code": "",
+      "code_language": "other",
+      "layout": "flow",
+      "center": "",
+      "expression": ""
+    },
+    {
+      "id": "s2",
+      "type": "code_walkthrough",
+      "heading": "ಪೈಥಾನ್ನಲ್ಲಿ ಬೈನರಿ ಹುಡುಕಾಟ",
+      "narration": "ಬೈನರಿ ಹುಡುಕಾಟವು middle element ಅನ್ನು ಪರಿಶೀಲಿಸುವ ಮೂಲಕ sorted list ನಲ್ಲಿ ಮೌಲ್ಯವನ್ನು ಕಂಡುಕೊಳ್ಳುತ್ತದೆ. ಅದು ತುಂಬಾ ಕಡಿಮೆಯಿದ್ದರೆ, ನಾವು right ಅರ್ಧವನ್ನು ಹುಡುಕುತ್ತೇವೆ. ತುಂಬಾ ಹೆಚ್ಚಿದ್ದರೆ, ನಾವು left ಅನ್ನು ಹುಡುಕುತ್ತೇವೆ. ಇದು ಕಂಡುಹಿಡಿಯುವವರೆಗೆ ಅಥವಾ ಖಾಲಿಯಾಗುವವರೆಗೆ ಪುನರಾವರ್ತನೆಯಾಗುತ್ತದೆ.",
+      "steps": [
+        {
+          "text": "left, right = 0, len(arr) - 1",
+          "narration": "left ಮತ್ತು right ಪಾಯಿಂಟರ್ಗಳನ್ನು sorted list ನ ಪ್ರಾರಂಭ ಮತ್ತು ಕೊನೆಯಲ್ಲಿ ಪ್ರಾರಂಭಿಸಿ.",
+          "note": "",
+          "lines": [
+            1
+          ],
+          "output": "",
+          "in_expression": true
+        },
+        {
+          "text": "while left <= right:",
+          "narration": "Loop ಆದರೆ left right ಗಿಂತ ಕಡಿಮೆ ಅಥವಾ ಸಮನಾಗಿರುತ್ತದೆ.",
+          "note": "",
+          "lines": [
+            2
+          ],
+          "output": "",
+          "in_expression": true
+        },
+        {
+          "text": "mid = (left + right) // 2",
+          "narration": "ಮಧ್ಯದ index ಅನ್ನು ಹುಡುಕಿ ಮತ್ತು ಮೌಲ್ಯವನ್ನು target ಗೆ ಹೋಲಿಸಿ.",
+          "note": "",
+          "lines": [
+            3
+          ],
+          "output": "",
+          "in_expression": true
+        },
+        {
+          "text": "arr [mid] = = target ಆಗಿದ್ದರೆಃ mid ಅನ್ನು ಹಿಂತಿರುಗಿಸಿ",
+          "narration": "ಮಧ್ಯದಲ್ಲಿ target ಹೊಂದಿಕೆಯಾದರೆ, index ಅನ್ನು ಹಿಂತಿರುಗಿಸಿ. ಇಲ್ಲದಿದ್ದರೆ search range ಅನ್ನು ಸರಿಹೊಂದಿಸಿ.",
+          "note": "",
+          "lines": [
+            4
+          ],
+          "output": "",
+          "in_expression": true
+        }
+      ],
+      "subtitle": "",
+      "code": "def binary_search(arr, target):\n    left, right = 0, len(arr) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return -1",
+      "code_language": "python",
+      "layout": "flow",
+      "center": "",
+      "expression": ""
+    },
+    {
+      "id": "s3",
+      "type": "diagram",
+      "heading": "ಬೈನರಿ ಸರ್ಚ್ ಹೇಗೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ",
+      "narration": "ಪೂರ್ಣ ಪಟ್ಟಿಯಿಂದ ಪ್ರಾರಂಭಿಸಿ. middle element ಅನ್ನು ಆರಿಸಿ. ಅದು ಹೊಂದಿಕೆಯಾದರೆ, ಪೂರ್ಣಗೊಂಡಿದೆ. ತುಂಬಾ ಕಡಿಮೆಯಿದ್ದರೆ, right ಅರ್ಧವನ್ನು ಹುಡುಕಿ. ತುಂಬಾ ಹೆಚ್ಚಿದ್ದರೆ, left ಅರ್ಧವನ್ನು ಹುಡುಕಿ. ಕಂಡುಹಿಡಿಯುವವರೆಗೆ ಅಥವಾ ಪಟ್ಟಿ ಮುಗಿಯುವವರೆಗೆ ಪುನರಾವರ್ತಿಸಿ.",
+      "steps": [
+        {
+          "text": "ಪಟ್ಟಿಃ [1, 3, 5, 7, 9]",
+          "narration": "ಪೂರ್ಣ sorted list ನಿಂದ ಪ್ರಾರಂಭಿಸಿ.",
+          "note": "ವಿಂಗಡಿಸಬೇಕು",
+          "lines": [],
+          "output": "",
+          "in_expression": true
+        },
+        {
+          "text": "5 ಅನ್ನು ಪರಿಶೀಲಿಸಿ",
+          "narration": "middle element: 5 ಅನ್ನು ಪರಿಶೀಲಿಸಿ.",
+          "note": "5 < target? No → 5 > target? Yes",
+          "lines": [],
+          "output": "",
+          "in_expression": true
+        },
+        {
+          "text": "ಹುಡುಕಿ right ಅರ್ಧ",
+          "narration": "Target ಎಂದರೆ 7, ಆದ್ದರಿಂದ right ಅರ್ಧವನ್ನು ಹುಡುಕಿ.",
+          "note": "ಈಗ [7, 9] ಅನ್ನು ಪರಿಶೀಲಿಸಿ.",
+          "lines": [],
+          "output": "",
+          "in_expression": true
+        },
+        {
+          "text": "8 → not ಕಂಡುಬಂದಿದೆ ಎಂಬುದನ್ನು ಪರಿಶೀಲಿಸಿ",
+          "narration": "ಹೊಸ ಮಧ್ಯಭಾಗಃ 8 → not ಕಂಡುಬಂದಿದೆ. left ಅರ್ಧವನ್ನು ಹುಡುಕಿ.",
+          "note": "ಈಗ [7] ಅನ್ನು ಪರಿಶೀಲಿಸಿ.",
+          "lines": [],
+          "output": "",
+          "in_expression": true
+        }
+      ],
+      "subtitle": "",
+      "code": "",
+      "code_language": "other",
+      "layout": "flow",
+      "center": "",
+      "expression": ""
+    }
+  ]
+}

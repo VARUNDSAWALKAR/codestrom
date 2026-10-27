@@ -229,15 +229,33 @@ class SelectionAndLanguageTests(Harness):
                 response = self.client.post("/api/lessons", json={**BODY, "language": language})
                 self.assertEqual(response.status_code, 422)
                 self.assertEqual(response.json()["error"]["code"], "language_unavailable")
+        bonus = self.client.post("/api/lessons", json={**BODY, "language": "ta"}).json()["error"]["message"]
+        self.assertNotIn("'hi'", bonus)  # must not suggest languages production rejects
         hindi = self.client.post("/api/lessons", json={**BODY, "language": "kn"}).json()["error"]["message"]
-        self.assertIn("Hindi/Kannada need translation and voice integration that is not connected yet", hindi)
+        self.assertIn("APPROVED_LANGUAGES=en,hi", hindi)
+        self.assertIn("Task 7", hindi)
         self.assertEqual(self.events, [])  # rejected before any job ran
 
-    def test_localize_refuses_instead_of_relabelling(self) -> None:
-        run = type("Run", (), {})()
+    def test_config_reports_what_the_pipeline_accepts(self) -> None:
+        config = self.client.get("/api/config").json()
+        available = {x["code"]: x["available"] for x in config["languages"]}
+        self.assertEqual(available, {"en": True, "hi": False, "kn": False, "ta": False, "te": False, "bn": False, "mr": False})
+        self.assertEqual([x["tier"] for x in config["languages"]][:3], ["core"] * 3)  # tier is unchanged
+        for code in ("hi", "kn"):  # a language reported unavailable is also refused by POST
+            refused = self.client.post("/api/lessons", json={**BODY, "language": code})
+            self.assertEqual((refused.status_code, refused.json()["error"]["code"]), (422, "language_unavailable"))
+        mock_settings = Settings.model_validate({**self.settings.model_dump(), "mock_pipeline": True})
+        with TestClient(create_app(mock_settings)) as mock_client:
+            mocked = {x["code"]: x["available"] for x in mock_client.get("/api/config").json()["languages"]}
+            self.assertEqual(mocked, {"en": True, "hi": True, "kn": True, "ta": False, "te": False, "bn": False, "mr": False})
+            self.assertEqual(mock_client.post("/api/lessons", json={"topic": "Water Cycle", "language": "kn"}).status_code, 202)
+            self.assertEqual(mock_client.post("/api/lessons", json={"topic": "Water Cycle", "language": "ta"}).status_code, 422)
+
+    def test_localize_requires_a_validated_plan(self) -> None:
+        run = type("Run", (), {"lesson": None})()
         with self.assertRaises(pipeline_ops.PipelineError) as raised:
             pipeline_ops.localize(run)
-        self.assertEqual(raised.exception.code, "localize_unavailable")
+        self.assertEqual(raised.exception.code, "translate_failed")
 
 
 class PlanAndIdentityTests(Harness):
@@ -409,6 +427,47 @@ class LowRamOffTests(Harness):
         _, job = self.run_job()
         self.assertEqual(job["status"], "done")
         self.assertNotIn("unload", self.events)
+
+
+def box(kind: bytes, payload: bytes) -> bytes:
+    return (8 + len(payload)).to_bytes(4, "big") + kind + payload
+
+
+class Mp4StructureTests(Harness):
+    """Regression (Task 5C): a truncated faststart MP4 passed ffprobe, so it counted as a finished export."""
+
+    def test_structure_check_rejects_truncation(self) -> None:
+        good = box(b"ftyp", b"isom0000") + box(b"moov", b"m" * 50) + box(b"free", b"") + box(b"mdat", b"d" * 5000)
+        path = Path(self.temp.name) / "x.mp4"
+        path.write_bytes(good)
+        self.assertTrue(pipeline_ops.mp4_structure_complete(path))
+        path.write_bytes(good[: len(good) // 2])  # moov survives, mdat is cut short
+        self.assertFalse(pipeline_ops.mp4_structure_complete(path))
+        path.write_bytes(good[:-3])
+        self.assertFalse(pipeline_ops.mp4_structure_complete(path))
+        path.write_bytes(box(b"ftyp", b"isom0000") + box(b"mdat", b"d" * 20))  # no moov
+        self.assertFalse(pipeline_ops.mp4_structure_complete(path))
+        path.write_bytes(b"")
+        self.assertFalse(pipeline_ops.mp4_structure_complete(path))
+
+    def test_export_drops_cache_marker_of_a_damaged_mp4(self) -> None:
+        markers: list[bool] = []
+
+        def exporter(ctx):
+            markers.append((ctx.cache.lesson_dir(ctx.job.lesson_id, ctx.job.variant) / "props.sha1").exists())
+            return self.fake_run_export(ctx)
+
+        self.stack.enter_context(patch.object(pipeline_ops, "run_export", exporter))
+        accepted, _ = self.run_job()
+        folder = self.client.app.state.cache.lesson_dir(accepted["lesson_id"], accepted["variant"])
+        (folder / "props.sha1").write_text("abc", encoding="ascii")
+        self.assertEqual(markers, [False])  # no marker, no mp4 yet on the first run
+        self.mp4_valid = False  # the damaged MP4 is rejected by the verification
+        again = self.post()
+        job = self.wait(again["job_id"])
+        self.assertEqual(job["status"], "done")
+        self.assertEqual(markers, [False, False])  # the bridge removed the marker before the exporter ran
+        self.assertTrue(any("failed verification" in w for w in job["warnings"]))
 
 
 class RealHttpHelpersTests(unittest.TestCase):

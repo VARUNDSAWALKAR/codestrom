@@ -90,8 +90,7 @@ def register_lesson_routes(application: FastAPI) -> None:
                              "The lesson pipeline is not connected to this backend yet (Task 5B)")
         if body.language not in CORE_LANGUAGES:
             return api_error(422, "language_unavailable",
-                             f"Language '{body.language}' is a bonus language and is not enabled; "
-                             f"use one of {sorted(CORE_LANGUAGES)}")
+                             f"Language '{body.language}' is a bonus language and is not enabled")
         try:
             job, cached = orchestrator.submit(body)
         except PipelineError as exc:

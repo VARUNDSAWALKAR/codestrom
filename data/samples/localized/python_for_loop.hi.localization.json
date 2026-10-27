@@ -1,0 +1,409 @@
+{
+  "lesson": {
+    "schema_version": "1.0",
+    "lesson_id": "f099d19873e7",
+    "topic": "Python for loop",
+    "level": "beginner",
+    "target_seconds": 60,
+    "language": "hi",
+    "source": "llm",
+    "model": "qwen3:4b-instruct-2507-q4_K_M",
+    "prompt_version": "p12-task4",
+    "warnings": [],
+    "title": "title_card",
+    "subject": "programming",
+    "keep_terms": [
+      "for loop",
+      "range",
+      "iteration",
+      "loop body"
+    ],
+    "scenes": [
+      {
+        "id": "s1",
+        "type": "title_card",
+        "heading": "पायथन for Loop",
+        "narration": "सीखें कि पायथन में for loop का उपयोग कैसे करें ताकि range में प्रत्येक वस्तु के लिए क्रियाओं को दोहराया जा सके।",
+        "steps": [],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s2",
+        "type": "code_walkthrough",
+        "heading": "पायथन for Loop उदाहरण",
+        "narration": "एक for loop सूची में प्रत्येक वस्तु के लिए कोड दोहराता है या range। यहाँ, यह 5 बार चलता है, 0 से 4 तक।",
+        "steps": [
+          {
+            "text": "range(5) में i के लिएः",
+            "narration": "लूप'range(5) में i के लिएः'से शुरू होता है। यह i को 0, 1, 2, 3, 4 मानों पर सेट करता है।",
+            "note": "",
+            "lines": [
+              1
+            ],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "print(f'Count: {i}')",
+            "narration": "अंदर, यह'Count:'प्रिंट करता है जिसके बाद i का वर्तमान मूल्य आता है।",
+            "note": "",
+            "lines": [
+              2
+            ],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "for i in range(5):\n    print(f'Count: {i}')",
+        "code_language": "python",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s3",
+        "type": "diagram",
+        "heading": "For Loop प्रवाह",
+        "narration": "लूप शुरू होता है, जाँच करता है कि क्या यह हो गया है, शरीर को चलाता है, फिर समाप्त होने तक दोहराता है।",
+        "steps": [
+          {
+            "text": "शुरू करें।",
+            "narration": "लूप i = 0 से शुरू होता है।",
+            "note": "प्रारंभिक मूल्य समुच्चय",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "शरीर को निष्पादित करें",
+            "narration": "वर्तमान i के साथ print कथन चलाएँ।",
+            "note": "'Count: 0'प्रिंट करें",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "वृद्धि i",
+            "narration": "i को अगले मूल्य पर बढ़ाएँ, तब तक दोहराएँ जब तक कि i 5 तक न पहुँच जाए।",
+            "note": "अगला iteration शुरू होता है",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "एंड लूप",
+            "narration": "जब i 5 तक पहुँचता है, तो लूप समाप्त हो जाता है।",
+            "note": "अंतिम मूल्य तक पहुँच गया",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      }
+    ]
+  },
+  "localization_quality": "complete",
+  "english_fraction": 0.0,
+  "diagnostics": [
+    {
+      "path": "title",
+      "status": "protected",
+      "source": "title_card",
+      "target": "title_card",
+      "protected": [
+        "title_card"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.0.heading",
+      "status": "translated",
+      "source": "Python for Loop",
+      "target": "पायथन for Loop",
+      "protected": [
+        "for Loop"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.0.narration",
+      "status": "translated",
+      "source": "Learn how to use a for loop in Python to repeat actions for each item in a range.",
+      "target": "सीखें कि पायथन में for loop का उपयोग कैसे करें ताकि range में प्रत्येक वस्तु के लिए क्रियाओं को दोहराया जा सके।",
+      "protected": [
+        "for loop",
+        "range"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.heading",
+      "status": "translated",
+      "source": "Python for Loop Example",
+      "target": "पायथन for Loop उदाहरण",
+      "protected": [
+        "for Loop"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.narration",
+      "status": "translated",
+      "source": "A for loop repeats code for each item in a list or range. Here, it runs 5 times, from 0 to 4.",
+      "target": "एक for loop सूची में प्रत्येक वस्तु के लिए कोड दोहराता है या range। यहाँ, यह 5 बार चलता है, 0 से 4 तक।",
+      "protected": [
+        "for loop",
+        "range",
+        "5",
+        "0",
+        "4"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.0.text",
+      "status": "translated",
+      "source": "for i in range(5):",
+      "target": "range(5) में i के लिएः",
+      "protected": [
+        "i",
+        "range(5)"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.0.narration",
+      "status": "translated",
+      "source": "The loop starts with 'for i in range(5):'. It sets i to values 0, 1, 2, 3, 4.",
+      "target": "लूप'range(5) में i के लिएः'से शुरू होता है। यह i को 0, 1, 2, 3, 4 मानों पर सेट करता है।",
+      "protected": [
+        "i",
+        "range(5)",
+        "i",
+        "0",
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.1.text",
+      "status": "protected",
+      "source": "print(f'Count: {i}')",
+      "target": "print(f'Count: {i}')",
+      "protected": [
+        "print(f'Count: {i}')"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.1.narration",
+      "status": "translated",
+      "source": "Inside, it prints 'Count: ' followed by the current value of i.",
+      "target": "अंदर, यह'Count:'प्रिंट करता है जिसके बाद i का वर्तमान मूल्य आता है।",
+      "protected": [
+        "Count",
+        "i"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.heading",
+      "status": "translated",
+      "source": "For Loop Flow",
+      "target": "For Loop प्रवाह",
+      "protected": [
+        "For Loop"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.narration",
+      "status": "translated",
+      "source": "The loop begins, checks if it's done, runs the body, then repeats until finished.",
+      "target": "लूप शुरू होता है, जाँच करता है कि क्या यह हो गया है, शरीर को चलाता है, फिर समाप्त होने तक दोहराता है।",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.0.text",
+      "status": "translated",
+      "source": "Start",
+      "target": "शुरू करें।",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.0.note",
+      "status": "translated",
+      "source": "Initial value set",
+      "target": "प्रारंभिक मूल्य समुच्चय",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.0.narration",
+      "status": "translated",
+      "source": "Loop starts with i = 0.",
+      "target": "लूप i = 0 से शुरू होता है।",
+      "protected": [
+        "i = 0"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.1.text",
+      "status": "translated",
+      "source": "Execute body",
+      "target": "शरीर को निष्पादित करें",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.1.note",
+      "status": "translated",
+      "source": "Prints 'Count: 0'",
+      "target": "'Count: 0'प्रिंट करें",
+      "protected": [
+        "Count",
+        "0"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.1.narration",
+      "status": "translated",
+      "source": "Run the print statement with current i.",
+      "target": "वर्तमान i के साथ print कथन चलाएँ।",
+      "protected": [
+        "print",
+        "i"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.2.text",
+      "status": "translated",
+      "source": "Increment i",
+      "target": "वृद्धि i",
+      "protected": [
+        "i"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.2.note",
+      "status": "translated",
+      "source": "Next iteration begins",
+      "target": "अगला iteration शुरू होता है",
+      "protected": [
+        "iteration"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.2.narration",
+      "status": "translated",
+      "source": "Increment i to next value, repeat until i reaches 5.",
+      "target": "i को अगले मूल्य पर बढ़ाएँ, तब तक दोहराएँ जब तक कि i 5 तक न पहुँच जाए।",
+      "protected": [
+        "i",
+        "i",
+        "5"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.3.text",
+      "status": "translated",
+      "source": "End loop",
+      "target": "एंड लूप",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.3.note",
+      "status": "translated",
+      "source": "Final value reached",
+      "target": "अंतिम मूल्य तक पहुँच गया",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.3.narration",
+      "status": "translated",
+      "source": "When i reaches 5, loop ends.",
+      "target": "जब i 5 तक पहुँचता है, तो लूप समाप्त हो जाता है।",
+      "protected": [
+        "i",
+        "5"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    }
+  ],
+  "warnings": [],
+  "stats": {
+    "unique_strings": 21,
+    "cache_hits": 0,
+    "batches": 2,
+    "model_strings": 21,
+    "restore_retries": 0,
+    "script_retries": 0,
+    "script_failures": 0,
+    "protected_fields": 2,
+    "eligible_narration_beats": 9,
+    "english_narration_beats": 0,
+    "fallback_fields": 0,
+    "narration_char_expansion": 1.1973929236499068,
+    "narration_word_expansion": 1.3008849557522124,
+    "elapsed_ms": 6253
+  },
+  "metadata": {
+    "source_plan": "294eba0c2f2848f3dfd300594cff11423a79d749af5965fe4697df29e47c1588",
+    "target_tag": "hin_Deva",
+    "language": "hi",
+    "model": "indictrans2-en-indic-dist-200M:081d3659565d59da9880a9c893c600aa693372984507ac2b3b13ddbf68ef09a6",
+    "version": "localize-v1",
+    "mask_version": "spans-v1-id101",
+    "variant": "hi-female-1",
+    "lesson_id": "f099d19873e7"
+  },
+  "cached": false
+}

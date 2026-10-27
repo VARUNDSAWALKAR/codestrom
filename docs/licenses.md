@@ -13,8 +13,8 @@ Rule: anything new gets a row here in the same commit (`../AGENTS.md`).
 | Llama 3.2 3B (`llama3.2:3b`) | Backup planner only | Llama 3.2 Community License | If it's ever used, the README must say "Built with Llama"; Meta's acceptable use policy applies |
 | IndicTrans2 en→Indic dist-200M (AI4Bharat) | Translation | MIT | |
 | Kokoro-82M + `voices-v1.0.bin` (`hf_alpha`, `hm_omega`) | Voice: en, hi (+ others on CPU) | Apache 2.0 | |
-| Indic Parler-TTS (AI4Bharat + Hugging Face) | Voice: kn and bonus languages on GPU | Apache 2.0 | Gated on Hugging Face (contact details shared to download); training data under CC BY 4.0 and similar |
-| FLAN-T5 tokenizer (Google) | Parler's description encoder | Apache 2.0 | Loaded from the HF cache |
+| Indic Parler-TTS (AI4Bharat + Hugging Face) | Kannada voice, CPU or configured CUDA (Task 7) | Apache 2.0 | Local model-card licence verified; prior experiment revision 660bc53c64ae83150613264111708a0465211237. Recommended Anu/Suresh named voices. Existing training-data attribution under CC BY 4.0 and similar retained. |
+| FLAN-T5 tokenizer (Google) | Parler's description encoder | Apache 2.0 | Task 7 uses existing local parler-description-tokenizer path; never resolves the remote model-config name |
 | DAC audio codec (Descript) | Inside Parler (audio decoding) | MIT | |
 
 ## 2. Python libraries

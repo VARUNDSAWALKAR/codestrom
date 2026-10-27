@@ -13,6 +13,7 @@ from ..planner.schema import Lesson
 from ..timeline.schema import Timeline, Voice
 from .audio import read_clip, process_audio, write_wav, SAMPLE_RATE
 from .kokoro_engine import KokoroEngine
+from .parler_engine import ParlerEngine
 from .textnorm import normalize_text
 
 
@@ -33,7 +34,7 @@ class NarrationContext(JobContext):
     lesson: Lesson
     settings: Settings
     cache: Cache
-    engine: KokoroEngine
+    engine: KokoroEngine | ParlerEngine
     gender: Literal["female", "male"] = "female"
     speed: float = Field(default=1.0, ge=0.8, le=1.2)
     clips: list[BeatAudio] = Field(default_factory=list)
@@ -49,6 +50,9 @@ def audio_key(text: str, language: str, engine: str, voice_id: str,
 
 
 def run_voice(ctx: NarrationContext) -> NarrationContext:
+    if ctx.lesson.language == "kn":
+        from .kannada import run_kannada_voice
+        return run_kannada_voice(ctx)
     if ctx.lesson.language not in {"en", "hi"}:
         raise ValueError("Task 2 voices support only English and Hindi; translation is not implemented")
     if ctx.language != ctx.lesson.language or ctx.job.lesson_id != ctx.lesson.lesson_id:

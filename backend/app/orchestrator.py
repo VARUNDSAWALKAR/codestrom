@@ -158,7 +158,7 @@ class Orchestrator:
         self._runs: dict[str, PipelineRun] = {}
         self._submit_lock = Lock()
         self._verify_lock = Lock()
-        self._verified: dict[Path, tuple[tuple[int, int, int], bool]] = {}
+        self._verified: dict[Path, tuple[tuple[int, ...], bool]] = {}
 
     def bind(self, runner: JobRunner) -> None:
         self.runner = runner
@@ -169,7 +169,7 @@ class Orchestrator:
     # ---- submission -------------------------------------------------------------------
     def lesson_id_for(self, request: LessonRequest) -> str:
         model = MOCK_MODEL if self.ops.mock else self.settings.planner_model(self.profile)
-        plan_request = PlanRequest(topic=request.topic, level=request.level, language=request.language,
+        plan_request = PlanRequest(topic=request.topic, level=request.level, language="en",
                                    target_seconds=request.target_seconds, subject=request.subject)
         return lesson_key(plan_request, model)
 
@@ -198,6 +198,12 @@ class Orchestrator:
             return True
         stat, sha = (folder / "lesson.mp4").stat(), folder / "props.sha1"
         key = (stat.st_mtime_ns, stat.st_size, sha.stat().st_mtime_ns if sha.is_file() else 0)
+        if not folder.name.startswith("en-"):
+            # Localization provenance can invalidate an otherwise unchanged MP4.
+            # A canonical plan or localization commit change must re-run its check.
+            for path in (folder.parent / "plan.json", folder / "localization.json"):
+                artifact = path.stat() if path.is_file() else None
+                key += (artifact.st_mtime_ns, artifact.st_size) if artifact else (0, 0)
         with self._verify_lock:
             known = self._verified.get(folder)
             if known is None or known[0] != key:  # unchanged files are not re-probed on every GET

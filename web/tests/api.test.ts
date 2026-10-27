@@ -10,7 +10,7 @@ test('typed API client preserves paths and snake_case request/response fields', 
     calls.push({url: String(url), ...(typeof options?.body === 'string' ? {body: options.body} : {})});
     const result = String(url) === '/api/health' ? health : String(url) === '/api/config' ? config :
       String(url).startsWith('/api/jobs/') ? job : options?.method === 'POST' ?
-        {job_id: job.job_id, lesson_id: lesson.lesson_id, variant: lesson.variant, cached: false} : lesson;
+        {job_id: job.job_id, lesson_id: lesson.lesson_id, variant: lesson.variant, cached: false, mock: false} : lesson;
     return Response.json(result);
   };
   try {
@@ -43,4 +43,22 @@ test('poll delay is abortable so navigation cancels pending work', async () => {
   const controller = new AbortController();
   const pending = wait(10000, controller.signal); controller.abort();
   await assert.rejects(pending);
+});
+test('422 errors retain field validation details', async () => {
+  const original = globalThis.fetch;
+  globalThis.fetch = async () => Response.json({error: {code: 'validation_error', message: 'Invalid lesson',
+    fields: [{field: 'topic', message: 'Choose a supported topic.'}]}}, {status: 422});
+  try {await assert.rejects(createLesson({topic: 'Unsupported', level: 'beginner', language: 'en', target_seconds: 60, voice: 'female', speed: 1}),
+    (error: unknown) => error instanceof ApiError && error.fields[0]?.field === 'topic');}
+  finally {globalThis.fetch = original;}
+});
+test('429 responses retry automatically using Retry-After', async () => {
+  const original = globalThis.fetch; let attempts = 0;
+  globalThis.fetch = async () => {
+    attempts++;
+    if (attempts === 1) return Response.json({error: {code: 'busy', message: 'Queue busy'}}, {status: 429, headers: {'Retry-After': '0'}});
+    return Response.json({...health});
+  };
+  try {assert.deepEqual(await getHealth(), health); assert.equal(attempts, 2);}
+  finally {globalThis.fetch = original;}
 });

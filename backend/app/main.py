@@ -17,11 +17,14 @@ from starlette.exceptions import HTTPException
 
 from .cache import Cache
 from .contracts import (
-    LANGUAGES, ConfigResponse, Defaults, HealthResponse, LengthOptions,
+    CORE_LANGUAGES, LANGUAGES, ConfigResponse, Defaults, HealthResponse, LengthOptions,
     ModelHealth, NamedReadiness, ParlerReadiness, RendererHealth,
 )
 from .jobs import JobRunner
 from .lessons_api import register_lesson_routes
+from .language_policy import approved_languages
+from .localize.model import translator_ready
+from .speech.parler_engine import parler_ready
 from .mock_pipeline import build_mock_ops
 from .orchestrator import Orchestrator, PipelineOps
 from .pipeline_ops import planner_probe, production_ops
@@ -41,11 +44,11 @@ def create_app(settings: Settings | None = None, ops: PipelineOps | None = None)
         profile = settings.resolve_profile()
         cache.initialize()
         # Do not equate files on disk with a loaded model: tts_kokoro.ready flips only after Kokoro
-        # really loads, planner.ready only while Ollama lists the planner model, translator stays false.
+        # really loads; translator health reflects successful initialization, not file presence.
         models = ModelHealth(
             planner=NamedReadiness(name=settings.planner_model(profile)),
             translator=NamedReadiness(name="indictrans2-en-indic-dist-200M"),
-            tts_parler=ParlerReadiness(enabled=settings.enable_parler and profile == "gpu"),
+            tts_parler=ParlerReadiness(enabled=settings.enable_parler),
         )
         application.state.planner_probe = None
         if ops is not None:
@@ -53,7 +56,7 @@ def create_app(settings: Settings | None = None, ops: PipelineOps | None = None)
         elif settings.mock_pipeline:
             chosen = build_mock_ops()
         else:
-            chosen = production_ops(on_tts_loaded=lambda: setattr(models.tts_kokoro, "ready", True))
+            chosen = production_ops(on_tts_loaded=lambda: setattr(models.tts_kokoro, "ready", True), settings=settings)
             application.state.planner_probe = planner_probe(settings, models.planner.name)
         if chosen.mock:
             logger.warning("MOCK_PIPELINE is enabled: lessons are fixtures, not Ollama output. "
@@ -92,6 +95,8 @@ def create_app(settings: Settings | None = None, ops: PipelineOps | None = None)
         models: ModelHealth = request.app.state.models
         if request.app.state.planner_probe is not None:
             models.planner.ready = request.app.state.planner_probe()
+        models.translator.ready = translator_ready(settings)
+        models.tts_parler.ready = settings.enable_parler and parler_ready(settings)
         return HealthResponse(
             ok=models.planner.ready and models.translator.ready and models.tts_kokoro.ready,
             mock_pipeline=request.app.state.orchestrator is not None and request.app.state.orchestrator.ops.mock,
@@ -103,9 +108,12 @@ def create_app(settings: Settings | None = None, ops: PipelineOps | None = None)
         )
 
     @application.get("/api/config", response_model=ConfigResponse)
-    def configuration() -> ConfigResponse:
-        # Engines/listening-test approvals are deliberately not invented here.
-        return ConfigResponse(languages=list(LANGUAGES),
+    def configuration(request: Request) -> ConfigResponse:
+        # Production availability uses the same explicit approval policy as precheck.
+        orchestrator = request.app.state.orchestrator
+        accepted = CORE_LANGUAGES if orchestrator is not None and orchestrator.ops.mock else approved_languages(settings)
+        languages = [option.model_copy(update={"available": option.code in accepted}) for option in LANGUAGES]
+        return ConfigResponse(languages=languages,
                               target_seconds=LengthOptions(default=settings.default_target_seconds),
                               defaults=Defaults(language=settings.default_language))
 

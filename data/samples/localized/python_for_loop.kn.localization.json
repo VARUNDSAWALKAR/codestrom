@@ -1,0 +1,415 @@
+{
+  "lesson": {
+    "schema_version": "1.0",
+    "lesson_id": "f099d19873e7",
+    "topic": "Python for loop",
+    "level": "beginner",
+    "target_seconds": 60,
+    "language": "kn",
+    "source": "llm",
+    "model": "qwen3:4b-instruct-2507-q4_K_M",
+    "prompt_version": "p12-task4",
+    "warnings": [
+      "scenes.2.steps.2.note: localized length 33 exceeds display guide 32",
+      "scenes.2.steps.3.narration: protected_span_restore_failed; retained English"
+    ],
+    "title": "title_card",
+    "subject": "programming",
+    "keep_terms": [
+      "for loop",
+      "range",
+      "iteration",
+      "loop body"
+    ],
+    "scenes": [
+      {
+        "id": "s1",
+        "type": "title_card",
+        "heading": "ಪೈಥಾನ್ for Loop",
+        "narration": "range ನಲ್ಲಿರುವ ಪ್ರತಿಯೊಂದು ವಸ್ತುವಿಗೂ ಕ್ರಿಯೆಗಳನ್ನು ಪುನರಾವರ್ತಿಸಲು ಪೈಥಾನ್ನಲ್ಲಿ for loop ಅನ್ನು ಹೇಗೆ ಬಳಸುವುದು ಎಂಬುದನ್ನು ತಿಳಿಯಿರಿ.",
+        "steps": [],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s2",
+        "type": "code_walkthrough",
+        "heading": "ಪೈಥಾನ್ for Loop ಉದಾಹರಣೆ",
+        "narration": "ಒಂದು for loop ಪಟ್ಟಿಯಲ್ಲಿನ ಪ್ರತಿಯೊಂದು ವಸ್ತುವಿಗೂ ಕೋಡ್ ಅನ್ನು ಪುನರಾವರ್ತಿಸುತ್ತದೆ ಅಥವಾ range. ಇಲ್ಲಿ, ಇದು 5 ಬಾರಿ, 0 ನಿಂದ 4 ವರೆಗೆ ಚಲಿಸುತ್ತದೆ.",
+        "steps": [
+          {
+            "text": "range(5) ನಲ್ಲಿ i ಗಾಗಿಃ",
+            "narration": "ಲೂಪ್'ಫಾರ್ i ಇನ್ range(5):'ನಿಂದ ಪ್ರಾರಂಭವಾಗುತ್ತದೆ. ಇದು i ಅನ್ನು 0, 1, 2, 3, 4 ಮೌಲ್ಯಗಳಿಗೆ ಹೊಂದಿಸುತ್ತದೆ.",
+            "note": "",
+            "lines": [
+              1
+            ],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "print(f'Count: {i}')",
+            "narration": "ಒಳಗೆ, ಇದು'Count:'ಅನ್ನು ಮುದ್ರಿಸುತ್ತದೆ ಮತ್ತು ನಂತರ i ನ ಪ್ರಸ್ತುತ ಮೌಲ್ಯವನ್ನು ಮುದ್ರಿಸುತ್ತದೆ.",
+            "note": "",
+            "lines": [
+              2
+            ],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "for i in range(5):\n    print(f'Count: {i}')",
+        "code_language": "python",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s3",
+        "type": "diagram",
+        "heading": "For Loop ಹರಿವು",
+        "narration": "ಲೂಪ್ ಪ್ರಾರಂಭವಾಗುತ್ತದೆ, ಅದು ಮುಗಿದಿದೆಯೇ ಎಂದು ಪರಿಶೀಲಿಸುತ್ತದೆ, ದೇಹವನ್ನು ಓಡಿಸುತ್ತದೆ, ನಂತರ ಮುಗಿಯುವವರೆಗೆ ಪುನರಾವರ್ತಿಸುತ್ತದೆ.",
+        "steps": [
+          {
+            "text": "ಪ್ರಾರಂಭಿಸಿ",
+            "narration": "ಲೂಪ್ i = 0 ನಿಂದ ಪ್ರಾರಂಭವಾಗುತ್ತದೆ.",
+            "note": "ಆರಂಭಿಕ ಮೌಲ್ಯ ಸೆಟ್",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "ದೇಹವನ್ನು ಕಾರ್ಯಗತಗೊಳಿಸಿ",
+            "narration": "ಪ್ರಸ್ತುತ i ನೊಂದಿಗೆ print ಹೇಳಿಕೆಯನ್ನು ಚಲಾಯಿಸಿ.",
+            "note": "'Count: 0'ಅನ್ನು ಮುದ್ರಿಸುತ್ತದೆ.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "ಹೆಚ್ಚಳ i",
+            "narration": "i ಅನ್ನು ಮುಂದಿನ ಮೌಲ್ಯಕ್ಕೆ ಹೆಚ್ಚಿಸಿ, i ಅನ್ನು 5 ತಲುಪುವವರೆಗೆ ಪುನರಾವರ್ತಿಸಿ.",
+            "note": "ಮುಂದಿನ iteration ಪ್ರಾರಂಭವಾಗುತ್ತದೆ",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "ಎಂಡ್ ಲೂಪ್",
+            "narration": "When i reaches 5, loop ends.",
+            "note": "ಅಂತಿಮ ಮೌಲ್ಯವನ್ನು ತಲುಪಿದೆ.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      }
+    ]
+  },
+  "localization_quality": "partial",
+  "english_fraction": 0.1111111111111111,
+  "diagnostics": [
+    {
+      "path": "title",
+      "status": "protected",
+      "source": "title_card",
+      "target": "title_card",
+      "protected": [
+        "title_card"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.0.heading",
+      "status": "translated",
+      "source": "Python for Loop",
+      "target": "ಪೈಥಾನ್ for Loop",
+      "protected": [
+        "for Loop"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.0.narration",
+      "status": "translated",
+      "source": "Learn how to use a for loop in Python to repeat actions for each item in a range.",
+      "target": "range ನಲ್ಲಿರುವ ಪ್ರತಿಯೊಂದು ವಸ್ತುವಿಗೂ ಕ್ರಿಯೆಗಳನ್ನು ಪುನರಾವರ್ತಿಸಲು ಪೈಥಾನ್ನಲ್ಲಿ for loop ಅನ್ನು ಹೇಗೆ ಬಳಸುವುದು ಎಂಬುದನ್ನು ತಿಳಿಯಿರಿ.",
+      "protected": [
+        "for loop",
+        "range"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.heading",
+      "status": "translated",
+      "source": "Python for Loop Example",
+      "target": "ಪೈಥಾನ್ for Loop ಉದಾಹರಣೆ",
+      "protected": [
+        "for Loop"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.narration",
+      "status": "translated",
+      "source": "A for loop repeats code for each item in a list or range. Here, it runs 5 times, from 0 to 4.",
+      "target": "ಒಂದು for loop ಪಟ್ಟಿಯಲ್ಲಿನ ಪ್ರತಿಯೊಂದು ವಸ್ತುವಿಗೂ ಕೋಡ್ ಅನ್ನು ಪುನರಾವರ್ತಿಸುತ್ತದೆ ಅಥವಾ range. ಇಲ್ಲಿ, ಇದು 5 ಬಾರಿ, 0 ನಿಂದ 4 ವರೆಗೆ ಚಲಿಸುತ್ತದೆ.",
+      "protected": [
+        "for loop",
+        "range",
+        "5",
+        "0",
+        "4"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.0.text",
+      "status": "translated",
+      "source": "for i in range(5):",
+      "target": "range(5) ನಲ್ಲಿ i ಗಾಗಿಃ",
+      "protected": [
+        "i",
+        "range(5)"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.0.narration",
+      "status": "translated",
+      "source": "The loop starts with 'for i in range(5):'. It sets i to values 0, 1, 2, 3, 4.",
+      "target": "ಲೂಪ್'ಫಾರ್ i ಇನ್ range(5):'ನಿಂದ ಪ್ರಾರಂಭವಾಗುತ್ತದೆ. ಇದು i ಅನ್ನು 0, 1, 2, 3, 4 ಮೌಲ್ಯಗಳಿಗೆ ಹೊಂದಿಸುತ್ತದೆ.",
+      "protected": [
+        "i",
+        "range(5)",
+        "i",
+        "0",
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.1.text",
+      "status": "protected",
+      "source": "print(f'Count: {i}')",
+      "target": "print(f'Count: {i}')",
+      "protected": [
+        "print(f'Count: {i}')"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.1.narration",
+      "status": "translated",
+      "source": "Inside, it prints 'Count: ' followed by the current value of i.",
+      "target": "ಒಳಗೆ, ಇದು'Count:'ಅನ್ನು ಮುದ್ರಿಸುತ್ತದೆ ಮತ್ತು ನಂತರ i ನ ಪ್ರಸ್ತುತ ಮೌಲ್ಯವನ್ನು ಮುದ್ರಿಸುತ್ತದೆ.",
+      "protected": [
+        "Count",
+        "i"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.heading",
+      "status": "translated",
+      "source": "For Loop Flow",
+      "target": "For Loop ಹರಿವು",
+      "protected": [
+        "For Loop"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.narration",
+      "status": "translated",
+      "source": "The loop begins, checks if it's done, runs the body, then repeats until finished.",
+      "target": "ಲೂಪ್ ಪ್ರಾರಂಭವಾಗುತ್ತದೆ, ಅದು ಮುಗಿದಿದೆಯೇ ಎಂದು ಪರಿಶೀಲಿಸುತ್ತದೆ, ದೇಹವನ್ನು ಓಡಿಸುತ್ತದೆ, ನಂತರ ಮುಗಿಯುವವರೆಗೆ ಪುನರಾವರ್ತಿಸುತ್ತದೆ.",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.0.text",
+      "status": "translated",
+      "source": "Start",
+      "target": "ಪ್ರಾರಂಭಿಸಿ",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.0.note",
+      "status": "translated",
+      "source": "Initial value set",
+      "target": "ಆರಂಭಿಕ ಮೌಲ್ಯ ಸೆಟ್",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.0.narration",
+      "status": "translated",
+      "source": "Loop starts with i = 0.",
+      "target": "ಲೂಪ್ i = 0 ನಿಂದ ಪ್ರಾರಂಭವಾಗುತ್ತದೆ.",
+      "protected": [
+        "i = 0"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.1.text",
+      "status": "translated",
+      "source": "Execute body",
+      "target": "ದೇಹವನ್ನು ಕಾರ್ಯಗತಗೊಳಿಸಿ",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.1.note",
+      "status": "translated",
+      "source": "Prints 'Count: 0'",
+      "target": "'Count: 0'ಅನ್ನು ಮುದ್ರಿಸುತ್ತದೆ.",
+      "protected": [
+        "Count",
+        "0"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.1.narration",
+      "status": "translated",
+      "source": "Run the print statement with current i.",
+      "target": "ಪ್ರಸ್ತುತ i ನೊಂದಿಗೆ print ಹೇಳಿಕೆಯನ್ನು ಚಲಾಯಿಸಿ.",
+      "protected": [
+        "print",
+        "i"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.2.text",
+      "status": "translated",
+      "source": "Increment i",
+      "target": "ಹೆಚ್ಚಳ i",
+      "protected": [
+        "i"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.2.note",
+      "status": "translated",
+      "source": "Next iteration begins",
+      "target": "ಮುಂದಿನ iteration ಪ್ರಾರಂಭವಾಗುತ್ತದೆ",
+      "protected": [
+        "iteration"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.2.narration",
+      "status": "translated",
+      "source": "Increment i to next value, repeat until i reaches 5.",
+      "target": "i ಅನ್ನು ಮುಂದಿನ ಮೌಲ್ಯಕ್ಕೆ ಹೆಚ್ಚಿಸಿ, i ಅನ್ನು 5 ತಲುಪುವವರೆಗೆ ಪುನರಾವರ್ತಿಸಿ.",
+      "protected": [
+        "i",
+        "i",
+        "5"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.3.text",
+      "status": "translated",
+      "source": "End loop",
+      "target": "ಎಂಡ್ ಲೂಪ್",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.3.note",
+      "status": "translated",
+      "source": "Final value reached",
+      "target": "ಅಂತಿಮ ಮೌಲ್ಯವನ್ನು ತಲುಪಿದೆ.",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.3.narration",
+      "status": "fallback",
+      "source": "When i reaches 5, loop ends.",
+      "target": "When i reaches 5, loop ends.",
+      "protected": [
+        "i",
+        "5"
+      ],
+      "reason": "protected_span_restore_failed",
+      "script_ratio": 0.0
+    }
+  ],
+  "warnings": [
+    "scenes.2.steps.2.note: localized length 33 exceeds display guide 32",
+    "scenes.2.steps.3.narration: protected_span_restore_failed; retained English"
+  ],
+  "stats": {
+    "unique_strings": 21,
+    "cache_hits": 0,
+    "batches": 3,
+    "model_strings": 22,
+    "restore_retries": 1,
+    "script_retries": 0,
+    "script_failures": 0,
+    "protected_fields": 2,
+    "eligible_narration_beats": 9,
+    "english_narration_beats": 1,
+    "fallback_fields": 1,
+    "narration_char_expansion": 1.3649906890130354,
+    "narration_word_expansion": 0.8672566371681416,
+    "elapsed_ms": 6169
+  },
+  "metadata": {
+    "source_plan": "294eba0c2f2848f3dfd300594cff11423a79d749af5965fe4697df29e47c1588",
+    "target_tag": "kan_Knda",
+    "language": "kn",
+    "model": "indictrans2-en-indic-dist-200M:081d3659565d59da9880a9c893c600aa693372984507ac2b3b13ddbf68ef09a6",
+    "version": "localize-v1",
+    "mask_version": "spans-v1-id101",
+    "variant": "kn-female-1",
+    "lesson_id": "f099d19873e7"
+  },
+  "cached": false
+}

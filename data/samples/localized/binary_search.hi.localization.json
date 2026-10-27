@@ -1,0 +1,490 @@
+{
+  "lesson": {
+    "schema_version": "1.0",
+    "lesson_id": "d09d4030959b",
+    "topic": "Binary Search",
+    "level": "beginner",
+    "target_seconds": 60,
+    "language": "hi",
+    "source": "llm",
+    "model": "qwen3:4b-instruct-2507-q4_K_M",
+    "prompt_version": "p12-task4",
+    "warnings": [],
+    "title": "title_card",
+    "subject": "programming",
+    "keep_terms": [
+      "sorted list",
+      "middle element",
+      "search range",
+      "index",
+      "loop"
+    ],
+    "scenes": [
+      {
+        "id": "s1",
+        "type": "title_card",
+        "heading": "द्विआधारी खोज",
+        "narration": "मध्य जाँच और स्मार्ट रेंज अद्यतनों का उपयोग करके जानें कि द्विआधारी खोज कैसे कुशलता से sorted list में एक मूल्य पाती है।",
+        "steps": [],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s2",
+        "type": "code_walkthrough",
+        "heading": "पायथन में द्विआधारी खोज",
+        "narration": "द्विआधारी खोज middle element की जाँच करके एक sorted list में एक मान पाती है। यदि यह बहुत कम है, तो हम right आधे की खोज करते हैं। यदि बहुत अधिक है, तो हम left की खोज करते हैं। यह तब तक दोहराया जाता है जब तक कि यह नहीं मिल जाता या समाप्त नहीं हो जाता।",
+        "steps": [
+          {
+            "text": "left, right = 0, len(arr) - 1",
+            "narration": "left और right संकेतों को sorted list के शुरू और अंत में आरंभ करें।",
+            "note": "",
+            "lines": [
+              1
+            ],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "जबकि left <= right:",
+            "narration": "Loop जबकि left right से कम या उसके बराबर है।",
+            "note": "",
+            "lines": [
+              2
+            ],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "mid = (left + right) // 2",
+            "narration": "बीच में index खोजें और मूल्य की तुलना target से करें।",
+            "note": "",
+            "lines": [
+              3
+            ],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "यदि arr [mid] = = target: वापस mid करें",
+            "narration": "यदि बीच का मिलान target से होता है, तो index वापस करें। अन्यथा search range को समायोजित करें।",
+            "note": "",
+            "lines": [
+              4
+            ],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "def binary_search(arr, target):\n    left, right = 0, len(arr) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return -1",
+        "code_language": "python",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s3",
+        "type": "diagram",
+        "heading": "द्विआधारी खोज कैसे काम करती है",
+        "narration": "पूरी सूची के साथ शुरू करें। middle element चुनें। यदि यह मेल खाता है, तो किया गया। यदि बहुत कम है, तो right आधा खोजें। यदि बहुत अधिक है, तो left आधा खोजें। तब तक दोहराएं जब तक कि सूची न मिल जाए या समाप्त न हो जाए।",
+        "steps": [
+          {
+            "text": "सूचीः [1, 3, 5, 7, 9]",
+            "narration": "पूर्ण sorted list से शुरू करें।",
+            "note": "क्रमबद्ध किया जाना चाहिए",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "5 की जाँच करें",
+            "narration": "middle element: 5 की जाँच करें।",
+            "note": "5 < target? No → 5 > target? हाँ",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "खोज करें right आधा",
+            "narration": "Target 7 है, इसलिए right आधा खोजें।",
+            "note": "अब जाँच करें [7, 9]",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "जाँच करें कि 8 → not पाया गया है",
+            "narration": "नया मध्यः 8 → not मिला। left आधा खोजें।",
+            "note": "अब जाँच करें [7]",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      }
+    ]
+  },
+  "localization_quality": "complete",
+  "english_fraction": 0.0,
+  "diagnostics": [
+    {
+      "path": "title",
+      "status": "protected",
+      "source": "title_card",
+      "target": "title_card",
+      "protected": [
+        "title_card"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.0.heading",
+      "status": "translated",
+      "source": "Binary Search",
+      "target": "द्विआधारी खोज",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.0.narration",
+      "status": "translated",
+      "source": "Learn how binary search efficiently finds a value in a sorted list using middle checks and smart range updates.",
+      "target": "मध्य जाँच और स्मार्ट रेंज अद्यतनों का उपयोग करके जानें कि द्विआधारी खोज कैसे कुशलता से sorted list में एक मूल्य पाती है।",
+      "protected": [
+        "sorted list"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.heading",
+      "status": "translated",
+      "source": "Binary Search in Python",
+      "target": "पायथन में द्विआधारी खोज",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.narration",
+      "status": "translated",
+      "source": "Binary search finds a value in a sorted list by checking the middle element. If it's too low, we search the right half. If too high, we search the left. It repeats until found or exhausted.",
+      "target": "द्विआधारी खोज middle element की जाँच करके एक sorted list में एक मान पाती है। यदि यह बहुत कम है, तो हम right आधे की खोज करते हैं। यदि बहुत अधिक है, तो हम left की खोज करते हैं। यह तब तक दोहराया जाता है जब तक कि यह नहीं मिल जाता या समाप्त नहीं हो जाता।",
+      "protected": [
+        "sorted list",
+        "middle element",
+        "right",
+        "left"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.0.text",
+      "status": "protected",
+      "source": "left, right = 0, len(arr) - 1",
+      "target": "left, right = 0, len(arr) - 1",
+      "protected": [
+        "left",
+        "right = 0",
+        "len(arr)",
+        "1"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.0.narration",
+      "status": "translated",
+      "source": "Initialize left and right pointers at start and end of sorted list.",
+      "target": "left और right संकेतों को sorted list के शुरू और अंत में आरंभ करें।",
+      "protected": [
+        "left",
+        "right",
+        "sorted list"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.1.text",
+      "status": "translated",
+      "source": "while left <= right:",
+      "target": "जबकि left <= right:",
+      "protected": [
+        "left",
+        "right"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.1.narration",
+      "status": "translated",
+      "source": "Loop while left is less than or equal to right.",
+      "target": "Loop जबकि left right से कम या उसके बराबर है।",
+      "protected": [
+        "Loop",
+        "left",
+        "right"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.2.text",
+      "status": "protected",
+      "source": "mid = (left + right) // 2",
+      "target": "mid = (left + right) // 2",
+      "protected": [
+        "mid",
+        "left + right",
+        "2"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.2.narration",
+      "status": "translated",
+      "source": "Find middle index and compare value to target.",
+      "target": "बीच में index खोजें और मूल्य की तुलना target से करें।",
+      "protected": [
+        "index",
+        "target"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.3.text",
+      "status": "translated",
+      "source": "if arr[mid] == target: return mid",
+      "target": "यदि arr [mid] = = target: वापस mid करें",
+      "protected": [
+        "arr",
+        "mid",
+        "target",
+        "mid"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.1.steps.3.narration",
+      "status": "translated",
+      "source": "If middle matches target, return index. Else adjust search range.",
+      "target": "यदि बीच का मिलान target से होता है, तो index वापस करें। अन्यथा search range को समायोजित करें।",
+      "protected": [
+        "target",
+        "index",
+        "search range"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.heading",
+      "status": "translated",
+      "source": "How Binary Search Works",
+      "target": "द्विआधारी खोज कैसे काम करती है",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.narration",
+      "status": "translated",
+      "source": "Start with full list. Pick middle element. If it matches, done. If too low, search right half. If too high, search left half. Repeat until found or list ends.",
+      "target": "पूरी सूची के साथ शुरू करें। middle element चुनें। यदि यह मेल खाता है, तो किया गया। यदि बहुत कम है, तो right आधा खोजें। यदि बहुत अधिक है, तो left आधा खोजें। तब तक दोहराएं जब तक कि सूची न मिल जाए या समाप्त न हो जाए।",
+      "protected": [
+        "middle element",
+        "right",
+        "left"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.0.text",
+      "status": "translated",
+      "source": "List: [1, 3, 5, 7, 9]",
+      "target": "सूचीः [1, 3, 5, 7, 9]",
+      "protected": [
+        "1",
+        "3",
+        "5",
+        "7",
+        "9"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.0.note",
+      "status": "translated",
+      "source": "Must be sorted",
+      "target": "क्रमबद्ध किया जाना चाहिए",
+      "protected": [],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.0.narration",
+      "status": "translated",
+      "source": "Start with full sorted list.",
+      "target": "पूर्ण sorted list से शुरू करें।",
+      "protected": [
+        "sorted list"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.1.text",
+      "status": "translated",
+      "source": "Check 5",
+      "target": "5 की जाँच करें",
+      "protected": [
+        "5"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.1.note",
+      "status": "translated",
+      "source": "5 < target? No → 5 > target? Yes",
+      "target": "5 < target? No → 5 > target? हाँ",
+      "protected": [
+        "5 < target",
+        "No → 5 > target"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.1.narration",
+      "status": "translated",
+      "source": "Check middle element: 5.",
+      "target": "middle element: 5 की जाँच करें।",
+      "protected": [
+        "middle element",
+        "5"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.2.text",
+      "status": "translated",
+      "source": "Search right half",
+      "target": "खोज करें right आधा",
+      "protected": [
+        "right"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.2.note",
+      "status": "translated",
+      "source": "Now check [7, 9]",
+      "target": "अब जाँच करें [7, 9]",
+      "protected": [
+        "7",
+        "9"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.2.narration",
+      "status": "translated",
+      "source": "Target is 7, so search right half.",
+      "target": "Target 7 है, इसलिए right आधा खोजें।",
+      "protected": [
+        "Target",
+        "7",
+        "right"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.3.text",
+      "status": "translated",
+      "source": "Check 8 → not found",
+      "target": "जाँच करें कि 8 → not पाया गया है",
+      "protected": [
+        "8 → not"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.3.note",
+      "status": "translated",
+      "source": "Now check [7]",
+      "target": "अब जाँच करें [7]",
+      "protected": [
+        "7"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    },
+    {
+      "path": "scenes.2.steps.3.narration",
+      "status": "translated",
+      "source": "New middle: 8 → not found. Search left half.",
+      "target": "नया मध्यः 8 → not मिला। left आधा खोजें।",
+      "protected": [
+        "8 → not",
+        "left"
+      ],
+      "reason": "",
+      "script_ratio": 1.0
+    }
+  ],
+  "warnings": [],
+  "stats": {
+    "unique_strings": 24,
+    "cache_hits": 0,
+    "batches": 2,
+    "model_strings": 24,
+    "restore_retries": 0,
+    "script_retries": 0,
+    "script_failures": 0,
+    "protected_fields": 3,
+    "eligible_narration_beats": 11,
+    "english_narration_beats": 0,
+    "fallback_fields": 0,
+    "narration_char_expansion": 1.1980319803198032,
+    "narration_word_expansion": 1.4026845637583893,
+    "elapsed_ms": 7022
+  },
+  "metadata": {
+    "source_plan": "62dea8b8a4275faae0fe3a892185f9c4e280c7d1efb4d43860649abb9f771b87",
+    "target_tag": "hin_Deva",
+    "language": "hi",
+    "model": "indictrans2-en-indic-dist-200M:081d3659565d59da9880a9c893c600aa693372984507ac2b3b13ddbf68ef09a6",
+    "version": "localize-v1",
+    "mask_version": "spans-v1-id101",
+    "variant": "hi-female-1",
+    "lesson_id": "d09d4030959b"
+  },
+  "cached": false
+}

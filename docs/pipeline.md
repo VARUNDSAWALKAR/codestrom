@@ -2,6 +2,12 @@
 
 > Task 4 override: see [offline planner contract](planner-task4.md). Planner calls use 180 s, keep_alive 10m, one repair, failure-only raw logs, and English content with requested-language metadata. Failed requests return structured errors; no unrelated fallback. Task 5 orchestration is not implemented.
 
+> Current Task 7 override: production orchestration is implemented. Task 6's
+> checked localization cache supersedes the old translation sketch below.
+> Kannada now uses local Indic Parler-TTS on CPU/configured CUDA, separately
+> approval-gated; see task7-status.md and narration-languages.md. This deployment
+> retains en,hi approval. All timing remains audio-derived.
+
 Build file · What each stage does: inputs, outputs, cache, failure handling.
 Contracts: `lesson-schema.md`. Coding rules: `../AGENTS.md`.
 
@@ -71,7 +77,7 @@ Speech text = the localized narration after `speech/textnorm.py`: collapse white
 |---|---|---|---|
 | `en` | Kokoro, phonemes `en-us`* | same | `hf_alpha` / `hm_omega` (Indian-accented English) |
 | `hi` | Kokoro, `hi` | same | `hf_alpha` / `hm_omega` |
-| `kn` | **decided tonight**: Parler or Kokoro | Kokoro, `kn` | Parler `Anu` / `Suresh` · Kokoro `hf_alpha` / `hm_omega` |
+| `kn` | Local Indic Parler-TTS | Local Indic Parler-TTS, CPU float32 | `Anu` / `Suresh`; explicit approval + ENABLE_PARLER required |
 | `ta` (bonus) | Parler | Kokoro `ta` if it passes the listening test, else "GPU only" | Parler `Jaya` / none → male uses Kokoro |
 | `te` (bonus) | Parler | as above | Parler `Lalitha` / `Prakash` |
 | `bn` (bonus) | Parler | as above | Parler `Aditi` / `Arjun` |
@@ -79,7 +85,11 @@ Speech text = the localized narration after `speech/textnorm.py`: collapse white
 \* Listening test also tries `en-gb` phonemes with `hf_alpha`; pick whichever sounds more natural.
 
 - **Kokoro** (`kokoro-onnx`, CPU): `create(text, voice, speed, lang)` → 24 kHz mono. `speed` = the learner's speed.
-- **Parler** (Indic Parler-TTS): description prompt names the speaker, e.g. *"Anu speaks at a moderate pace with a clear, close-sounding voice. The recording is very clear audio with no background noise."* Pace word from speed: 0.85 → "slightly slow", 1.0 → "moderate", 1.15 → "slightly fast". Fixed seed per lesson for a steady voice. Batch all beats of a lesson in one `generate`. Output 44.1 kHz → resampled.
+- **Parler** (Task 7 Kannada): lazy local model and separate local description
+  tokenizer. Named moderate-pace description, isolated fixed seed per beat,
+  one generation per uncached beat. Requested speed uses FFmpeg atempo, not
+  only a prompt hint. Raw 44.1 kHz is processed to 24 kHz PCM. Near-token-cap
+  output fails rather than silently truncating speech. No alternate engine fallback.
 - If an engine fails for a beat: try the other engine for that language once, else fail the stage (→ fallback, §11).
 
 Post-processing per clip (`speech/audio.py`): resample to 24 kHz mono, trim edge silence (below −40 dBFS, keep 50 ms), normalize RMS to about −20 dBFS with peak ≤ −1 dBFS.
@@ -151,7 +161,7 @@ Served as `/media/<id>/<variant>/<file>`.
 | plan | 8–20 s (`qwen3:8b`) | 60–180 s (`qwen3:4b`) | biggest CPU cost; cached per topic |
 | validate | < 0.1 s (+1 plan call if repaired) | same | |
 | translate | 1–3 s | 3–10 s | skipped for `en` |
-| voice | Kokoro 5–15 s · Parler 20–60 s | Kokoro 10–30 s | 60 s lesson; Parler on CPU is ~7× slower than real time, so the `cpu` profile never uses it |
+| voice | Kokoro estimates unchanged; CUDA Parler unverified | Kokoro 10–30 s; Task 7 Parler voice 268.159 s for 68.011 s speech | Kannada CPU sampled process peak about 6.7 GiB; not an 8-GB-machine acceptance |
 | timeline | ~1 s | ~1 s | includes the m4a encode |
 | **→ playable** | **~0.5–1.5 min** | **~1.5–4 min** | |
 | export | 30–90 s | 1–3 min | 1,800 frames for 60 s |
