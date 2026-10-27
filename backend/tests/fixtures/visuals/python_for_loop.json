@@ -1,0 +1,264 @@
+{
+  "origin": "cached canonical lesson",
+  "source": {
+    "schema_version": "1.0",
+    "lesson_id": "f099d19873e7",
+    "topic": "Python for loop",
+    "level": "beginner",
+    "target_seconds": 60,
+    "language": "en",
+    "source": "llm",
+    "model": "qwen3:4b-instruct-2507-q4_K_M",
+    "prompt_version": "p12-task4",
+    "warnings": [],
+    "title": "title_card",
+    "subject": "programming",
+    "keep_terms": [
+      "for loop",
+      "range",
+      "iteration",
+      "loop body"
+    ],
+    "scenes": [
+      {
+        "id": "s1",
+        "type": "title_card",
+        "heading": "Python for Loop",
+        "narration": "Learn how to use a for loop in Python to repeat actions for each item in a range.",
+        "steps": [],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s2",
+        "type": "code_walkthrough",
+        "heading": "Python for Loop Example",
+        "narration": "A for loop repeats code for each item in a list or range. Here, it runs 5 times, from 0 to 4.",
+        "steps": [
+          {
+            "text": "for i in range(5):",
+            "narration": "The loop starts with 'for i in range(5):'. It sets i to values 0, 1, 2, 3, 4.",
+            "note": "",
+            "lines": [
+              1
+            ],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "print(f'Count: {i}')",
+            "narration": "Inside, it prints 'Count: ' followed by the current value of i.",
+            "note": "",
+            "lines": [
+              2
+            ],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "for i in range(5):\n    print(f'Count: {i}')",
+        "code_language": "python",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s3",
+        "type": "diagram",
+        "heading": "For Loop Flow",
+        "narration": "The loop begins, checks if it's done, runs the body, then repeats until finished.",
+        "steps": [
+          {
+            "text": "Start",
+            "narration": "Loop starts with i = 0.",
+            "note": "Initial value set",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Execute body",
+            "narration": "Run the print statement with current i.",
+            "note": "Prints 'Count: 0'",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Increment i",
+            "narration": "Increment i to next value, repeat until i reaches 5.",
+            "note": "Next iteration begins",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "End loop",
+            "narration": "When i reaches 5, loop ends.",
+            "note": "Final value reached",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      }
+    ]
+  },
+  "spec": {
+    "visual_schema_version": "visual-v1",
+    "lesson_id": "f099d19873e7",
+    "source_fingerprint": "c296026e8761b55f9a94db9ef979ca1f1f2878ed6f2c90a16dfc4a531593b1da",
+    "provenance": {
+      "prompt_version": "visual-p2",
+      "model": "authored-fixture",
+      "model_identity": "author-review-pending",
+      "capability_version": "primitives-v1",
+      "asset_version": "assets-v1-empty",
+      "semantics_version": "geometry-actions-v2",
+      "configuration_fingerprint": "d4caf26ecd1488084d78a28717356a1ae04e3a68305e8cea196acc45d5938034"
+    },
+    "scenes": [
+      {
+        "scene_id": "s1",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "legacy_scene",
+          "reason": "Existing scene retained"
+        }
+      },
+      {
+        "scene_id": "s2",
+        "layout": "code_walkthrough",
+        "mechanism": "Loop repetition and supplied state",
+        "accuracy": "illustrative",
+        "limitations": [
+          "Illustrative geometry, no physical or temporal simulation"
+        ],
+        "objects": [
+          {
+            "id": "code",
+            "role": "Inert loop source",
+            "style": "primary",
+            "label": {
+              "kind": "source",
+              "field": "code",
+              "step_index": null
+            },
+            "kind": "text",
+            "position": {
+              "x": 0.35,
+              "y": 0.5
+            },
+            "width": 0.62,
+            "height": 0.9
+          },
+          {
+            "id": "state",
+            "role": "Loop state",
+            "style": "primary",
+            "label": {
+              "kind": "source",
+              "field": "text",
+              "step_index": 0
+            },
+            "kind": "text",
+            "position": {
+              "x": 0.82,
+              "y": 0.25
+            },
+            "width": 0.28,
+            "height": 0.25
+          },
+          {
+            "id": "output",
+            "role": "Supplied output",
+            "style": "primary",
+            "label": {
+              "kind": "source",
+              "field": "text",
+              "step_index": 1
+            },
+            "kind": "text",
+            "position": {
+              "x": 0.82,
+              "y": 0.7
+            },
+            "width": 0.28,
+            "height": 0.3
+          }
+        ],
+        "relationships": [],
+        "actions": [
+          {
+            "id": "a0",
+            "target": "code",
+            "beat_id": "s2.step0",
+            "start": 0.0,
+            "end": 0.6,
+            "kind": "reveal",
+            "from_opacity": 0.0,
+            "to_opacity": 1.0
+          },
+          {
+            "id": "a1",
+            "target": "output",
+            "beat_id": "s2.step1",
+            "start": 0.0,
+            "end": 0.6,
+            "kind": "highlight",
+            "from_style": "primary",
+            "to_style": "highlight"
+          }
+        ],
+        "fallback": null
+      },
+      {
+        "scene_id": "s3",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "legacy_scene",
+          "reason": "Existing scene retained"
+        }
+      }
+    ]
+  },
+  "review_notes": [
+    "Code/outputs are source bindings, not execution results. Highlight timing follows existing step beats."
+  ],
+  "expected": {
+    "layout": "code_walkthrough",
+    "objects": 3,
+    "actions": 2,
+    "specialized_scene_ids": [
+      "s2"
+    ],
+    "fallback_scenes": 2
+  }
+}

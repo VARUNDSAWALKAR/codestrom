@@ -1,0 +1,678 @@
+{
+  "origin": "hand-authored SemanticIntent; not LLM success",
+  "source": {
+    "schema_version": "1.0",
+    "lesson_id": "c1f63f0ed69b",
+    "topic": "Water Cycle",
+    "level": "beginner",
+    "target_seconds": 60,
+    "language": "en",
+    "source": "llm",
+    "model": "qwen3:4b-instruct-2507-q4_K_M",
+    "prompt_version": "p12-task4",
+    "warnings": [],
+    "title": "Water Cycle",
+    "subject": "biology",
+    "keep_terms": [
+      "evaporation",
+      "condensation",
+      "precipitation",
+      "collection"
+    ],
+    "scenes": [
+      {
+        "id": "s1",
+        "type": "title_card",
+        "heading": "Water Cycle",
+        "narration": "The water cycle shows how water moves through Earth's systems. It starts with evaporation and ends with collection.",
+        "steps": [],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s2",
+        "type": "diagram",
+        "heading": "Title Card",
+        "narration": "The water cycle shows how water moves through Earth's systems. It starts with evaporation and ends with collection.",
+        "steps": [
+          {
+            "text": "Evaporation",
+            "narration": "Sun heats water from oceans and lakes.",
+            "note": "Water turns into vapor and rises into air.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Condensation",
+            "narration": "Water vapor cools and forms clouds.",
+            "note": "Vapor turns into tiny droplets in the sky.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Precipitation",
+            "narration": "Clouds release rain or snow when full.",
+            "note": "Water falls back to Earth's surface.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Collection",
+            "narration": "Rain flows into rivers, lakes, and oceans.",
+            "note": "Water returns to bodies of water.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s3",
+        "type": "diagram",
+        "heading": "Water Cycle Process",
+        "narration": "Water moves in a cycle: evaporation, condensation, precipitation, and collection. This keeps Earth’s water balanced.",
+        "steps": [
+          {
+            "text": "Evaporation",
+            "narration": "Sun heats surface water, turning it into vapor.",
+            "note": "Water rises into the atmosphere.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Condensation",
+            "narration": "Vapor cools and forms tiny droplets in clouds.",
+            "note": "Clouds grow as droplets combine.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Precipitation",
+            "narration": "When clouds get heavy, water falls as rain or snow.",
+            "note": "Water returns to land and oceans.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Collection",
+            "narration": "Water flows into rivers, lakes, and back to oceans.",
+            "note": "The cycle repeats continuously.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      }
+    ]
+  },
+  "scene_id": "s2",
+  "intent": {
+    "family": "spatial",
+    "entities": [
+      {
+        "id": "sun",
+        "kind": "energy_source",
+        "evidence": "Sun"
+      },
+      {
+        "id": "water",
+        "kind": "reservoir",
+        "evidence": "water"
+      },
+      {
+        "id": "cloud",
+        "kind": "cloud",
+        "evidence": "clouds"
+      }
+    ],
+    "relationships": [
+      {
+        "kind": "heats",
+        "source": "sun",
+        "target": "water",
+        "evidence": "Sun heats water from oceans and lakes."
+      },
+      {
+        "kind": "flows_to",
+        "source": "water",
+        "target": "cloud",
+        "evidence": "Water vapor cools and forms clouds."
+      },
+      {
+        "kind": "flows_to",
+        "source": "cloud",
+        "target": "water",
+        "evidence": "Water falls back to Earth's surface."
+      }
+    ],
+    "changes": [
+      {
+        "kind": "transfer",
+        "beat_id": "s2.step0",
+        "evidence": "Water turns into vapor and rises into air.",
+        "source": "water",
+        "target": "cloud"
+      },
+      {
+        "kind": "emphasize",
+        "beat_id": "s2.step1",
+        "evidence": "Water vapor cools and forms clouds.",
+        "entity": "cloud"
+      },
+      {
+        "kind": "transfer",
+        "beat_id": "s2.step2",
+        "evidence": "Water falls back to Earth's surface.",
+        "source": "cloud",
+        "target": "water"
+      },
+      {
+        "kind": "emphasize",
+        "beat_id": "s2.step3",
+        "evidence": "Rain flows into rivers, lakes, and oceans.",
+        "entity": "water"
+      }
+    ]
+  },
+  "spec": {
+    "visual_schema_version": "visual-v1",
+    "lesson_id": "c1f63f0ed69b",
+    "source_fingerprint": "f454e5806233eb9e9e88ec1dd3957a8fa08810d3fff735873ee75d94188a6763",
+    "provenance": {
+      "prompt_version": "visual-semantic-p1",
+      "model": "authored-fixture",
+      "model_identity": "vq11-authored",
+      "capability_version": "primitives-v1",
+      "asset_version": "assets-v1-empty",
+      "semantics_version": "semantic-composer-v1",
+      "configuration_fingerprint": "5b507c59294e77dc1eb26aea55766ac7b038e4c8dd5fed3324f1d3b3c885070e"
+    },
+    "scenes": [
+      {
+        "scene_id": "s1",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "not_selected",
+          "reason": "Outside this authored fixture"
+        }
+      },
+      {
+        "scene_id": "s2",
+        "layout": "spatial",
+        "mechanism": "Recognizable physical entities with source-grounded interactions",
+        "accuracy": "illustrative",
+        "limitations": [
+          "Source-grounded qualitative illustration; scientific review still required",
+          "Supplemental evidence labels remain English; no new localization is performed"
+        ],
+        "objects": [
+          {
+            "id": "entity0_main",
+            "role": "energy_source",
+            "style": "accent",
+            "label": null,
+            "kind": "circle",
+            "position": {
+              "x": 0.18,
+              "y": 0.17
+            },
+            "radius": 0.065
+          },
+          {
+            "id": "entity0_ray0",
+            "role": "Energy rays",
+            "style": "accent",
+            "label": null,
+            "kind": "line",
+            "start": {
+              "x": 0.218,
+              "y": 0.17
+            },
+            "end": {
+              "x": 0.232,
+              "y": 0.17
+            }
+          },
+          {
+            "id": "entity0_ray1",
+            "role": "Energy rays",
+            "style": "accent",
+            "label": null,
+            "kind": "line",
+            "start": {
+              "x": 0.199,
+              "y": 0.25227241
+            },
+            "end": {
+              "x": 0.206,
+              "y": 0.2825833
+            }
+          },
+          {
+            "id": "entity0_ray2",
+            "role": "Energy rays",
+            "style": "accent",
+            "label": null,
+            "kind": "line",
+            "start": {
+              "x": 0.161,
+              "y": 0.25227241
+            },
+            "end": {
+              "x": 0.154,
+              "y": 0.2825833
+            }
+          },
+          {
+            "id": "entity0_ray3",
+            "role": "Energy rays",
+            "style": "accent",
+            "label": null,
+            "kind": "line",
+            "start": {
+              "x": 0.142,
+              "y": 0.17
+            },
+            "end": {
+              "x": 0.128,
+              "y": 0.17
+            }
+          },
+          {
+            "id": "entity0_ray4",
+            "role": "Energy rays",
+            "style": "accent",
+            "label": null,
+            "kind": "line",
+            "start": {
+              "x": 0.161,
+              "y": 0.08772759
+            },
+            "end": {
+              "x": 0.154,
+              "y": 0.0574167
+            }
+          },
+          {
+            "id": "entity0_ray5",
+            "role": "Energy rays",
+            "style": "accent",
+            "label": null,
+            "kind": "line",
+            "start": {
+              "x": 0.199,
+              "y": 0.08772759
+            },
+            "end": {
+              "x": 0.206,
+              "y": 0.0574167
+            }
+          },
+          {
+            "id": "entity0_label",
+            "role": "Source entity label",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "Sun"
+            },
+            "kind": "text",
+            "position": {
+              "x": 0.18,
+              "y": 0.34
+            },
+            "width": 0.26,
+            "height": 0.09
+          },
+          {
+            "id": "entity1_main",
+            "role": "Open vessel or surface reservoir",
+            "style": "primary",
+            "label": null,
+            "kind": "path",
+            "start": {
+              "x": 0.07,
+              "y": 0.69
+            },
+            "segments": [
+              {
+                "kind": "line",
+                "end": {
+                  "x": 0.09,
+                  "y": 0.815
+                }
+              },
+              {
+                "kind": "line",
+                "end": {
+                  "x": 0.27,
+                  "y": 0.815
+                }
+              },
+              {
+                "kind": "line",
+                "end": {
+                  "x": 0.29,
+                  "y": 0.69
+                }
+              }
+            ]
+          },
+          {
+            "id": "entity1_water0",
+            "role": "Water surface",
+            "style": "accent",
+            "label": null,
+            "kind": "line",
+            "start": {
+              "x": 0.105,
+              "y": 0.75
+            },
+            "end": {
+              "x": 0.255,
+              "y": 0.75
+            }
+          },
+          {
+            "id": "entity1_water1",
+            "role": "Water surface",
+            "style": "accent",
+            "label": null,
+            "kind": "line",
+            "start": {
+              "x": 0.105,
+              "y": 0.785
+            },
+            "end": {
+              "x": 0.255,
+              "y": 0.785
+            }
+          },
+          {
+            "id": "entity1_label",
+            "role": "Source entity label",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "water"
+            },
+            "kind": "text",
+            "position": {
+              "x": 0.18,
+              "y": 0.92
+            },
+            "width": 0.26,
+            "height": 0.09
+          },
+          {
+            "id": "entity2_main",
+            "role": "cloud",
+            "style": "primary",
+            "label": null,
+            "kind": "ellipse",
+            "position": {
+              "x": 0.775,
+              "y": 0.185
+            },
+            "rx": 0.05,
+            "ry": 0.05
+          },
+          {
+            "id": "entity2_lobe1",
+            "role": "cloud",
+            "style": "primary",
+            "label": null,
+            "kind": "ellipse",
+            "position": {
+              "x": 0.82,
+              "y": 0.15
+            },
+            "rx": 0.06,
+            "ry": 0.085
+          },
+          {
+            "id": "entity2_lobe2",
+            "role": "cloud",
+            "style": "primary",
+            "label": null,
+            "kind": "ellipse",
+            "position": {
+              "x": 0.87,
+              "y": 0.185
+            },
+            "rx": 0.05,
+            "ry": 0.05
+          },
+          {
+            "id": "entity2_label",
+            "role": "Source entity label",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "clouds"
+            },
+            "kind": "text",
+            "position": {
+              "x": 0.82,
+              "y": 0.34
+            },
+            "width": 0.26,
+            "height": 0.09
+          },
+          {
+            "id": "rel0",
+            "role": "Schematic heats",
+            "style": "secondary",
+            "label": null,
+            "kind": "arrow",
+            "start": {
+              "x": 0.18,
+              "y": 0.315
+            },
+            "end": {
+              "x": 0.18,
+              "y": 0.605
+            }
+          },
+          {
+            "id": "rel1",
+            "role": "Qualitative material transfer route",
+            "style": "secondary",
+            "label": null,
+            "kind": "path",
+            "start": {
+              "x": 0.18,
+              "y": 0.75
+            },
+            "segments": [
+              {
+                "kind": "line",
+                "end": {
+                  "x": 0.82,
+                  "y": 0.17
+                }
+              }
+            ]
+          },
+          {
+            "id": "rel2",
+            "role": "Qualitative material transfer route",
+            "style": "secondary",
+            "label": null,
+            "kind": "path",
+            "start": {
+              "x": 0.82,
+              "y": 0.17
+            },
+            "segments": [
+              {
+                "kind": "line",
+                "end": {
+                  "x": 0.18,
+                  "y": 0.75
+                }
+              }
+            ]
+          },
+          {
+            "id": "parcel0",
+            "role": "Material parcel along stated transfer",
+            "style": "primary",
+            "label": null,
+            "kind": "marker",
+            "position": {
+              "x": 0.18,
+              "y": 0.75
+            },
+            "radius": 0.009
+          },
+          {
+            "id": "parcel2",
+            "role": "Material parcel along stated transfer",
+            "style": "primary",
+            "label": null,
+            "kind": "marker",
+            "position": {
+              "x": 0.82,
+              "y": 0.17
+            },
+            "radius": 0.009
+          }
+        ],
+        "relationships": [
+          {
+            "kind": "points_toward",
+            "source": "entity0_main",
+            "target": "entity1_main"
+          },
+          {
+            "kind": "points_toward",
+            "source": "entity1_main",
+            "target": "entity2_main"
+          },
+          {
+            "kind": "points_toward",
+            "source": "entity2_main",
+            "target": "entity1_main"
+          }
+        ],
+        "actions": [
+          {
+            "id": "a0",
+            "target": "parcel0",
+            "beat_id": "s2.step0",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "reveal",
+            "from_opacity": 0.0,
+            "to_opacity": 1.0
+          },
+          {
+            "id": "a1",
+            "target": "parcel0",
+            "beat_id": "s2.step0",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "trace",
+            "path_id": "rel1",
+            "from_progress": 0.0,
+            "to_progress": 1.0
+          },
+          {
+            "id": "a2",
+            "target": "entity2_main",
+            "beat_id": "s2.step1",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "highlight",
+            "from_style": "primary",
+            "to_style": "highlight"
+          },
+          {
+            "id": "a3",
+            "target": "parcel2",
+            "beat_id": "s2.step2",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "reveal",
+            "from_opacity": 0.0,
+            "to_opacity": 1.0
+          },
+          {
+            "id": "a4",
+            "target": "parcel2",
+            "beat_id": "s2.step2",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "trace",
+            "path_id": "rel2",
+            "from_progress": 0.0,
+            "to_progress": 1.0
+          },
+          {
+            "id": "a5",
+            "target": "entity1_main",
+            "beat_id": "s2.step3",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "highlight",
+            "from_style": "primary",
+            "to_style": "highlight"
+          }
+        ],
+        "fallback": null
+      },
+      {
+        "scene_id": "s3",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "not_selected",
+          "reason": "Outside this authored fixture"
+        }
+      }
+    ]
+  },
+  "semantic_quality": "pass_qualitative",
+  "review_notes": [
+    "Radiant disk, water basin, cloud lobes, upward/downward material traces, not sentence boxes.",
+    "Parcel routes are qualitative, not a fluid or condensation simulation."
+  ]
+}

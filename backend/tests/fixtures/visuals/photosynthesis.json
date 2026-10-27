@@ -1,0 +1,291 @@
+{
+  "origin": "cached canonical lesson",
+  "source": {
+    "schema_version": "1.0",
+    "lesson_id": "1031ce38d1b4",
+    "topic": "Photosynthesis",
+    "level": "beginner",
+    "target_seconds": 60,
+    "language": "en",
+    "source": "llm",
+    "model": "qwen3:4b-instruct-2507-q4_K_M",
+    "prompt_version": "p8-task4",
+    "warnings": [],
+    "title": "Photosynthesis Basics",
+    "subject": "biology",
+    "keep_terms": [
+      "photosynthesis",
+      "chloroplasts",
+      "sunlight",
+      "carbon dioxide",
+      "water",
+      "glucose",
+      "oxygen"
+    ],
+    "scenes": [
+      {
+        "id": "s1",
+        "type": "title_card",
+        "heading": "Photosynthesis Basics",
+        "narration": "Photosynthesis is how plants make food using sunlight.",
+        "steps": [],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s2",
+        "type": "diagram",
+        "heading": "What Is Photosynthesis?",
+        "narration": "Photosynthesis is how plants make food using sunlight.",
+        "steps": [
+          {
+            "text": "Chloroplasts",
+            "narration": "Plants use chloroplasts to capture sunlight.",
+            "note": "Tiny structures in plant cells.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Sunlight",
+            "narration": "Sunlight powers the reaction that turns water and carbon dioxide into food.",
+            "note": "Energy source from the sun.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Glucose & Oxygen",
+            "narration": "The plant produces glucose and releases oxygen as a byproduct.",
+            "note": "Glucose is plant food; oxygen is released into air.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "labelled",
+        "center": "Chloroplasts",
+        "expression": ""
+      },
+      {
+        "id": "s3",
+        "type": "diagram",
+        "heading": "The Photosynthesis Process",
+        "narration": "Here’s how photosynthesis works step by step.",
+        "steps": [
+          {
+            "text": "Carbon Dioxide",
+            "narration": "Plants take in carbon dioxide from the air.",
+            "note": "From air around plants.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Water",
+            "narration": "They absorb water from the soil through roots.",
+            "note": "Absorbed from soil.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Sunlight",
+            "narration": "Sunlight hits the leaves, activating chloroplasts.",
+            "note": "Triggers the chemical reaction.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Glucose & Oxygen",
+            "narration": "The plant makes glucose and releases oxygen.",
+            "note": "Glucose is used for growth; oxygen goes into air.",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      }
+    ]
+  },
+  "spec": {
+    "visual_schema_version": "visual-v1",
+    "lesson_id": "1031ce38d1b4",
+    "source_fingerprint": "4707789f571399fd7d4caa04037eec7f3b153bb16cc4a9edd853440548de1397",
+    "provenance": {
+      "prompt_version": "visual-p2",
+      "model": "authored-fixture",
+      "model_identity": "author-review-pending",
+      "capability_version": "primitives-v1",
+      "asset_version": "assets-v1-empty",
+      "semantics_version": "geometry-actions-v2",
+      "configuration_fingerprint": "3fb856990ce64c9f43020e90bb8279d284b244b59262a756dbc333e7e3679afc"
+    },
+    "scenes": [
+      {
+        "scene_id": "s1",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "legacy_scene",
+          "reason": "Existing scene retained"
+        }
+      },
+      {
+        "scene_id": "s2",
+        "layout": "flow_cycle",
+        "mechanism": "Light input and products of photosynthesis",
+        "accuracy": "illustrative",
+        "limitations": [
+          "Illustrative geometry, no physical or temporal simulation"
+        ],
+        "objects": [
+          {
+            "id": "leaf",
+            "role": "Leaf tissue",
+            "style": "primary",
+            "label": null,
+            "kind": "ellipse",
+            "position": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "rx": 0.12,
+            "ry": 0.23
+          },
+          {
+            "id": "light",
+            "role": "Light energy",
+            "style": "accent",
+            "label": null,
+            "kind": "circle",
+            "position": {
+              "x": 0.18,
+              "y": 0.18
+            },
+            "radius": 0.09
+          },
+          {
+            "id": "energy",
+            "role": "Energy input",
+            "style": "primary",
+            "label": null,
+            "kind": "arrow",
+            "start": {
+              "x": 0.24,
+              "y": 0.24
+            },
+            "end": {
+              "x": 0.42,
+              "y": 0.4
+            }
+          },
+          {
+            "id": "products",
+            "role": "Products leave leaf",
+            "style": "primary",
+            "label": null,
+            "kind": "arrow",
+            "start": {
+              "x": 0.64,
+              "y": 0.5
+            },
+            "end": {
+              "x": 0.86,
+              "y": 0.5
+            }
+          }
+        ],
+        "relationships": [
+          {
+            "kind": "depends_on",
+            "source": "leaf",
+            "target": "light"
+          }
+        ],
+        "actions": [
+          {
+            "id": "a0",
+            "target": "leaf",
+            "beat_id": "s2.step0",
+            "start": 0.0,
+            "end": 0.6,
+            "kind": "reveal",
+            "from_opacity": 0.0,
+            "to_opacity": 1.0
+          },
+          {
+            "id": "a1",
+            "target": "energy",
+            "beat_id": "s2.step1",
+            "start": 0.0,
+            "end": 0.6,
+            "kind": "draw",
+            "from_progress": 0.0,
+            "to_progress": 1.0
+          },
+          {
+            "id": "a2",
+            "target": "products",
+            "beat_id": "s2.step2",
+            "start": 0.0,
+            "end": 0.6,
+            "kind": "draw",
+            "from_progress": 0.0,
+            "to_progress": 1.0
+          }
+        ],
+        "fallback": null
+      },
+      {
+        "scene_id": "s3",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "legacy_scene",
+          "reason": "Existing scene retained"
+        }
+      }
+    ]
+  },
+  "review_notes": [
+    "Qualitative input/output diagram; arrows do not claim atom-by-atom transformation."
+  ],
+  "expected": {
+    "layout": "flow_cycle",
+    "objects": 4,
+    "actions": 3,
+    "specialized_scene_ids": [
+      "s2"
+    ],
+    "fallback_scenes": 2
+  }
+}

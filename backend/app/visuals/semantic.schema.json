@@ -1,0 +1,647 @@
+{
+  "$defs": {
+    "ArrayIntent": {
+      "additionalProperties": false,
+      "properties": {
+        "family": {
+          "const": "array_grid",
+          "title": "Family",
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "maximum": 100000,
+            "minimum": -100000,
+            "type": "integer"
+          },
+          "maxItems": 8,
+          "minItems": 2,
+          "title": "Values",
+          "type": "array"
+        },
+        "changes": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "compare": "#/$defs/Compare",
+                "range": "#/$defs/Range",
+                "select": "#/$defs/Select",
+                "swap": "#/$defs/Swap"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Select"
+              },
+              {
+                "$ref": "#/$defs/Range"
+              },
+              {
+                "$ref": "#/$defs/Compare"
+              },
+              {
+                "$ref": "#/$defs/Swap"
+              }
+            ]
+          },
+          "maxItems": 6,
+          "minItems": 1,
+          "title": "Changes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "family",
+        "values",
+        "changes"
+      ],
+      "title": "ArrayIntent",
+      "type": "object"
+    },
+    "Compare": {
+      "additionalProperties": false,
+      "properties": {
+        "beat_id": {
+          "title": "Beat Id",
+          "type": "string"
+        },
+        "evidence": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Evidence",
+          "type": "string"
+        },
+        "kind": {
+          "const": "compare",
+          "title": "Kind",
+          "type": "string"
+        },
+        "left": {
+          "maximum": 100000,
+          "minimum": -100000,
+          "title": "Left",
+          "type": "integer"
+        },
+        "right": {
+          "maximum": 100000,
+          "minimum": -100000,
+          "title": "Right",
+          "type": "integer"
+        },
+        "relation": {
+          "enum": [
+            "lt",
+            "gt",
+            "eq"
+          ],
+          "title": "Relation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "beat_id",
+        "evidence",
+        "kind",
+        "left",
+        "right",
+        "relation"
+      ],
+      "title": "Compare",
+      "type": "object"
+    },
+    "Edge": {
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Source",
+          "type": "string"
+        },
+        "target": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Target",
+          "type": "string"
+        },
+        "directed": {
+          "title": "Directed",
+          "type": "boolean"
+        },
+        "evidence": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Evidence",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "target",
+        "directed",
+        "evidence"
+      ],
+      "title": "Edge",
+      "type": "object"
+    },
+    "Emphasize": {
+      "additionalProperties": false,
+      "properties": {
+        "beat_id": {
+          "title": "Beat Id",
+          "type": "string"
+        },
+        "evidence": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Evidence",
+          "type": "string"
+        },
+        "kind": {
+          "const": "emphasize",
+          "title": "Kind",
+          "type": "string"
+        },
+        "entity": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Entity",
+          "type": "string"
+        }
+      },
+      "required": [
+        "beat_id",
+        "evidence",
+        "kind",
+        "entity"
+      ],
+      "title": "Emphasize",
+      "type": "object"
+    },
+    "GraphIntent": {
+      "additionalProperties": false,
+      "properties": {
+        "family": {
+          "const": "graph_network",
+          "title": "Family",
+          "type": "string"
+        },
+        "nodes": {
+          "items": {
+            "$ref": "#/$defs/Node"
+          },
+          "maxItems": 6,
+          "minItems": 2,
+          "title": "Nodes",
+          "type": "array"
+        },
+        "edges": {
+          "items": {
+            "$ref": "#/$defs/Edge"
+          },
+          "maxItems": 8,
+          "minItems": 1,
+          "title": "Edges",
+          "type": "array"
+        },
+        "visits": {
+          "items": {
+            "$ref": "#/$defs/Visit"
+          },
+          "maxItems": 6,
+          "minItems": 2,
+          "title": "Visits",
+          "type": "array"
+        }
+      },
+      "required": [
+        "family",
+        "nodes",
+        "edges",
+        "visits"
+      ],
+      "title": "GraphIntent",
+      "type": "object"
+    },
+    "Node": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "label": {
+          "maxLength": 16,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "evidence": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Evidence",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "evidence"
+      ],
+      "title": "Node",
+      "type": "object"
+    },
+    "Range": {
+      "additionalProperties": false,
+      "properties": {
+        "beat_id": {
+          "title": "Beat Id",
+          "type": "string"
+        },
+        "evidence": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Evidence",
+          "type": "string"
+        },
+        "kind": {
+          "const": "range",
+          "title": "Kind",
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "maximum": 100000,
+            "minimum": -100000,
+            "type": "integer"
+          },
+          "maxItems": 8,
+          "minItems": 1,
+          "title": "Values",
+          "type": "array"
+        }
+      },
+      "required": [
+        "beat_id",
+        "evidence",
+        "kind",
+        "values"
+      ],
+      "title": "Range",
+      "type": "object"
+    },
+    "Select": {
+      "additionalProperties": false,
+      "properties": {
+        "beat_id": {
+          "title": "Beat Id",
+          "type": "string"
+        },
+        "evidence": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Evidence",
+          "type": "string"
+        },
+        "kind": {
+          "const": "select",
+          "title": "Kind",
+          "type": "string"
+        },
+        "value": {
+          "maximum": 100000,
+          "minimum": -100000,
+          "title": "Value",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "beat_id",
+        "evidence",
+        "kind",
+        "value"
+      ],
+      "title": "Select",
+      "type": "object"
+    },
+    "SemanticEntity": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "energy_source",
+            "reservoir",
+            "cloud",
+            "material",
+            "plant",
+            "body",
+            "container",
+            "barrier",
+            "electrical_source",
+            "resistor",
+            "force_source"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "evidence": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Evidence",
+          "type": "string"
+        },
+        "asset_category": {
+          "default": "none",
+          "enum": [
+            "none",
+            "weather",
+            "biology",
+            "circuit"
+          ],
+          "title": "Asset Category",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "evidence"
+      ],
+      "title": "SemanticEntity",
+      "type": "object"
+    },
+    "SpatialIntent": {
+      "additionalProperties": false,
+      "properties": {
+        "family": {
+          "const": "spatial",
+          "title": "Family",
+          "type": "string"
+        },
+        "entities": {
+          "items": {
+            "$ref": "#/$defs/SemanticEntity"
+          },
+          "maxItems": 6,
+          "minItems": 2,
+          "title": "Entities",
+          "type": "array"
+        },
+        "relationships": {
+          "items": {
+            "$ref": "#/$defs/SpatialRelation"
+          },
+          "maxItems": 6,
+          "minItems": 1,
+          "title": "Relationships",
+          "type": "array"
+        },
+        "changes": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "emphasize": "#/$defs/Emphasize",
+                "transfer": "#/$defs/Transfer"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Transfer"
+              },
+              {
+                "$ref": "#/$defs/Emphasize"
+              }
+            ]
+          },
+          "maxItems": 6,
+          "minItems": 1,
+          "title": "Changes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "family",
+        "entities",
+        "relationships",
+        "changes"
+      ],
+      "title": "SpatialIntent",
+      "type": "object"
+    },
+    "SpatialRelation": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "above",
+            "below",
+            "left_of",
+            "right_of",
+            "flows_to",
+            "heats",
+            "connected_to",
+            "pushes",
+            "pulls"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "source": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Source",
+          "type": "string"
+        },
+        "target": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Target",
+          "type": "string"
+        },
+        "evidence": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Evidence",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "source",
+        "target",
+        "evidence"
+      ],
+      "title": "SpatialRelation",
+      "type": "object"
+    },
+    "Swap": {
+      "additionalProperties": false,
+      "properties": {
+        "beat_id": {
+          "title": "Beat Id",
+          "type": "string"
+        },
+        "evidence": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Evidence",
+          "type": "string"
+        },
+        "kind": {
+          "const": "swap",
+          "title": "Kind",
+          "type": "string"
+        },
+        "first": {
+          "maximum": 100000,
+          "minimum": -100000,
+          "title": "First",
+          "type": "integer"
+        },
+        "second": {
+          "maximum": 100000,
+          "minimum": -100000,
+          "title": "Second",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "beat_id",
+        "evidence",
+        "kind",
+        "first",
+        "second"
+      ],
+      "title": "Swap",
+      "type": "object"
+    },
+    "Transfer": {
+      "additionalProperties": false,
+      "properties": {
+        "beat_id": {
+          "title": "Beat Id",
+          "type": "string"
+        },
+        "evidence": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Evidence",
+          "type": "string"
+        },
+        "kind": {
+          "const": "transfer",
+          "title": "Kind",
+          "type": "string"
+        },
+        "source": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Source",
+          "type": "string"
+        },
+        "target": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Target",
+          "type": "string"
+        }
+      },
+      "required": [
+        "beat_id",
+        "evidence",
+        "kind",
+        "source",
+        "target"
+      ],
+      "title": "Transfer",
+      "type": "object"
+    },
+    "UnsupportedIntent": {
+      "additionalProperties": false,
+      "properties": {
+        "family": {
+          "const": "unsupported",
+          "title": "Family",
+          "type": "string"
+        },
+        "reason": {
+          "enum": [
+            "ray_optics",
+            "reaction_simulation",
+            "coordinate_geometry",
+            "inconsistent_source",
+            "insufficient_evidence",
+            "unsupported_entities"
+          ],
+          "title": "Reason",
+          "type": "string"
+        },
+        "evidence": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Evidence",
+          "type": "string"
+        }
+      },
+      "required": [
+        "family",
+        "reason",
+        "evidence"
+      ],
+      "title": "UnsupportedIntent",
+      "type": "object"
+    },
+    "Visit": {
+      "additionalProperties": false,
+      "properties": {
+        "beat_id": {
+          "title": "Beat Id",
+          "type": "string"
+        },
+        "evidence": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Evidence",
+          "type": "string"
+        },
+        "node": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Node",
+          "type": "string"
+        }
+      },
+      "required": [
+        "beat_id",
+        "evidence",
+        "node"
+      ],
+      "title": "Visit",
+      "type": "object"
+    }
+  },
+  "discriminator": {
+    "mapping": {
+      "array_grid": "#/$defs/ArrayIntent",
+      "graph_network": "#/$defs/GraphIntent",
+      "spatial": "#/$defs/SpatialIntent",
+      "unsupported": "#/$defs/UnsupportedIntent"
+    },
+    "propertyName": "family"
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/ArrayIntent"
+    },
+    {
+      "$ref": "#/$defs/SpatialIntent"
+    },
+    {
+      "$ref": "#/$defs/GraphIntent"
+    },
+    {
+      "$ref": "#/$defs/UnsupportedIntent"
+    }
+  ],
+  "title": "SemanticIntent"
+}

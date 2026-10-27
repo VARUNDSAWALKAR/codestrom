@@ -1,0 +1,10 @@
+{
+  "version": "assets-v1-empty",
+  "approved": [],
+  "proposed": [
+    {"id": "sun_icon", "status": "provisional", "path": null, "license": null},
+    {"id": "cloud_icon", "status": "provisional", "path": null, "license": null},
+    {"id": "plant_icon", "status": "provisional", "path": null, "license": null}
+  ],
+  "note": "No asset files or licenses verified. All asset objects currently rejected. No downloads required."
+}

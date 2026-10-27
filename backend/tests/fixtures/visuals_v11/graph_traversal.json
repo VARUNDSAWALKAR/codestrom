@@ -1,0 +1,408 @@
+{
+  "origin": "hand-authored SemanticIntent; not LLM success",
+  "source": {
+    "schema_version": "1.0",
+    "lesson_id": "sample-vq1-graph",
+    "topic": "Graph traversal",
+    "level": "beginner",
+    "target_seconds": 60,
+    "language": "en",
+    "source": "sample",
+    "model": "authored-fixture",
+    "prompt_version": "fixture-v1",
+    "warnings": [],
+    "title": "Graph traversal",
+    "subject": "other",
+    "keep_terms": [],
+    "scenes": [
+      {
+        "id": "s1",
+        "type": "title_card",
+        "heading": "Graph traversal",
+        "narration": "This is an authored development example for Graph traversal.",
+        "steps": [],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s2",
+        "type": "diagram",
+        "heading": "Graph traversal",
+        "narration": "Follow the illustrated relationships.",
+        "steps": [
+          {
+            "text": "Start A",
+            "narration": "Start at vertex A.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Visit B",
+            "narration": "Follow the edge to B.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Visit C",
+            "narration": "Continue to the unvisited vertex C.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s3",
+        "type": "recap",
+        "heading": "Recap",
+        "narration": "",
+        "steps": [
+          {
+            "text": "Read the relationship",
+            "narration": "The illustration is qualitative.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Check assumptions",
+            "narration": "A subject reviewer should check this example.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      }
+    ]
+  },
+  "scene_id": "s2",
+  "intent": {
+    "family": "graph_network",
+    "nodes": [
+      {
+        "id": "a",
+        "label": "A",
+        "evidence": "vertex A"
+      },
+      {
+        "id": "b",
+        "label": "B",
+        "evidence": "edge to B"
+      },
+      {
+        "id": "c",
+        "label": "C",
+        "evidence": "vertex C"
+      }
+    ],
+    "edges": [
+      {
+        "source": "a",
+        "target": "b",
+        "directed": true,
+        "evidence": "Follow the edge to B."
+      },
+      {
+        "source": "b",
+        "target": "c",
+        "directed": true,
+        "evidence": "Continue to the unvisited vertex C."
+      }
+    ],
+    "visits": [
+      {
+        "node": "a",
+        "beat_id": "s2.step0",
+        "evidence": "Start at vertex A."
+      },
+      {
+        "node": "b",
+        "beat_id": "s2.step1",
+        "evidence": "Follow the edge to B."
+      },
+      {
+        "node": "c",
+        "beat_id": "s2.step2",
+        "evidence": "Continue to the unvisited vertex C."
+      }
+    ]
+  },
+  "spec": {
+    "visual_schema_version": "visual-v1",
+    "lesson_id": "sample-vq1-graph",
+    "source_fingerprint": "42839c18cf35794062f66e2e9c8de7339e4c009e59a0f352dfbf3d07cc437b9a",
+    "provenance": {
+      "prompt_version": "visual-semantic-p1",
+      "model": "authored-fixture",
+      "model_identity": "vq11-authored",
+      "capability_version": "primitives-v1",
+      "asset_version": "assets-v1-empty",
+      "semantics_version": "semantic-composer-v1",
+      "configuration_fingerprint": "32d7b8d8ede822387bdf5c09e4938e339bdd5e40c7220b066fd4dffb6feb797d"
+    },
+    "scenes": [
+      {
+        "scene_id": "s1",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "not_selected",
+          "reason": "Outside this authored fixture"
+        }
+      },
+      {
+        "scene_id": "s2",
+        "layout": "graph_network",
+        "mechanism": "Explicit graph topology and narrated traversal",
+        "accuracy": "illustrative",
+        "limitations": [
+          "Source-grounded qualitative illustration; scientific review still required",
+          "Supplemental evidence labels remain English; no new localization is performed"
+        ],
+        "objects": [
+          {
+            "id": "vertex0",
+            "role": "Graph vertex",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "A"
+            },
+            "kind": "circle",
+            "position": {
+              "x": 0.82,
+              "y": 0.47
+            },
+            "radius": 0.07
+          },
+          {
+            "id": "vertex1",
+            "role": "Graph vertex",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "B"
+            },
+            "kind": "circle",
+            "position": {
+              "x": 0.34,
+              "y": 0.71248711
+            },
+            "radius": 0.07
+          },
+          {
+            "id": "vertex2",
+            "role": "Graph vertex",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "C"
+            },
+            "kind": "circle",
+            "position": {
+              "x": 0.34,
+              "y": 0.22751289
+            },
+            "radius": 0.07
+          },
+          {
+            "id": "edge0",
+            "role": "Graph edge",
+            "style": "primary",
+            "label": null,
+            "kind": "arrow",
+            "start": {
+              "x": 0.772,
+              "y": 0.49424871
+            },
+            "end": {
+              "x": 0.388,
+              "y": 0.6882384
+            }
+          },
+          {
+            "id": "edge1",
+            "role": "Graph edge",
+            "style": "primary",
+            "label": null,
+            "kind": "arrow",
+            "start": {
+              "x": 0.34,
+              "y": 0.66398969
+            },
+            "end": {
+              "x": 0.34,
+              "y": 0.27601031
+            }
+          },
+          {
+            "id": "walk",
+            "role": "Narrated graph walk",
+            "style": "muted",
+            "label": null,
+            "kind": "path",
+            "start": {
+              "x": 0.82,
+              "y": 0.47
+            },
+            "segments": [
+              {
+                "kind": "line",
+                "end": {
+                  "x": 0.34,
+                  "y": 0.71248711
+                }
+              },
+              {
+                "kind": "line",
+                "end": {
+                  "x": 0.34,
+                  "y": 0.22751289
+                }
+              }
+            ]
+          },
+          {
+            "id": "current",
+            "role": "Current graph vertex",
+            "style": "primary",
+            "label": null,
+            "kind": "marker",
+            "position": {
+              "x": 0.82,
+              "y": 0.47
+            },
+            "radius": 0.012
+          }
+        ],
+        "relationships": [
+          {
+            "kind": "points_toward",
+            "source": "vertex0",
+            "target": "vertex1"
+          },
+          {
+            "kind": "points_toward",
+            "source": "vertex1",
+            "target": "vertex2"
+          }
+        ],
+        "actions": [
+          {
+            "id": "a0",
+            "target": "vertex0",
+            "beat_id": "s2.step0",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "highlight",
+            "from_style": "primary",
+            "to_style": "highlight"
+          },
+          {
+            "id": "a1",
+            "target": "current",
+            "beat_id": "s2.step0",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "reveal",
+            "from_opacity": 0.0,
+            "to_opacity": 1.0
+          },
+          {
+            "id": "a2",
+            "target": "vertex1",
+            "beat_id": "s2.step1",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "highlight",
+            "from_style": "primary",
+            "to_style": "highlight"
+          },
+          {
+            "id": "a3",
+            "target": "current",
+            "beat_id": "s2.step1",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "trace",
+            "path_id": "walk",
+            "from_progress": 0.0,
+            "to_progress": 0.7166006141887943
+          },
+          {
+            "id": "a4",
+            "target": "vertex2",
+            "beat_id": "s2.step2",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "highlight",
+            "from_style": "primary",
+            "to_style": "highlight"
+          },
+          {
+            "id": "a5",
+            "target": "current",
+            "beat_id": "s2.step2",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "trace",
+            "path_id": "walk",
+            "from_progress": 0.7166006141887943,
+            "to_progress": 1.0
+          }
+        ],
+        "fallback": null
+      },
+      {
+        "scene_id": "s3",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "not_selected",
+          "reason": "Outside this authored fixture"
+        }
+      }
+    ]
+  },
+  "semantic_quality": "pass_qualitative",
+  "review_notes": [
+    "Existing authored graph source, no algorithm execution; visited nodes persist, current marker follows edges."
+  ]
+}

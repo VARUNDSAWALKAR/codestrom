@@ -1,0 +1,344 @@
+{
+  "origin": "synthetic held-out vocabulary check",
+  "source": {
+    "schema_version": "1.0",
+    "lesson_id": "sample-vq1-matter",
+    "topic": "Three states of matter",
+    "level": "beginner",
+    "target_seconds": 60,
+    "language": "en",
+    "source": "sample",
+    "model": "authored-fixture",
+    "prompt_version": "fixture-v1",
+    "warnings": [],
+    "title": "Three states of matter",
+    "subject": "other",
+    "keep_terms": [],
+    "scenes": [
+      {
+        "id": "s1",
+        "type": "title_card",
+        "heading": "Three states of matter",
+        "narration": "This is an authored development example for Three states of matter.",
+        "steps": [],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s2",
+        "type": "diagram",
+        "heading": "Three states of matter",
+        "narration": "Follow the illustrated relationships.",
+        "steps": [
+          {
+            "text": "Solid",
+            "narration": "Particles in solids vibrate around fixed sites.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Liquid",
+            "narration": "Liquid particles can move past one another.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Gas",
+            "narration": "Gas particles are widely spaced.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s3",
+        "type": "recap",
+        "heading": "Recap",
+        "narration": "",
+        "steps": [
+          {
+            "text": "Read the relationship",
+            "narration": "The illustration is qualitative.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Check assumptions",
+            "narration": "A subject reviewer should check this example.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      }
+    ]
+  },
+  "spec": {
+    "visual_schema_version": "visual-v1",
+    "lesson_id": "sample-vq1-matter",
+    "source_fingerprint": "d27eb10d643013ea236ce569592c5083f5a259ad6e22ea0f36a0589be9fe572b",
+    "provenance": {
+      "prompt_version": "visual-p2",
+      "model": "authored-fixture",
+      "model_identity": "author-review-pending",
+      "capability_version": "primitives-v1",
+      "asset_version": "assets-v1-empty",
+      "semantics_version": "geometry-actions-v2",
+      "configuration_fingerprint": "bcf1df5221989a2cf776c67c78431eccdff32cb0db3f25a074672090df61fd76"
+    },
+    "scenes": [
+      {
+        "scene_id": "s1",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "legacy_scene",
+          "reason": "Existing scene retained"
+        }
+      },
+      {
+        "scene_id": "s2",
+        "layout": "comparison",
+        "mechanism": "Compare fixed particle spacing in three states",
+        "accuracy": "illustrative",
+        "limitations": [
+          "Illustrative geometry, no physical or temporal simulation"
+        ],
+        "objects": [
+          {
+            "id": "solid",
+            "role": "solid particle spacing",
+            "style": "primary",
+            "label": null,
+            "kind": "particles",
+            "positions": [
+              {
+                "x": 0.16799999999999998,
+                "y": 0.475
+              },
+              {
+                "x": 0.18,
+                "y": 0.475
+              },
+              {
+                "x": 0.192,
+                "y": 0.475
+              },
+              {
+                "x": 0.16799999999999998,
+                "y": 0.5
+              },
+              {
+                "x": 0.18,
+                "y": 0.5
+              },
+              {
+                "x": 0.192,
+                "y": 0.5
+              },
+              {
+                "x": 0.16799999999999998,
+                "y": 0.525
+              },
+              {
+                "x": 0.18,
+                "y": 0.525
+              },
+              {
+                "x": 0.192,
+                "y": 0.525
+              }
+            ],
+            "radius": 0.006
+          },
+          {
+            "id": "liquid",
+            "role": "liquid particle spacing",
+            "style": "primary",
+            "label": null,
+            "kind": "particles",
+            "positions": [
+              {
+                "x": 0.48,
+                "y": 0.46
+              },
+              {
+                "x": 0.5,
+                "y": 0.46
+              },
+              {
+                "x": 0.52,
+                "y": 0.46
+              },
+              {
+                "x": 0.48,
+                "y": 0.5
+              },
+              {
+                "x": 0.5,
+                "y": 0.5
+              },
+              {
+                "x": 0.52,
+                "y": 0.5
+              },
+              {
+                "x": 0.48,
+                "y": 0.54
+              },
+              {
+                "x": 0.5,
+                "y": 0.54
+              },
+              {
+                "x": 0.52,
+                "y": 0.54
+              }
+            ],
+            "radius": 0.006
+          },
+          {
+            "id": "gas",
+            "role": "gas particle spacing",
+            "style": "primary",
+            "label": null,
+            "kind": "particles",
+            "positions": [
+              {
+                "x": 0.7799999999999999,
+                "y": 0.4
+              },
+              {
+                "x": 0.82,
+                "y": 0.4
+              },
+              {
+                "x": 0.86,
+                "y": 0.4
+              },
+              {
+                "x": 0.7799999999999999,
+                "y": 0.5
+              },
+              {
+                "x": 0.82,
+                "y": 0.5
+              },
+              {
+                "x": 0.86,
+                "y": 0.5
+              },
+              {
+                "x": 0.7799999999999999,
+                "y": 0.6
+              },
+              {
+                "x": 0.82,
+                "y": 0.6
+              },
+              {
+                "x": 0.86,
+                "y": 0.6
+              }
+            ],
+            "radius": 0.006
+          }
+        ],
+        "relationships": [],
+        "actions": [
+          {
+            "id": "a0",
+            "target": "solid",
+            "beat_id": "s2.step0",
+            "start": 0.0,
+            "end": 0.6,
+            "kind": "reveal",
+            "from_opacity": 0.0,
+            "to_opacity": 1.0
+          },
+          {
+            "id": "a1",
+            "target": "liquid",
+            "beat_id": "s2.step1",
+            "start": 0.0,
+            "end": 0.6,
+            "kind": "reveal",
+            "from_opacity": 0.0,
+            "to_opacity": 1.0
+          },
+          {
+            "id": "a2",
+            "target": "gas",
+            "beat_id": "s2.step2",
+            "start": 0.0,
+            "end": 0.6,
+            "kind": "reveal",
+            "from_opacity": 0.0,
+            "to_opacity": 1.0
+          }
+        ],
+        "fallback": null
+      },
+      {
+        "scene_id": "s3",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "legacy_scene",
+          "reason": "Existing scene retained"
+        }
+      }
+    ]
+  },
+  "review_notes": [
+    "Fixed schematic particle positions, no molecular simulation or model-quality claim."
+  ],
+  "expected": {
+    "layout": "comparison",
+    "objects": 3,
+    "actions": 3,
+    "specialized_scene_ids": [
+      "s2"
+    ],
+    "fallback_scenes": 2
+  }
+}

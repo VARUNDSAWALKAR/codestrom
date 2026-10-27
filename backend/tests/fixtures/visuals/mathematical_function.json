@@ -1,0 +1,342 @@
+{
+  "origin": "synthetic authored source with deterministic construction",
+  "source": {
+    "schema_version": "1.0",
+    "lesson_id": "sample-vq1-function",
+    "topic": "The linear function y equals x plus one",
+    "level": "beginner",
+    "target_seconds": 60,
+    "language": "en",
+    "source": "sample",
+    "model": "authored-fixture",
+    "prompt_version": "fixture-v1",
+    "warnings": [],
+    "title": "The linear function y equals x plus one",
+    "subject": "math",
+    "keep_terms": [],
+    "scenes": [
+      {
+        "id": "s1",
+        "type": "title_card",
+        "heading": "The linear function y equals x plus one",
+        "narration": "This is an authored development example for The linear function y equals x plus one.",
+        "steps": [],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s2",
+        "type": "diagram",
+        "heading": "The linear function y equals x plus one",
+        "narration": "Follow the illustrated relationships.",
+        "steps": [
+          {
+            "text": "Axes",
+            "narration": "The horizontal axis shows x and the vertical axis shows y.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Line",
+            "narration": "Each point satisfies y equals x plus one.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Increasing",
+            "narration": "The line increases by one for every unit step.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s3",
+        "type": "recap",
+        "heading": "Recap",
+        "narration": "",
+        "steps": [
+          {
+            "text": "Read the relationship",
+            "narration": "The illustration is qualitative.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Check assumptions",
+            "narration": "A subject reviewer should check this example.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      }
+    ]
+  },
+  "spec": {
+    "visual_schema_version": "visual-v1",
+    "lesson_id": "sample-vq1-function",
+    "source_fingerprint": "2e8154b6d99e6fb546d683ac300e023415c64bc55ffee3beb7b829a600df4828",
+    "provenance": {
+      "prompt_version": "visual-p2",
+      "model": "authored-fixture",
+      "model_identity": "author-review-pending",
+      "capability_version": "primitives-v1",
+      "asset_version": "assets-v1-empty",
+      "semantics_version": "geometry-actions-v2",
+      "configuration_fingerprint": "7bb9deb63fb76e6615b8b3bfc5edf54f80ebfac1edf394b86df3e690e1d2aa40"
+    },
+    "scenes": [
+      {
+        "scene_id": "s1",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "legacy_scene",
+          "reason": "Existing scene retained"
+        }
+      },
+      {
+        "scene_id": "s2",
+        "layout": "coordinate_plane",
+        "mechanism": "Analytically sampled linear relationship y=x+1",
+        "accuracy": "illustrative",
+        "limitations": [
+          "Illustrative geometry, no physical or temporal simulation"
+        ],
+        "objects": [
+          {
+            "id": "x_axis",
+            "role": "x axis from zero to four",
+            "style": "primary",
+            "label": null,
+            "kind": "arrow",
+            "start": {
+              "x": 0.1,
+              "y": 0.9
+            },
+            "end": {
+              "x": 0.95,
+              "y": 0.9
+            }
+          },
+          {
+            "id": "y_axis",
+            "role": "y axis from zero to six",
+            "style": "primary",
+            "label": null,
+            "kind": "arrow",
+            "start": {
+              "x": 0.1,
+              "y": 0.9
+            },
+            "end": {
+              "x": 0.1,
+              "y": 0.05
+            }
+          },
+          {
+            "id": "function",
+            "role": "y equals x plus one",
+            "style": "primary",
+            "label": null,
+            "kind": "path",
+            "start": {
+              "x": 0.1,
+              "y": 0.7666666666666667
+            },
+            "segments": [
+              {
+                "kind": "line",
+                "end": {
+                  "x": 0.30000000000000004,
+                  "y": 0.6333333333333333
+                }
+              },
+              {
+                "kind": "line",
+                "end": {
+                  "x": 0.5,
+                  "y": 0.49999999999999994
+                }
+              },
+              {
+                "kind": "line",
+                "end": {
+                  "x": 0.7000000000000001,
+                  "y": 0.3666666666666667
+                }
+              },
+              {
+                "kind": "line",
+                "end": {
+                  "x": 0.9,
+                  "y": 0.2333333333333334
+                }
+              }
+            ]
+          },
+          {
+            "id": "x_max",
+            "role": "Domain endpoint",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "4"
+            },
+            "kind": "text",
+            "position": {
+              "x": 0.9,
+              "y": 0.97
+            },
+            "width": 0.1,
+            "height": 0.05
+          },
+          {
+            "id": "y_max",
+            "role": "Range endpoint",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "6"
+            },
+            "kind": "text",
+            "position": {
+              "x": 0.04,
+              "y": 0.06
+            },
+            "width": 0.06,
+            "height": 0.06
+          },
+          {
+            "id": "origin",
+            "role": "Origin",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "0"
+            },
+            "kind": "text",
+            "position": {
+              "x": 0.05,
+              "y": 0.94
+            },
+            "width": 0.06,
+            "height": 0.06
+          },
+          {
+            "id": "equation",
+            "role": "Reviewed equation",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "y = x + 1"
+            },
+            "kind": "text",
+            "position": {
+              "x": 0.65,
+              "y": 0.1
+            },
+            "width": 0.3,
+            "height": 0.12
+          }
+        ],
+        "relationships": [],
+        "actions": [
+          {
+            "id": "a0",
+            "target": "x_axis",
+            "beat_id": "s2.step0",
+            "start": 0.0,
+            "end": 0.6,
+            "kind": "draw",
+            "from_progress": 0.0,
+            "to_progress": 1.0
+          },
+          {
+            "id": "a1",
+            "target": "function",
+            "beat_id": "s2.step1",
+            "start": 0.0,
+            "end": 0.6,
+            "kind": "draw",
+            "from_progress": 0.0,
+            "to_progress": 1.0
+          },
+          {
+            "id": "a2",
+            "target": "function",
+            "beat_id": "s2.step2",
+            "start": 0.0,
+            "end": 0.6,
+            "kind": "highlight",
+            "from_style": "primary",
+            "to_style": "highlight"
+          }
+        ],
+        "fallback": null
+      },
+      {
+        "scene_id": "s3",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "legacy_scene",
+          "reason": "Existing scene retained"
+        }
+      }
+    ]
+  },
+  "review_notes": [
+    "Generated by tested linear_points(1,1,0,4,0,6), not an evaluated expression.",
+    "Renderer must show axis values/domain; no arbitrary curves or extrapolation."
+  ],
+  "expected": {
+    "layout": "coordinate_plane",
+    "objects": 7,
+    "actions": 3,
+    "specialized_scene_ids": [
+      "s2"
+    ],
+    "fallback_scenes": 2
+  }
+}

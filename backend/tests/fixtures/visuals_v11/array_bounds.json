@@ -1,0 +1,627 @@
+{
+  "origin": "hand-authored SemanticIntent; not LLM success",
+  "source": {
+    "schema_version": "1.0",
+    "lesson_id": "sample-vq1-binary-array",
+    "topic": "Binary search on a sorted array",
+    "level": "beginner",
+    "target_seconds": 60,
+    "language": "en",
+    "source": "sample",
+    "model": "authored-fixture",
+    "prompt_version": "fixture-v1",
+    "warnings": [],
+    "title": "Binary search on a sorted array",
+    "subject": "other",
+    "keep_terms": [],
+    "scenes": [
+      {
+        "id": "s1",
+        "type": "title_card",
+        "heading": "Binary search on a sorted array",
+        "narration": "This is an authored development example for Binary search on a sorted array.",
+        "steps": [],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s2",
+        "type": "diagram",
+        "heading": "Binary search on a sorted array",
+        "narration": "Follow the illustrated relationships.",
+        "steps": [
+          {
+            "text": "1 3 5 7 9",
+            "narration": "Start with five sorted values.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Midpoint 5",
+            "narration": "The middle value is five.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Keep 7 9",
+            "narration": "Seven is larger; keep the right interval.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Found 7",
+            "narration": "Seven is now found.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s3",
+        "type": "recap",
+        "heading": "Recap",
+        "narration": "",
+        "steps": [
+          {
+            "text": "Read the relationship",
+            "narration": "The illustration is qualitative.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Check assumptions",
+            "narration": "A subject reviewer should check this example.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      }
+    ]
+  },
+  "scene_id": "s2",
+  "intent": {
+    "family": "array_grid",
+    "values": [
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "changes": [
+      {
+        "kind": "range",
+        "beat_id": "s2.step0",
+        "evidence": "1 3 5 7 9",
+        "values": [
+          1,
+          3,
+          5,
+          7,
+          9
+        ]
+      },
+      {
+        "kind": "select",
+        "beat_id": "s2.step1",
+        "evidence": "Midpoint 5",
+        "value": 5
+      },
+      {
+        "kind": "range",
+        "beat_id": "s2.step2",
+        "evidence": "Keep 7 9",
+        "values": [
+          7,
+          9
+        ]
+      },
+      {
+        "kind": "select",
+        "beat_id": "s2.step3",
+        "evidence": "Found 7",
+        "value": 7
+      }
+    ]
+  },
+  "spec": {
+    "visual_schema_version": "visual-v1",
+    "lesson_id": "sample-vq1-binary-array",
+    "source_fingerprint": "61d550f3407edc100f9b4c9b7c571e1ca1224cafbb9bb4d089c9575772833b97",
+    "provenance": {
+      "prompt_version": "visual-semantic-p1",
+      "model": "authored-fixture",
+      "model_identity": "vq11-authored",
+      "capability_version": "primitives-v1",
+      "asset_version": "assets-v1-empty",
+      "semantics_version": "semantic-composer-v1",
+      "configuration_fingerprint": "3b0b7d0e082e2ad6bfc07e8e37c4b46b88fe9ddad16eda92a4c60201096bd2ef"
+    },
+    "scenes": [
+      {
+        "scene_id": "s1",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "not_selected",
+          "reason": "Outside this authored fixture"
+        }
+      },
+      {
+        "scene_id": "s2",
+        "layout": "array_grid",
+        "mechanism": "Source array values, bounds and narrated state changes",
+        "accuracy": "illustrative",
+        "limitations": [
+          "Source-grounded qualitative illustration; scientific review still required",
+          "Supplemental evidence labels remain English; no new localization is performed"
+        ],
+        "objects": [
+          {
+            "id": "cell0",
+            "role": "Ordered value",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "1"
+            },
+            "kind": "rectangle",
+            "position": {
+              "x": 0.1,
+              "y": 0.5
+            },
+            "width": 0.13,
+            "height": 0.2
+          },
+          {
+            "id": "index0",
+            "role": "Fixed array index",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "0"
+            },
+            "kind": "text",
+            "position": {
+              "x": 0.1,
+              "y": 0.68
+            },
+            "width": 0.08,
+            "height": 0.08
+          },
+          {
+            "id": "cell1",
+            "role": "Ordered value",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "3"
+            },
+            "kind": "rectangle",
+            "position": {
+              "x": 0.3,
+              "y": 0.5
+            },
+            "width": 0.13,
+            "height": 0.2
+          },
+          {
+            "id": "index1",
+            "role": "Fixed array index",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "1"
+            },
+            "kind": "text",
+            "position": {
+              "x": 0.3,
+              "y": 0.68
+            },
+            "width": 0.08,
+            "height": 0.08
+          },
+          {
+            "id": "cell2",
+            "role": "Ordered value",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "5"
+            },
+            "kind": "rectangle",
+            "position": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "width": 0.13,
+            "height": 0.2
+          },
+          {
+            "id": "index2",
+            "role": "Fixed array index",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "2"
+            },
+            "kind": "text",
+            "position": {
+              "x": 0.5,
+              "y": 0.68
+            },
+            "width": 0.08,
+            "height": 0.08
+          },
+          {
+            "id": "cell3",
+            "role": "Ordered value",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "7"
+            },
+            "kind": "rectangle",
+            "position": {
+              "x": 0.7,
+              "y": 0.5
+            },
+            "width": 0.13,
+            "height": 0.2
+          },
+          {
+            "id": "index3",
+            "role": "Fixed array index",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "3"
+            },
+            "kind": "text",
+            "position": {
+              "x": 0.7,
+              "y": 0.68
+            },
+            "width": 0.08,
+            "height": 0.08
+          },
+          {
+            "id": "cell4",
+            "role": "Ordered value",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "9"
+            },
+            "kind": "rectangle",
+            "position": {
+              "x": 0.9,
+              "y": 0.5
+            },
+            "width": 0.13,
+            "height": 0.2
+          },
+          {
+            "id": "index4",
+            "role": "Fixed array index",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "4"
+            },
+            "kind": "text",
+            "position": {
+              "x": 0.9,
+              "y": 0.68
+            },
+            "width": 0.08,
+            "height": 0.08
+          },
+          {
+            "id": "lo",
+            "role": "Array pointer low",
+            "style": "primary",
+            "label": null,
+            "kind": "marker",
+            "position": {
+              "x": 0.1,
+              "y": 0.31
+            },
+            "radius": 0.01
+          },
+          {
+            "id": "lo_label",
+            "role": "Array bound",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "low"
+            },
+            "kind": "text",
+            "position": {
+              "x": 0.1,
+              "y": 0.21
+            },
+            "width": 0.1,
+            "height": 0.08
+          },
+          {
+            "id": "hi",
+            "role": "Array pointer high",
+            "style": "primary",
+            "label": null,
+            "kind": "marker",
+            "position": {
+              "x": 0.9,
+              "y": 0.31
+            },
+            "radius": 0.01
+          },
+          {
+            "id": "hi_label",
+            "role": "Array bound",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "high"
+            },
+            "kind": "text",
+            "position": {
+              "x": 0.9,
+              "y": 0.21
+            },
+            "width": 0.1,
+            "height": 0.08
+          },
+          {
+            "id": "current",
+            "role": "Array pointer current",
+            "style": "primary",
+            "label": null,
+            "kind": "marker",
+            "position": {
+              "x": 0.1,
+              "y": 0.8
+            },
+            "radius": 0.01
+          }
+        ],
+        "relationships": [
+          {
+            "kind": "ordered_with",
+            "source": "cell0",
+            "target": "cell1"
+          },
+          {
+            "kind": "ordered_with",
+            "source": "cell1",
+            "target": "cell2"
+          },
+          {
+            "kind": "ordered_with",
+            "source": "cell2",
+            "target": "cell3"
+          },
+          {
+            "kind": "ordered_with",
+            "source": "cell3",
+            "target": "cell4"
+          }
+        ],
+        "actions": [
+          {
+            "id": "a0",
+            "target": "lo",
+            "beat_id": "s2.step0",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "highlight",
+            "from_style": "primary",
+            "to_style": "highlight"
+          },
+          {
+            "id": "a1",
+            "target": "current",
+            "beat_id": "s2.step1",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "reveal",
+            "from_opacity": 0.0,
+            "to_opacity": 1.0
+          },
+          {
+            "id": "a2",
+            "target": "current",
+            "beat_id": "s2.step1",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "move",
+            "from_position": {
+              "x": 0.1,
+              "y": 0.8
+            },
+            "to_position": {
+              "x": 0.5,
+              "y": 0.8
+            }
+          },
+          {
+            "id": "a3",
+            "target": "cell2",
+            "beat_id": "s2.step1",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "highlight",
+            "from_style": "primary",
+            "to_style": "highlight"
+          },
+          {
+            "id": "a4",
+            "target": "current",
+            "beat_id": "s2.step2",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "reveal",
+            "from_opacity": 1.0,
+            "to_opacity": 0.0
+          },
+          {
+            "id": "a5",
+            "target": "cell0",
+            "beat_id": "s2.step2",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "highlight",
+            "from_style": "primary",
+            "to_style": "muted"
+          },
+          {
+            "id": "a6",
+            "target": "cell1",
+            "beat_id": "s2.step2",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "highlight",
+            "from_style": "primary",
+            "to_style": "muted"
+          },
+          {
+            "id": "a7",
+            "target": "cell2",
+            "beat_id": "s2.step2",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "highlight",
+            "from_style": "highlight",
+            "to_style": "muted"
+          },
+          {
+            "id": "a8",
+            "target": "lo",
+            "beat_id": "s2.step2",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "move",
+            "from_position": {
+              "x": 0.1,
+              "y": 0.31
+            },
+            "to_position": {
+              "x": 0.7,
+              "y": 0.31
+            }
+          },
+          {
+            "id": "a9",
+            "target": "lo_label",
+            "beat_id": "s2.step2",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "move",
+            "from_position": {
+              "x": 0.1,
+              "y": 0.21
+            },
+            "to_position": {
+              "x": 0.7,
+              "y": 0.21
+            }
+          },
+          {
+            "id": "a10",
+            "target": "current",
+            "beat_id": "s2.step3",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "reveal",
+            "from_opacity": 0.0,
+            "to_opacity": 1.0
+          },
+          {
+            "id": "a11",
+            "target": "current",
+            "beat_id": "s2.step3",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "move",
+            "from_position": {
+              "x": 0.5,
+              "y": 0.8
+            },
+            "to_position": {
+              "x": 0.7,
+              "y": 0.8
+            }
+          },
+          {
+            "id": "a12",
+            "target": "cell3",
+            "beat_id": "s2.step3",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "highlight",
+            "from_style": "primary",
+            "to_style": "highlight"
+          }
+        ],
+        "fallback": null
+      },
+      {
+        "scene_id": "s3",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "not_selected",
+          "reason": "Outside this authored fixture"
+        }
+      }
+    ]
+  },
+  "semantic_quality": "pass_qualitative",
+  "review_notes": [
+    "Existing corrected synthetic source, not the inconsistent cached production example.",
+    "Fixed index labels, low/high pointers, narrowing candidate cells and selected current value."
+  ]
+}

@@ -1,0 +1,309 @@
+{
+  "origin": "existing authored sample",
+  "source": {
+    "schema_version": "1.0",
+    "lesson_id": "sample-newtons-second-law",
+    "topic": "What is Newton's second law?",
+    "level": "beginner",
+    "target_seconds": 60,
+    "language": "en",
+    "source": "sample",
+    "model": "hand-written",
+    "prompt_version": "none",
+    "warnings": [],
+    "title": "What is Newton's second law?",
+    "subject": "physics",
+    "keep_terms": [
+      "Newton"
+    ],
+    "scenes": [
+      {
+        "id": "s1",
+        "type": "title_card",
+        "heading": "What is Newton's second law?",
+        "narration": "Newton's second law tells us how a force changes the motion of an object.",
+        "steps": [],
+        "subtitle": "Force, mass and acceleration",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s2",
+        "type": "formula",
+        "heading": "The law in one line",
+        "narration": "The law says that force equals mass times acceleration.",
+        "steps": [
+          {
+            "text": "F",
+            "narration": "F stands for the net force on the object, measured in newtons.",
+            "note": "net force, in newtons",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "m",
+            "narration": "m stands for mass, measured in kilograms.",
+            "note": "mass, in kilograms",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "a",
+            "narration": "The last symbol stands for acceleration, which tells us how fast the velocity changes.",
+            "note": "acceleration, in m/s²",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": "F = m × a"
+      },
+      {
+        "id": "s3",
+        "type": "diagram",
+        "heading": "Example: pushing a cart",
+        "narration": "Let's try it with numbers.",
+        "steps": [
+          {
+            "text": "m = 2 kg",
+            "narration": "A cart has a mass of two kilograms.",
+            "note": "mass of the cart",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "F = 10 N",
+            "narration": "You push it with a net force of ten newtons.",
+            "note": "your push",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "a = 10 ÷ 2 = 5 m/s²",
+            "narration": "So the acceleration is ten divided by two, which is five metres per second squared.",
+            "note": "acceleration",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s4",
+        "type": "recap",
+        "heading": "Remember",
+        "narration": "",
+        "steps": [
+          {
+            "text": "Bigger force → bigger acceleration",
+            "narration": "For the same mass, a bigger force gives a bigger acceleration.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Bigger mass → smaller acceleration",
+            "narration": "For the same force, a heavier object speeds up more slowly.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "F = m × a",
+            "narration": "In short, force equals mass times acceleration.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      }
+    ]
+  },
+  "spec": {
+    "visual_schema_version": "visual-v1",
+    "lesson_id": "sample-newtons-second-law",
+    "source_fingerprint": "b736205187f565da1f79a53a495e4c9258089ffdb3874e4ffd3d2f66a03b673e",
+    "provenance": {
+      "prompt_version": "visual-p2",
+      "model": "authored-fixture",
+      "model_identity": "author-review-pending",
+      "capability_version": "primitives-v1",
+      "asset_version": "assets-v1-empty",
+      "semantics_version": "geometry-actions-v2",
+      "configuration_fingerprint": "7b24a5716a81329347851361a486839f8c294af9d6d7f3efd066ab2e7f7258c8"
+    },
+    "scenes": [
+      {
+        "scene_id": "s1",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "legacy_scene",
+          "reason": "Existing scene retained"
+        }
+      },
+      {
+        "scene_id": "s2",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "legacy_scene",
+          "reason": "Existing scene retained"
+        }
+      },
+      {
+        "scene_id": "s3",
+        "layout": "spatial",
+        "mechanism": "Qualitative applied force and motion, not an acceleration simulation",
+        "accuracy": "illustrative",
+        "limitations": [
+          "Illustrative geometry, no physical or temporal simulation"
+        ],
+        "objects": [
+          {
+            "id": "cart",
+            "role": "Mass on a track",
+            "style": "primary",
+            "label": null,
+            "kind": "rectangle",
+            "position": {
+              "x": 0.35,
+              "y": 0.65
+            },
+            "width": 0.24,
+            "height": 0.2
+          },
+          {
+            "id": "force",
+            "role": "Applied force direction",
+            "style": "primary",
+            "label": null,
+            "kind": "arrow",
+            "start": {
+              "x": 0.32,
+              "y": 0.35
+            },
+            "end": {
+              "x": 0.68,
+              "y": 0.35
+            }
+          },
+          {
+            "id": "track",
+            "role": "Horizontal track",
+            "style": "primary",
+            "label": null,
+            "kind": "line",
+            "start": {
+              "x": 0.1,
+              "y": 0.78
+            },
+            "end": {
+              "x": 0.9,
+              "y": 0.78
+            }
+          }
+        ],
+        "relationships": [],
+        "actions": [
+          {
+            "id": "a0",
+            "target": "force",
+            "beat_id": "s3.step0",
+            "start": 0.0,
+            "end": 0.6,
+            "kind": "draw",
+            "from_progress": 0.0,
+            "to_progress": 1.0
+          },
+          {
+            "id": "a1",
+            "target": "cart",
+            "beat_id": "s3.step1",
+            "start": 0.0,
+            "end": 0.6,
+            "kind": "move",
+            "from_position": {
+              "x": 0.35,
+              "y": 0.65
+            },
+            "to_position": {
+              "x": 0.65,
+              "y": 0.65
+            }
+          }
+        ],
+        "fallback": null
+      },
+      {
+        "scene_id": "s4",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "legacy_scene",
+          "reason": "Existing scene retained"
+        }
+      }
+    ]
+  },
+  "review_notes": [
+    "Formula retained in legacy renderer; cart displacement is illustrative, not a numeric integration."
+  ],
+  "expected": {
+    "layout": "spatial",
+    "objects": 3,
+    "actions": 2,
+    "specialized_scene_ids": [
+      "s3"
+    ],
+    "fallback_scenes": 3
+  }
+}

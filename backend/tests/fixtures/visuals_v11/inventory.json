@@ -1,0 +1,72 @@
+[
+  {
+    "name": "water_cycle",
+    "family": "spatial",
+    "quality": "pass_qualitative",
+    "objects": 21,
+    "actions": 6,
+    "fallback": null
+  },
+  {
+    "name": "array_bounds",
+    "family": "array_grid",
+    "quality": "pass_qualitative",
+    "objects": 15,
+    "actions": 13,
+    "fallback": null
+  },
+  {
+    "name": "binary_search_cached",
+    "family": "unsupported",
+    "quality": "safe_fallback",
+    "objects": 0,
+    "actions": 0,
+    "fallback": {
+      "code": "source_inaccurate",
+      "reason": "inconsistent_source"
+    }
+  },
+  {
+    "name": "concave_lens",
+    "family": "unsupported",
+    "quality": "safe_fallback",
+    "objects": 0,
+    "actions": 0,
+    "fallback": {
+      "code": "unsupported_mechanism",
+      "reason": "ray_optics"
+    }
+  },
+  {
+    "name": "graph_traversal",
+    "family": "graph_network",
+    "quality": "pass_qualitative",
+    "objects": 7,
+    "actions": 6,
+    "fallback": null
+  },
+  {
+    "name": "ohms_law",
+    "family": "spatial",
+    "quality": "partial",
+    "objects": 6,
+    "actions": 2,
+    "fallback": null
+  },
+  {
+    "name": "heldout_settling",
+    "family": "spatial",
+    "quality": "pass_qualitative",
+    "objects": 6,
+    "actions": 3,
+    "fallback": null
+  },
+  {
+    "name": "heldout_swap",
+    "family": "array_grid",
+    "quality": "pass_qualitative",
+    "objects": 10,
+    "actions": 3,
+    "fallback": null
+  }
+]

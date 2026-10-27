@@ -1,0 +1,213 @@
+{
+  "origin": "hand-authored SemanticIntent; not LLM success",
+  "source": {
+    "schema_version": "1.0",
+    "lesson_id": "d09d4030959b",
+    "topic": "Binary Search",
+    "level": "beginner",
+    "target_seconds": 60,
+    "language": "en",
+    "source": "llm",
+    "model": "qwen3:4b-instruct-2507-q4_K_M",
+    "prompt_version": "p12-task4",
+    "warnings": [],
+    "title": "title_card",
+    "subject": "programming",
+    "keep_terms": [
+      "sorted list",
+      "middle element",
+      "search range",
+      "index",
+      "loop"
+    ],
+    "scenes": [
+      {
+        "id": "s1",
+        "type": "title_card",
+        "heading": "Binary Search",
+        "narration": "Learn how binary search efficiently finds a value in a sorted list using middle checks and smart range updates.",
+        "steps": [],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s2",
+        "type": "code_walkthrough",
+        "heading": "Binary Search in Python",
+        "narration": "Binary search finds a value in a sorted list by checking the middle element. If it's too low, we search the right half. If too high, we search the left. It repeats until found or exhausted.",
+        "steps": [
+          {
+            "text": "left, right = 0, len(arr) - 1",
+            "narration": "Initialize left and right pointers at start and end of sorted list.",
+            "note": "",
+            "lines": [
+              1
+            ],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "while left <= right:",
+            "narration": "Loop while left is less than or equal to right.",
+            "note": "",
+            "lines": [
+              2
+            ],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "mid = (left + right) // 2",
+            "narration": "Find middle index and compare value to target.",
+            "note": "",
+            "lines": [
+              3
+            ],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "if arr[mid] == target: return mid",
+            "narration": "If middle matches target, return index. Else adjust search range.",
+            "note": "",
+            "lines": [
+              4
+            ],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "def binary_search(arr, target):\n    left, right = 0, len(arr) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return -1",
+        "code_language": "python",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s3",
+        "type": "diagram",
+        "heading": "How Binary Search Works",
+        "narration": "Start with full list. Pick middle element. If it matches, done. If too low, search right half. If too high, search left half. Repeat until found or list ends.",
+        "steps": [
+          {
+            "text": "List: [1, 3, 5, 7, 9]",
+            "narration": "Start with full sorted list.",
+            "note": "Must be sorted",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Check 5",
+            "narration": "Check middle element: 5.",
+            "note": "5 < target? No → 5 > target? Yes",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Search right half",
+            "narration": "Target is 7, so search right half.",
+            "note": "Now check [7, 9]",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Check 8 → not found",
+            "narration": "New middle: 8 → not found. Search left half.",
+            "note": "Now check [7]",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      }
+    ]
+  },
+  "scene_id": "s3",
+  "intent": {
+    "family": "unsupported",
+    "reason": "inconsistent_source",
+    "evidence": "New middle: 8"
+  },
+  "spec": {
+    "visual_schema_version": "visual-v1",
+    "lesson_id": "d09d4030959b",
+    "source_fingerprint": "c3b893ac3bdfc5a2e43367984a965ea07646c11bb98c2b353ba1a71af8dd1525",
+    "provenance": {
+      "prompt_version": "visual-semantic-p1",
+      "model": "authored-fixture",
+      "model_identity": "vq11-authored",
+      "capability_version": "primitives-v1",
+      "asset_version": "assets-v1-empty",
+      "semantics_version": "semantic-composer-v1",
+      "configuration_fingerprint": "0498532ce4939a265c3dc00cf5c3c2983a2af59b78b037df5a1f2a29fd0f5915"
+    },
+    "scenes": [
+      {
+        "scene_id": "s1",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "not_selected",
+          "reason": "Outside this authored fixture"
+        }
+      },
+      {
+        "scene_id": "s2",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "not_selected",
+          "reason": "Outside this authored fixture"
+        }
+      },
+      {
+        "scene_id": "s3",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "source_inaccurate",
+          "reason": "inconsistent_source"
+        }
+      }
+    ]
+  },
+  "semantic_quality": "safe_fallback",
+  "review_notes": [
+    "Source claims 8 is a middle element of [1,3,5,7,9]. Preserved; never repaired by visuals."
+  ]
+}

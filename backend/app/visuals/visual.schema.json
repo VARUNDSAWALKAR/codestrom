@@ -1,0 +1,1857 @@
+{
+  "$defs": {
+    "Asset": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "role": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Role",
+          "type": "string"
+        },
+        "style": {
+          "default": "primary",
+          "enum": [
+            "primary",
+            "secondary",
+            "accent",
+            "muted",
+            "warning",
+            "highlight"
+          ],
+          "title": "Style",
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "literal": "#/$defs/LiteralText",
+                  "source": "#/$defs/SourceText"
+                },
+                "propertyName": "kind"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/SourceText"
+                },
+                {
+                  "$ref": "#/$defs/LiteralText"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        },
+        "kind": {
+          "const": "asset",
+          "title": "Kind",
+          "type": "string"
+        },
+        "asset_id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Asset Id",
+          "type": "string"
+        },
+        "position": {
+          "$ref": "#/$defs/Point"
+        },
+        "width": {
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "title": "Width",
+          "type": "number"
+        },
+        "height": {
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "title": "Height",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "role",
+        "kind",
+        "asset_id",
+        "position",
+        "width",
+        "height"
+      ],
+      "title": "Asset",
+      "type": "object"
+    },
+    "Circle": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "role": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Role",
+          "type": "string"
+        },
+        "style": {
+          "default": "primary",
+          "enum": [
+            "primary",
+            "secondary",
+            "accent",
+            "muted",
+            "warning",
+            "highlight"
+          ],
+          "title": "Style",
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "literal": "#/$defs/LiteralText",
+                  "source": "#/$defs/SourceText"
+                },
+                "propertyName": "kind"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/SourceText"
+                },
+                {
+                  "$ref": "#/$defs/LiteralText"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        },
+        "kind": {
+          "const": "circle",
+          "title": "Kind",
+          "type": "string"
+        },
+        "position": {
+          "$ref": "#/$defs/Point"
+        },
+        "radius": {
+          "exclusiveMinimum": 0,
+          "maximum": 0.5,
+          "title": "Radius",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "role",
+        "kind",
+        "position",
+        "radius"
+      ],
+      "title": "Circle",
+      "type": "object"
+    },
+    "CubicSegment": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "cubic",
+          "title": "Kind",
+          "type": "string"
+        },
+        "control1": {
+          "$ref": "#/$defs/Point"
+        },
+        "control2": {
+          "$ref": "#/$defs/Point"
+        },
+        "end": {
+          "$ref": "#/$defs/Point"
+        }
+      },
+      "required": [
+        "kind",
+        "control1",
+        "control2",
+        "end"
+      ],
+      "title": "CubicSegment",
+      "type": "object"
+    },
+    "Draw": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "target": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Target",
+          "type": "string"
+        },
+        "beat_id": {
+          "pattern": "^s[1-9][0-9]*\\.(intro|step[0-5])$",
+          "title": "Beat Id",
+          "type": "string"
+        },
+        "start": {
+          "default": 0.0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Start",
+          "type": "number"
+        },
+        "end": {
+          "default": 0.6,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "End",
+          "type": "number"
+        },
+        "kind": {
+          "const": "draw",
+          "title": "Kind",
+          "type": "string"
+        },
+        "from_progress": {
+          "default": 0.0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "From Progress",
+          "type": "number"
+        },
+        "to_progress": {
+          "default": 1.0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "To Progress",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "target",
+        "beat_id",
+        "kind"
+      ],
+      "title": "Draw",
+      "type": "object"
+    },
+    "Ellipse": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "role": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Role",
+          "type": "string"
+        },
+        "style": {
+          "default": "primary",
+          "enum": [
+            "primary",
+            "secondary",
+            "accent",
+            "muted",
+            "warning",
+            "highlight"
+          ],
+          "title": "Style",
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "literal": "#/$defs/LiteralText",
+                  "source": "#/$defs/SourceText"
+                },
+                "propertyName": "kind"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/SourceText"
+                },
+                {
+                  "$ref": "#/$defs/LiteralText"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        },
+        "kind": {
+          "const": "ellipse",
+          "title": "Kind",
+          "type": "string"
+        },
+        "position": {
+          "$ref": "#/$defs/Point"
+        },
+        "rx": {
+          "exclusiveMinimum": 0,
+          "maximum": 0.5,
+          "title": "Rx",
+          "type": "number"
+        },
+        "ry": {
+          "exclusiveMinimum": 0,
+          "maximum": 0.5,
+          "title": "Ry",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "role",
+        "kind",
+        "position",
+        "rx",
+        "ry"
+      ],
+      "title": "Ellipse",
+      "type": "object"
+    },
+    "Fallback": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "enum": [
+            "legacy_scene",
+            "unsupported_mechanism",
+            "source_inaccurate",
+            "invalid_candidate",
+            "model_unavailable",
+            "not_selected",
+            "cache_invalid"
+          ],
+          "title": "Code",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "reason"
+      ],
+      "title": "Fallback",
+      "type": "object"
+    },
+    "Group": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "role": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Role",
+          "type": "string"
+        },
+        "style": {
+          "default": "primary",
+          "enum": [
+            "primary",
+            "secondary",
+            "accent",
+            "muted",
+            "warning",
+            "highlight"
+          ],
+          "title": "Style",
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "literal": "#/$defs/LiteralText",
+                  "source": "#/$defs/SourceText"
+                },
+                "propertyName": "kind"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/SourceText"
+                },
+                {
+                  "$ref": "#/$defs/LiteralText"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        },
+        "kind": {
+          "const": "group",
+          "title": "Kind",
+          "type": "string"
+        },
+        "children": {
+          "items": {
+            "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+            "type": "string"
+          },
+          "maxItems": 16,
+          "minItems": 1,
+          "title": "Children",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "role",
+        "kind",
+        "children"
+      ],
+      "title": "Group",
+      "type": "object"
+    },
+    "Highlight": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "role": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Role",
+          "type": "string"
+        },
+        "style": {
+          "default": "primary",
+          "enum": [
+            "primary",
+            "secondary",
+            "accent",
+            "muted",
+            "warning",
+            "highlight"
+          ],
+          "title": "Style",
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "literal": "#/$defs/LiteralText",
+                  "source": "#/$defs/SourceText"
+                },
+                "propertyName": "kind"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/SourceText"
+                },
+                {
+                  "$ref": "#/$defs/LiteralText"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        },
+        "kind": {
+          "const": "highlight_region",
+          "title": "Kind",
+          "type": "string"
+        },
+        "position": {
+          "$ref": "#/$defs/Point"
+        },
+        "width": {
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "title": "Width",
+          "type": "number"
+        },
+        "height": {
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "title": "Height",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "role",
+        "kind",
+        "position",
+        "width",
+        "height"
+      ],
+      "title": "Highlight",
+      "type": "object"
+    },
+    "HighlightAction": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "target": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Target",
+          "type": "string"
+        },
+        "beat_id": {
+          "pattern": "^s[1-9][0-9]*\\.(intro|step[0-5])$",
+          "title": "Beat Id",
+          "type": "string"
+        },
+        "start": {
+          "default": 0.0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Start",
+          "type": "number"
+        },
+        "end": {
+          "default": 0.6,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "End",
+          "type": "number"
+        },
+        "kind": {
+          "const": "highlight",
+          "title": "Kind",
+          "type": "string"
+        },
+        "from_style": {
+          "default": "primary",
+          "enum": [
+            "primary",
+            "secondary",
+            "accent",
+            "muted",
+            "warning",
+            "highlight"
+          ],
+          "title": "From Style",
+          "type": "string"
+        },
+        "to_style": {
+          "default": "highlight",
+          "enum": [
+            "primary",
+            "secondary",
+            "accent",
+            "muted",
+            "warning",
+            "highlight"
+          ],
+          "title": "To Style",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "target",
+        "beat_id",
+        "kind"
+      ],
+      "title": "HighlightAction",
+      "type": "object"
+    },
+    "Line": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "role": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Role",
+          "type": "string"
+        },
+        "style": {
+          "default": "primary",
+          "enum": [
+            "primary",
+            "secondary",
+            "accent",
+            "muted",
+            "warning",
+            "highlight"
+          ],
+          "title": "Style",
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "literal": "#/$defs/LiteralText",
+                  "source": "#/$defs/SourceText"
+                },
+                "propertyName": "kind"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/SourceText"
+                },
+                {
+                  "$ref": "#/$defs/LiteralText"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        },
+        "kind": {
+          "enum": [
+            "line",
+            "arrow"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "start": {
+          "$ref": "#/$defs/Point"
+        },
+        "end": {
+          "$ref": "#/$defs/Point"
+        }
+      },
+      "required": [
+        "id",
+        "role",
+        "kind",
+        "start",
+        "end"
+      ],
+      "title": "Line",
+      "type": "object"
+    },
+    "LineSegment": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "line",
+          "title": "Kind",
+          "type": "string"
+        },
+        "end": {
+          "$ref": "#/$defs/Point"
+        }
+      },
+      "required": [
+        "kind",
+        "end"
+      ],
+      "title": "LineSegment",
+      "type": "object"
+    },
+    "LiteralText": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "literal",
+          "title": "Kind",
+          "type": "string"
+        },
+        "text": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "text"
+      ],
+      "title": "LiteralText",
+      "type": "object"
+    },
+    "Marker": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "role": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Role",
+          "type": "string"
+        },
+        "style": {
+          "default": "primary",
+          "enum": [
+            "primary",
+            "secondary",
+            "accent",
+            "muted",
+            "warning",
+            "highlight"
+          ],
+          "title": "Style",
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "literal": "#/$defs/LiteralText",
+                  "source": "#/$defs/SourceText"
+                },
+                "propertyName": "kind"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/SourceText"
+                },
+                {
+                  "$ref": "#/$defs/LiteralText"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        },
+        "kind": {
+          "const": "marker",
+          "title": "Kind",
+          "type": "string"
+        },
+        "position": {
+          "$ref": "#/$defs/Point"
+        },
+        "radius": {
+          "default": 0.008,
+          "exclusiveMinimum": 0,
+          "maximum": 0.02,
+          "title": "Radius",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "role",
+        "kind",
+        "position"
+      ],
+      "title": "Marker",
+      "type": "object"
+    },
+    "Move": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "target": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Target",
+          "type": "string"
+        },
+        "beat_id": {
+          "pattern": "^s[1-9][0-9]*\\.(intro|step[0-5])$",
+          "title": "Beat Id",
+          "type": "string"
+        },
+        "start": {
+          "default": 0.0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Start",
+          "type": "number"
+        },
+        "end": {
+          "default": 0.6,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "End",
+          "type": "number"
+        },
+        "kind": {
+          "const": "move",
+          "title": "Kind",
+          "type": "string"
+        },
+        "from_position": {
+          "$ref": "#/$defs/Point"
+        },
+        "to_position": {
+          "$ref": "#/$defs/Point"
+        }
+      },
+      "required": [
+        "id",
+        "target",
+        "beat_id",
+        "kind",
+        "from_position",
+        "to_position"
+      ],
+      "title": "Move",
+      "type": "object"
+    },
+    "Particles": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "role": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Role",
+          "type": "string"
+        },
+        "style": {
+          "default": "primary",
+          "enum": [
+            "primary",
+            "secondary",
+            "accent",
+            "muted",
+            "warning",
+            "highlight"
+          ],
+          "title": "Style",
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "literal": "#/$defs/LiteralText",
+                  "source": "#/$defs/SourceText"
+                },
+                "propertyName": "kind"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/SourceText"
+                },
+                {
+                  "$ref": "#/$defs/LiteralText"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        },
+        "kind": {
+          "const": "particles",
+          "title": "Kind",
+          "type": "string"
+        },
+        "positions": {
+          "items": {
+            "$ref": "#/$defs/Point"
+          },
+          "maxItems": 32,
+          "minItems": 1,
+          "title": "Positions",
+          "type": "array"
+        },
+        "radius": {
+          "default": 0.005,
+          "exclusiveMinimum": 0,
+          "maximum": 0.02,
+          "title": "Radius",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "role",
+        "kind",
+        "positions"
+      ],
+      "title": "Particles",
+      "type": "object"
+    },
+    "Path": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "role": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Role",
+          "type": "string"
+        },
+        "style": {
+          "default": "primary",
+          "enum": [
+            "primary",
+            "secondary",
+            "accent",
+            "muted",
+            "warning",
+            "highlight"
+          ],
+          "title": "Style",
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "literal": "#/$defs/LiteralText",
+                  "source": "#/$defs/SourceText"
+                },
+                "propertyName": "kind"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/SourceText"
+                },
+                {
+                  "$ref": "#/$defs/LiteralText"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        },
+        "kind": {
+          "const": "path",
+          "title": "Kind",
+          "type": "string"
+        },
+        "start": {
+          "$ref": "#/$defs/Point"
+        },
+        "segments": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "cubic": "#/$defs/CubicSegment",
+                "line": "#/$defs/LineSegment"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/LineSegment"
+              },
+              {
+                "$ref": "#/$defs/CubicSegment"
+              }
+            ]
+          },
+          "maxItems": 8,
+          "minItems": 1,
+          "title": "Segments",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "role",
+        "kind",
+        "start",
+        "segments"
+      ],
+      "title": "Path",
+      "type": "object"
+    },
+    "Point": {
+      "additionalProperties": false,
+      "properties": {
+        "x": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Y",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "title": "Point",
+      "type": "object"
+    },
+    "Polygon": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "role": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Role",
+          "type": "string"
+        },
+        "style": {
+          "default": "primary",
+          "enum": [
+            "primary",
+            "secondary",
+            "accent",
+            "muted",
+            "warning",
+            "highlight"
+          ],
+          "title": "Style",
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "literal": "#/$defs/LiteralText",
+                  "source": "#/$defs/SourceText"
+                },
+                "propertyName": "kind"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/SourceText"
+                },
+                {
+                  "$ref": "#/$defs/LiteralText"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        },
+        "kind": {
+          "const": "polygon",
+          "title": "Kind",
+          "type": "string"
+        },
+        "points": {
+          "items": {
+            "$ref": "#/$defs/Point"
+          },
+          "maxItems": 12,
+          "minItems": 3,
+          "title": "Points",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "role",
+        "kind",
+        "points"
+      ],
+      "title": "Polygon",
+      "type": "object"
+    },
+    "Provenance": {
+      "additionalProperties": false,
+      "properties": {
+        "prompt_version": {
+          "default": "visual-p2",
+          "title": "Prompt Version",
+          "type": "string"
+        },
+        "model": {
+          "title": "Model",
+          "type": "string"
+        },
+        "model_identity": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Model Identity",
+          "type": "string"
+        },
+        "capability_version": {
+          "default": "primitives-v1",
+          "title": "Capability Version",
+          "type": "string"
+        },
+        "asset_version": {
+          "default": "assets-v1-empty",
+          "title": "Asset Version",
+          "type": "string"
+        },
+        "semantics_version": {
+          "default": "geometry-actions-v2",
+          "title": "Semantics Version",
+          "type": "string"
+        },
+        "configuration_fingerprint": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Configuration Fingerprint",
+          "type": "string"
+        }
+      },
+      "required": [
+        "model",
+        "model_identity",
+        "configuration_fingerprint"
+      ],
+      "title": "Provenance",
+      "type": "object"
+    },
+    "Rectangle": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "role": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Role",
+          "type": "string"
+        },
+        "style": {
+          "default": "primary",
+          "enum": [
+            "primary",
+            "secondary",
+            "accent",
+            "muted",
+            "warning",
+            "highlight"
+          ],
+          "title": "Style",
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "literal": "#/$defs/LiteralText",
+                  "source": "#/$defs/SourceText"
+                },
+                "propertyName": "kind"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/SourceText"
+                },
+                {
+                  "$ref": "#/$defs/LiteralText"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        },
+        "kind": {
+          "const": "rectangle",
+          "title": "Kind",
+          "type": "string"
+        },
+        "position": {
+          "$ref": "#/$defs/Point"
+        },
+        "width": {
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "title": "Width",
+          "type": "number"
+        },
+        "height": {
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "title": "Height",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "role",
+        "kind",
+        "position",
+        "width",
+        "height"
+      ],
+      "title": "Rectangle",
+      "type": "object"
+    },
+    "Relationship": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "connected_to",
+            "contains",
+            "points_toward",
+            "aligned_with",
+            "before",
+            "ordered_with",
+            "belongs_to",
+            "depends_on"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "source": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Source",
+          "type": "string"
+        },
+        "target": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Target",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "source",
+        "target"
+      ],
+      "title": "Relationship",
+      "type": "object"
+    },
+    "Reveal": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "target": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Target",
+          "type": "string"
+        },
+        "beat_id": {
+          "pattern": "^s[1-9][0-9]*\\.(intro|step[0-5])$",
+          "title": "Beat Id",
+          "type": "string"
+        },
+        "start": {
+          "default": 0.0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Start",
+          "type": "number"
+        },
+        "end": {
+          "default": 0.6,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "End",
+          "type": "number"
+        },
+        "kind": {
+          "const": "reveal",
+          "title": "Kind",
+          "type": "string"
+        },
+        "from_opacity": {
+          "default": 0.0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "From Opacity",
+          "type": "number"
+        },
+        "to_opacity": {
+          "default": 1.0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "To Opacity",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "target",
+        "beat_id",
+        "kind"
+      ],
+      "title": "Reveal",
+      "type": "object"
+    },
+    "SceneVisual": {
+      "additionalProperties": false,
+      "properties": {
+        "scene_id": {
+          "pattern": "^s[1-9][0-9]*$",
+          "title": "Scene Id",
+          "type": "string"
+        },
+        "layout": {
+          "anyOf": [
+            {
+              "enum": [
+                "flow_cycle",
+                "spatial",
+                "array_grid",
+                "graph_network",
+                "coordinate_plane",
+                "comparison",
+                "code_walkthrough"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Layout"
+        },
+        "mechanism": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Mechanism",
+          "type": "string"
+        },
+        "accuracy": {
+          "default": "illustrative",
+          "enum": [
+            "illustrative",
+            "legacy"
+          ],
+          "title": "Accuracy",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 6,
+          "minItems": 1,
+          "title": "Limitations",
+          "type": "array"
+        },
+        "objects": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "arrow": "#/$defs/Line",
+                "asset": "#/$defs/Asset",
+                "circle": "#/$defs/Circle",
+                "ellipse": "#/$defs/Ellipse",
+                "group": "#/$defs/Group",
+                "highlight_region": "#/$defs/Highlight",
+                "line": "#/$defs/Line",
+                "marker": "#/$defs/Marker",
+                "particles": "#/$defs/Particles",
+                "path": "#/$defs/Path",
+                "polygon": "#/$defs/Polygon",
+                "rectangle": "#/$defs/Rectangle",
+                "text": "#/$defs/TextLabel"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Rectangle"
+              },
+              {
+                "$ref": "#/$defs/Circle"
+              },
+              {
+                "$ref": "#/$defs/Ellipse"
+              },
+              {
+                "$ref": "#/$defs/Polygon"
+              },
+              {
+                "$ref": "#/$defs/Line"
+              },
+              {
+                "$ref": "#/$defs/Path"
+              },
+              {
+                "$ref": "#/$defs/TextLabel"
+              },
+              {
+                "$ref": "#/$defs/Group"
+              },
+              {
+                "$ref": "#/$defs/Marker"
+              },
+              {
+                "$ref": "#/$defs/Highlight"
+              },
+              {
+                "$ref": "#/$defs/Particles"
+              },
+              {
+                "$ref": "#/$defs/Asset"
+              }
+            ]
+          },
+          "maxItems": 48,
+          "title": "Objects",
+          "type": "array"
+        },
+        "relationships": {
+          "items": {
+            "$ref": "#/$defs/Relationship"
+          },
+          "maxItems": 64,
+          "title": "Relationships",
+          "type": "array"
+        },
+        "actions": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "draw": "#/$defs/Draw",
+                "highlight": "#/$defs/HighlightAction",
+                "move": "#/$defs/Move",
+                "reveal": "#/$defs/Reveal",
+                "trace": "#/$defs/Trace",
+                "transform": "#/$defs/Transform"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Reveal"
+              },
+              {
+                "$ref": "#/$defs/Draw"
+              },
+              {
+                "$ref": "#/$defs/Move"
+              },
+              {
+                "$ref": "#/$defs/HighlightAction"
+              },
+              {
+                "$ref": "#/$defs/Transform"
+              },
+              {
+                "$ref": "#/$defs/Trace"
+              }
+            ]
+          },
+          "maxItems": 64,
+          "title": "Actions",
+          "type": "array"
+        },
+        "fallback": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Fallback"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "scene_id",
+        "mechanism",
+        "limitations"
+      ],
+      "title": "SceneVisual",
+      "type": "object"
+    },
+    "SourceText": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "source",
+          "title": "Kind",
+          "type": "string"
+        },
+        "field": {
+          "enum": [
+            "heading",
+            "center",
+            "expression",
+            "code",
+            "text",
+            "note",
+            "output"
+          ],
+          "title": "Field",
+          "type": "string"
+        },
+        "step_index": {
+          "anyOf": [
+            {
+              "maximum": 5,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Step Index"
+        }
+      },
+      "required": [
+        "kind",
+        "field"
+      ],
+      "title": "SourceText",
+      "type": "object"
+    },
+    "TextLabel": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "role": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Role",
+          "type": "string"
+        },
+        "style": {
+          "default": "primary",
+          "enum": [
+            "primary",
+            "secondary",
+            "accent",
+            "muted",
+            "warning",
+            "highlight"
+          ],
+          "title": "Style",
+          "type": "string"
+        },
+        "label": {
+          "discriminator": {
+            "mapping": {
+              "literal": "#/$defs/LiteralText",
+              "source": "#/$defs/SourceText"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/SourceText"
+            },
+            {
+              "$ref": "#/$defs/LiteralText"
+            }
+          ],
+          "title": "Label"
+        },
+        "kind": {
+          "const": "text",
+          "title": "Kind",
+          "type": "string"
+        },
+        "position": {
+          "$ref": "#/$defs/Point"
+        },
+        "width": {
+          "default": 0.25,
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "title": "Width",
+          "type": "number"
+        },
+        "height": {
+          "default": 0.12,
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "title": "Height",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "role",
+        "label",
+        "kind",
+        "position"
+      ],
+      "title": "TextLabel",
+      "type": "object"
+    },
+    "Trace": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "target": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Target",
+          "type": "string"
+        },
+        "beat_id": {
+          "pattern": "^s[1-9][0-9]*\\.(intro|step[0-5])$",
+          "title": "Beat Id",
+          "type": "string"
+        },
+        "start": {
+          "default": 0.0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Start",
+          "type": "number"
+        },
+        "end": {
+          "default": 0.6,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "End",
+          "type": "number"
+        },
+        "kind": {
+          "const": "trace",
+          "title": "Kind",
+          "type": "string"
+        },
+        "path_id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Path Id",
+          "type": "string"
+        },
+        "from_progress": {
+          "default": 0.0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "From Progress",
+          "type": "number"
+        },
+        "to_progress": {
+          "default": 1.0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "To Progress",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "target",
+        "beat_id",
+        "kind",
+        "path_id"
+      ],
+      "title": "Trace",
+      "type": "object"
+    },
+    "Transform": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "target": {
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$",
+          "title": "Target",
+          "type": "string"
+        },
+        "beat_id": {
+          "pattern": "^s[1-9][0-9]*\\.(intro|step[0-5])$",
+          "title": "Beat Id",
+          "type": "string"
+        },
+        "start": {
+          "default": 0.0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Start",
+          "type": "number"
+        },
+        "end": {
+          "default": 0.6,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "End",
+          "type": "number"
+        },
+        "kind": {
+          "const": "transform",
+          "title": "Kind",
+          "type": "string"
+        },
+        "from_scale": {
+          "default": 1.0,
+          "maximum": 1,
+          "minimum": 0.25,
+          "title": "From Scale",
+          "type": "number"
+        },
+        "to_scale": {
+          "default": 0.75,
+          "maximum": 1,
+          "minimum": 0.25,
+          "title": "To Scale",
+          "type": "number"
+        },
+        "from_opacity": {
+          "default": 1.0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "From Opacity",
+          "type": "number"
+        },
+        "to_opacity": {
+          "default": 1.0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "To Opacity",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "target",
+        "beat_id",
+        "kind"
+      ],
+      "title": "Transform",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "visual_schema_version": {
+      "const": "visual-v1",
+      "default": "visual-v1",
+      "title": "Visual Schema Version",
+      "type": "string"
+    },
+    "lesson_id": {
+      "title": "Lesson Id",
+      "type": "string"
+    },
+    "source_fingerprint": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Source Fingerprint",
+      "type": "string"
+    },
+    "provenance": {
+      "$ref": "#/$defs/Provenance"
+    },
+    "scenes": {
+      "items": {
+        "$ref": "#/$defs/SceneVisual"
+      },
+      "maxItems": 6,
+      "minItems": 3,
+      "title": "Scenes",
+      "type": "array"
+    }
+  },
+  "required": [
+    "lesson_id",
+    "source_fingerprint",
+    "provenance",
+    "scenes"
+  ],
+  "title": "VisualSpec",
+  "type": "object"
+}

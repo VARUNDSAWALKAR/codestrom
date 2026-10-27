@@ -1,0 +1,244 @@
+{
+  "origin": "cached canonical lesson",
+  "source": {
+    "schema_version": "1.0",
+    "lesson_id": "d5a20b9b0d26",
+    "topic": "concave lens",
+    "level": "beginner",
+    "target_seconds": 60,
+    "language": "en",
+    "source": "llm",
+    "model": "qwen3:4b-instruct-2507-q4_K_M",
+    "prompt_version": "p12-task4",
+    "warnings": [],
+    "title": "title_card",
+    "subject": "physics",
+    "keep_terms": [
+      "concave lens",
+      "diverges",
+      "light rays",
+      "focal point",
+      "image formation"
+    ],
+    "scenes": [
+      {
+        "id": "s1",
+        "type": "title_card",
+        "heading": "Concave Lens Basics",
+        "narration": "A concave lens curves inward and spreads light rays. It helps correct nearsightedness and forms virtual images.",
+        "steps": [],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s2",
+        "type": "diagram",
+        "heading": "What Is a Concave Lens?",
+        "narration": "A concave lens curves inward. It spreads light rays outward. This is called divergence.",
+        "steps": [
+          {
+            "text": "Light enters",
+            "narration": "Light enters the lens from one side.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Bends outward",
+            "narration": "The lens bends rays away from the center.",
+            "note": "Rays spread apart",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "No focal point",
+            "narration": "The rays never meet at a focal point.",
+            "note": "No real focus",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s3",
+        "type": "diagram",
+        "heading": "How Does It Form Images?",
+        "narration": "Concave lenses always make virtual images. These images are upright and smaller than the object.",
+        "steps": [
+          {
+            "text": "Rays from object",
+            "narration": "Light rays from an object pass through the lens.",
+            "note": "All rays go through",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Spreads rays",
+            "narration": "The lens spreads them outward.",
+            "note": "No convergence",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Upright image",
+            "narration": "The eye sees a smaller, upright image.",
+            "note": "Virtual and reduced",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s4",
+        "type": "diagram",
+        "heading": "Real-World Uses",
+        "narration": "Concave lenses correct nearsightedness. They help eyes focus on nearby objects by spreading light.",
+        "steps": [
+          {
+            "text": "Blurry vision",
+            "narration": "A person sees blurry near objects.",
+            "note": "Nearsightedness",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Spreads light",
+            "narration": "A concave lens spreads light rays.",
+            "note": "Corrects focus",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Clear vision",
+            "narration": "The eye sees clear, nearby images.",
+            "note": "Improved focus",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "cycle",
+        "center": "",
+        "expression": ""
+      }
+    ]
+  },
+  "spec": {
+    "visual_schema_version": "visual-v1",
+    "lesson_id": "d5a20b9b0d26",
+    "source_fingerprint": "5e260b5b14857d10609a5df9758b4eea70b7f26acbcac155c8b3dc6f80c4520e",
+    "provenance": {
+      "prompt_version": "visual-p2",
+      "model": "authored-fixture",
+      "model_identity": "author-review-pending",
+      "capability_version": "primitives-v1",
+      "asset_version": "assets-v1-empty",
+      "semantics_version": "geometry-actions-v2",
+      "configuration_fingerprint": "4e50596a8ffdcce7c78f1de55f9786824cfab35f4576427013a469235599c607"
+    },
+    "scenes": [
+      {
+        "scene_id": "s1",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "legacy_scene",
+          "reason": "Existing scene retained"
+        }
+      },
+      {
+        "scene_id": "s2",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "unsupported_mechanism",
+          "reason": "No verified optical ray construction"
+        }
+      },
+      {
+        "scene_id": "s3",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "unsupported_mechanism",
+          "reason": "Image construction requires reviewed geometry"
+        }
+      },
+      {
+        "scene_id": "s4",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "source_inaccurate",
+          "reason": "Cached myopia claims require correction outside VQ1"
+        }
+      }
+    ]
+  },
+  "review_notes": [
+    "Explicit fallback: no verified optical solver; no invented refracted rays.",
+    "Cached source incorrectly describes nearsightedness as blurry near objects; content review needed."
+  ],
+  "expected": {
+    "layout": null,
+    "objects": 0,
+    "actions": 0,
+    "specialized_scene_ids": [],
+    "fallback_scenes": 4
+  }
+}

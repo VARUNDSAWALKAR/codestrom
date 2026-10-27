@@ -1,0 +1,379 @@
+{
+  "origin": "hand-authored SemanticIntent; not LLM success",
+  "source": {
+    "schema_version": "1.0",
+    "lesson_id": "sample-vq1-ohm",
+    "topic": "What is Ohms law?",
+    "level": "beginner",
+    "target_seconds": 60,
+    "language": "en",
+    "source": "sample",
+    "model": "authored-fixture",
+    "prompt_version": "fixture-v1",
+    "warnings": [],
+    "title": "What is Ohms law?",
+    "subject": "physics",
+    "keep_terms": [],
+    "scenes": [
+      {
+        "id": "s1",
+        "type": "title_card",
+        "heading": "What is Ohms law?",
+        "narration": "This is an authored development example for What is Ohms law?.",
+        "steps": [],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s2",
+        "type": "diagram",
+        "heading": "What is Ohms law?",
+        "narration": "Follow the illustrated relationships.",
+        "steps": [
+          {
+            "text": "Circuit",
+            "narration": "A simple circuit connects a source and resistor.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Voltage",
+            "narration": "Voltage pushes charges through the circuit.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Current",
+            "narration": "For a fixed resistor, current increases when voltage increases.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s3",
+        "type": "recap",
+        "heading": "Recap",
+        "narration": "",
+        "steps": [
+          {
+            "text": "Read the relationship",
+            "narration": "The illustration is qualitative.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Check assumptions",
+            "narration": "A subject reviewer should check this example.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      }
+    ]
+  },
+  "scene_id": "s2",
+  "intent": {
+    "family": "spatial",
+    "entities": [
+      {
+        "id": "source",
+        "kind": "electrical_source",
+        "evidence": "source"
+      },
+      {
+        "id": "resistor",
+        "kind": "resistor",
+        "evidence": "resistor"
+      }
+    ],
+    "relationships": [
+      {
+        "kind": "connected_to",
+        "source": "source",
+        "target": "resistor",
+        "evidence": "A simple circuit connects a source and resistor."
+      }
+    ],
+    "changes": [
+      {
+        "kind": "emphasize",
+        "beat_id": "s2.step0",
+        "evidence": "A simple circuit connects a source and resistor.",
+        "entity": "source"
+      },
+      {
+        "kind": "emphasize",
+        "beat_id": "s2.step2",
+        "evidence": "For a fixed resistor, current increases when voltage increases.",
+        "entity": "resistor"
+      }
+    ]
+  },
+  "spec": {
+    "visual_schema_version": "visual-v1",
+    "lesson_id": "sample-vq1-ohm",
+    "source_fingerprint": "fb4b5590ecc733d8e2d67a49e3565bcdacaf50d2790a8b5648ee1c9cfa868119",
+    "provenance": {
+      "prompt_version": "visual-semantic-p1",
+      "model": "authored-fixture",
+      "model_identity": "vq11-authored",
+      "capability_version": "primitives-v1",
+      "asset_version": "assets-v1-empty",
+      "semantics_version": "semantic-composer-v1",
+      "configuration_fingerprint": "e56077bb7c2c9eaad5da9c68246e4f553bfea9e3ee7a5b9d826c8195f8f933ae"
+    },
+    "scenes": [
+      {
+        "scene_id": "s1",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "not_selected",
+          "reason": "Outside this authored fixture"
+        }
+      },
+      {
+        "scene_id": "s2",
+        "layout": "spatial",
+        "mechanism": "Recognizable physical entities with source-grounded interactions",
+        "accuracy": "illustrative",
+        "limitations": [
+          "Source-grounded qualitative illustration; scientific review still required",
+          "Supplemental evidence labels remain English; no new localization is performed"
+        ],
+        "objects": [
+          {
+            "id": "entity0_main",
+            "role": "Electrical source long terminal",
+            "style": "primary",
+            "label": null,
+            "kind": "line",
+            "start": {
+              "x": 0.155,
+              "y": 0.36
+            },
+            "end": {
+              "x": 0.155,
+              "y": 0.56
+            }
+          },
+          {
+            "id": "entity0_short",
+            "role": "Electrical source short terminal",
+            "style": "primary",
+            "label": null,
+            "kind": "line",
+            "start": {
+              "x": 0.205,
+              "y": 0.405
+            },
+            "end": {
+              "x": 0.205,
+              "y": 0.515
+            }
+          },
+          {
+            "id": "entity0_label",
+            "role": "Source entity label",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "source"
+            },
+            "kind": "text",
+            "position": {
+              "x": 0.18,
+              "y": 0.63
+            },
+            "width": 0.26,
+            "height": 0.09
+          },
+          {
+            "id": "entity1_main",
+            "role": "Schematic resistor",
+            "style": "primary",
+            "label": null,
+            "kind": "path",
+            "start": {
+              "x": 0.71,
+              "y": 0.46
+            },
+            "segments": [
+              {
+                "kind": "line",
+                "end": {
+                  "x": 0.745,
+                  "y": 0.515
+                }
+              },
+              {
+                "kind": "line",
+                "end": {
+                  "x": 0.77,
+                  "y": 0.405
+                }
+              },
+              {
+                "kind": "line",
+                "end": {
+                  "x": 0.795,
+                  "y": 0.515
+                }
+              },
+              {
+                "kind": "line",
+                "end": {
+                  "x": 0.82,
+                  "y": 0.405
+                }
+              },
+              {
+                "kind": "line",
+                "end": {
+                  "x": 0.845,
+                  "y": 0.515
+                }
+              },
+              {
+                "kind": "line",
+                "end": {
+                  "x": 0.87,
+                  "y": 0.405
+                }
+              },
+              {
+                "kind": "line",
+                "end": {
+                  "x": 0.895,
+                  "y": 0.515
+                }
+              },
+              {
+                "kind": "line",
+                "end": {
+                  "x": 0.93,
+                  "y": 0.46
+                }
+              }
+            ]
+          },
+          {
+            "id": "entity1_label",
+            "role": "Source entity label",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "resistor"
+            },
+            "kind": "text",
+            "position": {
+              "x": 0.82,
+              "y": 0.63
+            },
+            "width": 0.26,
+            "height": 0.09
+          },
+          {
+            "id": "rel0",
+            "role": "Schematic connected_to",
+            "style": "secondary",
+            "label": null,
+            "kind": "line",
+            "start": {
+              "x": 0.34,
+              "y": 0.46
+            },
+            "end": {
+              "x": 0.66,
+              "y": 0.46
+            }
+          }
+        ],
+        "relationships": [
+          {
+            "kind": "connected_to",
+            "source": "entity0_main",
+            "target": "entity1_main"
+          }
+        ],
+        "actions": [
+          {
+            "id": "a0",
+            "target": "entity0_main",
+            "beat_id": "s2.step0",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "highlight",
+            "from_style": "primary",
+            "to_style": "highlight"
+          },
+          {
+            "id": "a1",
+            "target": "entity1_main",
+            "beat_id": "s2.step2",
+            "start": 0.0,
+            "end": 0.8,
+            "kind": "highlight",
+            "from_style": "primary",
+            "to_style": "highlight"
+          }
+        ],
+        "fallback": null
+      },
+      {
+        "scene_id": "s3",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "not_selected",
+          "reason": "Outside this authored fixture"
+        }
+      }
+    ]
+  },
+  "semantic_quality": "partial",
+  "review_notes": [
+    "Recognizable source terminals and resistor connection; not a complete closed circuit or quantitative Ohms law plot."
+  ]
+}
