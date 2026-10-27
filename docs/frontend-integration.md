@@ -2,6 +2,16 @@
 
 For Varun. Contract of record: [api-contracts.md](api-contracts.md) §3–5 and §11. This page is the practical walkthrough.
 
+VQ3 development-only extension: normal render props may carry optional
+`visualSpec` (backend visual-v1), separate from canonical Lesson and Timeline.
+Missing/invalid/unsupported visual scenes use the trusted legacy renderer.
+Only the authored English array/reveal/highlight subset is verified. No create
+request, production job or topic automatically selects/injects a visual fixture.
+The controlled CLI `python -m backend.render_visual_demo --out <isolated-dir>
+--verify` uses real Kokoro, measured timeline/captions and normal MP4 export.
+Its temporary localhost media server exposes `/demo/props` for that explicit demo;
+this is not a new production lesson API route or acceptance of automatic visuals.
+
 > **Status (Task 6).** Production approval defaults to English. Hindi localization,
 > Kokoro narration and preview are technically connected, but Hindi stays disabled
 > until human review and explicit `APPROVED_LANGUAGES=en,hi`. The owner has now

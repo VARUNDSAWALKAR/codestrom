@@ -121,4 +121,6 @@ export type RenderProps = {
   mediaBase: string;
   audioVariant: 'web' | 'wav';
   showCaptions: boolean;
+  /** Optional backend visual-v1 sidecar. Validate before use; invalid scenes render legacy. */
+  visualSpec?: unknown;
 };

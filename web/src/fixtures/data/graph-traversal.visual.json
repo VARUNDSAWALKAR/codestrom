@@ -1,0 +1,303 @@
+{
+  "origin": "synthetic authored source; not a generated plan",
+  "source": {
+    "schema_version": "1.0",
+    "lesson_id": "sample-vq1-graph",
+    "topic": "Graph traversal",
+    "level": "beginner",
+    "target_seconds": 60,
+    "language": "en",
+    "source": "sample",
+    "model": "authored-fixture",
+    "prompt_version": "fixture-v1",
+    "warnings": [],
+    "title": "Graph traversal",
+    "subject": "other",
+    "keep_terms": [],
+    "scenes": [
+      {
+        "id": "s1",
+        "type": "title_card",
+        "heading": "Graph traversal",
+        "narration": "This is an authored development example for Graph traversal.",
+        "steps": [],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s2",
+        "type": "diagram",
+        "heading": "Graph traversal",
+        "narration": "Follow the illustrated relationships.",
+        "steps": [
+          {
+            "text": "Start A",
+            "narration": "Start at vertex A.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Visit B",
+            "narration": "Follow the edge to B.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Visit C",
+            "narration": "Continue to the unvisited vertex C.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      },
+      {
+        "id": "s3",
+        "type": "recap",
+        "heading": "Recap",
+        "narration": "",
+        "steps": [
+          {
+            "text": "Read the relationship",
+            "narration": "The illustration is qualitative.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          },
+          {
+            "text": "Check assumptions",
+            "narration": "A subject reviewer should check this example.",
+            "note": "",
+            "lines": [],
+            "output": "",
+            "in_expression": true
+          }
+        ],
+        "subtitle": "",
+        "code": "",
+        "code_language": "other",
+        "layout": "flow",
+        "center": "",
+        "expression": ""
+      }
+    ]
+  },
+  "spec": {
+    "visual_schema_version": "visual-v1",
+    "lesson_id": "sample-vq1-graph",
+    "source_fingerprint": "42839c18cf35794062f66e2e9c8de7339e4c009e59a0f352dfbf3d07cc437b9a",
+    "provenance": {
+      "prompt_version": "visual-p2",
+      "model": "authored-fixture",
+      "model_identity": "author-review-pending",
+      "capability_version": "primitives-v1",
+      "asset_version": "assets-v1-empty",
+      "semantics_version": "geometry-actions-v2",
+      "configuration_fingerprint": "972c6f2486524f117e2cc765e1e94bf190896fbb7217015f1f6603eab84618f5"
+    },
+    "scenes": [
+      {
+        "scene_id": "s1",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "legacy_scene",
+          "reason": "Existing scene retained"
+        }
+      },
+      {
+        "scene_id": "s2",
+        "layout": "graph_network",
+        "mechanism": "Visit vertices along existing edges",
+        "accuracy": "illustrative",
+        "limitations": [
+          "Illustrative geometry, no physical or temporal simulation"
+        ],
+        "objects": [
+          {
+            "id": "vertex_a",
+            "role": "Vertex A",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "A"
+            },
+            "kind": "circle",
+            "position": {
+              "x": 0.18,
+              "y": 0.5
+            },
+            "radius": 0.09
+          },
+          {
+            "id": "vertex_b",
+            "role": "Vertex B",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "B"
+            },
+            "kind": "circle",
+            "position": {
+              "x": 0.5,
+              "y": 0.18
+            },
+            "radius": 0.09
+          },
+          {
+            "id": "vertex_c",
+            "role": "Vertex C",
+            "style": "primary",
+            "label": {
+              "kind": "literal",
+              "text": "C"
+            },
+            "kind": "circle",
+            "position": {
+              "x": 0.82,
+              "y": 0.5
+            },
+            "radius": 0.09
+          },
+          {
+            "id": "edges",
+            "role": "Graph edges",
+            "style": "primary",
+            "label": null,
+            "kind": "path",
+            "start": {
+              "x": 0.18,
+              "y": 0.5
+            },
+            "segments": [
+              {
+                "kind": "line",
+                "end": {
+                  "x": 0.5,
+                  "y": 0.18
+                }
+              },
+              {
+                "kind": "line",
+                "end": {
+                  "x": 0.82,
+                  "y": 0.5
+                }
+              }
+            ]
+          },
+          {
+            "id": "cursor",
+            "role": "Traversal pointer",
+            "style": "primary",
+            "label": null,
+            "kind": "marker",
+            "position": {
+              "x": 0.18,
+              "y": 0.5
+            },
+            "radius": 0.008
+          }
+        ],
+        "relationships": [
+          {
+            "kind": "connected_to",
+            "source": "vertex_a",
+            "target": "vertex_b"
+          },
+          {
+            "kind": "connected_to",
+            "source": "vertex_b",
+            "target": "vertex_c"
+          }
+        ],
+        "actions": [
+          {
+            "id": "a0",
+            "target": "vertex_a",
+            "beat_id": "s2.step0",
+            "start": 0.0,
+            "end": 0.6,
+            "kind": "highlight",
+            "from_style": "primary",
+            "to_style": "highlight"
+          },
+          {
+            "id": "a1",
+            "target": "cursor",
+            "beat_id": "s2.step1",
+            "start": 0.0,
+            "end": 0.6,
+            "kind": "trace",
+            "path_id": "edges",
+            "from_progress": 0.0,
+            "to_progress": 0.5
+          },
+          {
+            "id": "a2",
+            "target": "cursor",
+            "beat_id": "s2.step2",
+            "start": 0.0,
+            "end": 0.6,
+            "kind": "trace",
+            "path_id": "edges",
+            "from_progress": 0.5,
+            "to_progress": 1.0
+          }
+        ],
+        "fallback": null
+      },
+      {
+        "scene_id": "s3",
+        "layout": null,
+        "mechanism": "Use the existing validated scene",
+        "accuracy": "legacy",
+        "limitations": [
+          "No specialized geometry published"
+        ],
+        "objects": [],
+        "relationships": [],
+        "actions": [],
+        "fallback": {
+          "code": "legacy_scene",
+          "reason": "Existing scene retained"
+        }
+      }
+    ]
+  },
+  "review_notes": [
+    "Trace uses pixel arc length; no hidden graph execution."
+  ],
+  "expected": {
+    "layout": "graph_network",
+    "objects": 5,
+    "actions": 3,
+    "specialized_scene_ids": [
+      "s2"
+    ],
+    "fallback_scenes": 2
+  }
+}

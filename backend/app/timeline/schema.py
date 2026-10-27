@@ -1,7 +1,7 @@
 """Timeline v1 and render-props boundary validation (lesson-schema.md §6–7)."""
 from __future__ import annotations
 from typing import Literal
-from pydantic import Field, model_validator
+from pydantic import Field, JsonValue, SerializerFunctionWrapHandler, model_validator, model_serializer
 from ..config import Language
 from ..planner.schema import ContractModel, Lesson, SceneType
 
@@ -94,6 +94,16 @@ class RenderProps(ContractModel):
     mediaBase: str = ""
     audioVariant: Literal["web", "wav"] = "web"
     showCaptions: bool = True
+    # Optional untrusted sidecar. Export validates against canonical English source;
+    # the renderer rejects unsupported scenes to legacy. Never part of Lesson v1.
+    visualSpec: JsonValue | None = None
+
+    @model_serializer(mode="wrap")
+    def omit_absent_visuals(self, handler: SerializerFunctionWrapHandler) -> dict[str, JsonValue]:
+        data = handler(self)
+        if self.visualSpec is None:
+            data.pop("visualSpec", None)
+        return data
 
     @model_validator(mode="after")
     def matching_lesson(self) -> RenderProps:

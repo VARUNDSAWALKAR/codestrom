@@ -249,6 +249,21 @@ One object drives both the browser player and the MP4 render.
 | `mediaBase` | `""` (same origin) | `"http://127.0.0.1:8000"` |
 | `audioVariant` | `"web"` (m4a, small) | `"wav"` |
 
+VQ3 additive optional field: `visualSpec` contains a backend `visual-v1` sidecar.
+It is not part of canonical Lesson v1 or Timeline v1. Omission is the default;
+absent/null sidecars are omitted by Python serialization so existing legacy
+props/cache keys are unchanged. Export validates an explicitly supplied sidecar
+against the canonical English lesson. Invalid sidecars are dropped with a legacy
+render warning. The frontend also validates version, identity, scene/beat mapping
+and supported capabilities; invalid/unsupported specialized scenes render their
+trusted legacy scene. Only the reviewed English array/reveal/highlight subset is
+supported. No production job or API request automatically supplies this field.
+
+The same optional field reaches normal `Lesson` composition/browser scene
+selection via `VisualSpecRenderer`. It remains explicit development/test input.
+Visual-bearing exports build fresh source instead of selecting an older prebuilt
+legacy bundle; their full validated sidecar participates in `props.sha1`.
+
 Composition `Lesson`: 1280×720; `fps` and `durationInFrames` come from `timeline` via `calculateMetadata`.
 
 **Frame layout v0** (full spec in `scene-components.md`):

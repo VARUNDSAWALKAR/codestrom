@@ -12,7 +12,7 @@ from threading import Thread
 from time import monotonic, perf_counter
 
 import psutil
-from pydantic import ConfigDict
+from pydantic import ConfigDict, JsonValue
 
 from ..cache import Cache
 from ..config import Settings
@@ -29,6 +29,7 @@ class ExportContext(JobContext):
     model_config = ConfigDict(arbitrary_types_allowed=True, validate_assignment=True)
     settings: Settings
     cache: Cache
+    visual_spec: JsonValue | None = None  # explicit caller only; production jobs leave absent
 
 
 def media_base(settings: Settings) -> str:
@@ -51,9 +52,16 @@ def check_inputs(folder: Path) -> tuple[Lesson, Timeline]:
     return lesson, timeline
 
 
-def render_props(lesson: Lesson, timeline: Timeline, settings: Settings) -> RenderProps:
+def render_props(lesson: Lesson, timeline: Timeline, settings: Settings, *,
+                 visual_spec: JsonValue | None = None) -> RenderProps:
+    validated = None
+    if visual_spec is not None:
+        from ..visuals.validate import validate_visuals
+        result = validate_visuals(visual_spec, lesson)
+        if result.spec is not None:
+            validated = result.spec.model_dump(mode="json")
     return RenderProps(lesson=lesson, timeline=timeline, mediaBase=media_base(settings),
-                       audioVariant="wav", showCaptions=True)
+                       audioVariant="wav", showCaptions=True, visualSpec=validated)
 
 
 def props_sha1(props: RenderProps) -> str:
@@ -164,7 +172,11 @@ def run_export(ctx: ExportContext) -> ExportContext:
     stage = next(s for s in ctx.job.stages if s.name == "export")
     folder = ctx.cache.lesson_dir(ctx.job.lesson_id, ctx.job.variant)
     lesson, timeline = check_inputs(folder)
-    props = render_props(lesson, timeline, ctx.settings)
+    props = render_props(lesson, timeline, ctx.settings, visual_spec=ctx.visual_spec)
+    if ctx.visual_spec is not None and props.visualSpec is None:
+        warning = "VisualSpec rejected against canonical source; rendering legacy scenes"
+        if warning not in ctx.job.warnings:
+            ctx.job.warnings.append(warning)
     digest = props_sha1(props)
     mp4, raw, sha_file = folder / "lesson.mp4", folder / "raw.mp4", folder / "props.sha1"
     expected = timeline.duration_frames / timeline.fps

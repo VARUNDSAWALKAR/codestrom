@@ -30,8 +30,13 @@ try {
   if (out === path.resolve(options['--props'])) throw new Error('Output cannot overwrite input props');
   await mkdir(path.dirname(out), {recursive: true});
   let serveUrl = path.join(web, 'build');
-  try { await access(path.join(serveUrl, 'index.html')); }
-  catch {
+  // A new visual sidecar must never select an older legacy-only prebuilt bundle.
+  let useExistingBundle = inputProps.visualSpec == null;
+  if (useExistingBundle) {
+    try { await access(path.join(serveUrl, 'index.html')); }
+    catch { useExistingBundle = false; }
+  }
+  if (!useExistingBundle) {
     temporary = await mkdtemp(path.join(tmpdir(), 'blu-render-'));
     serveUrl = await bundle({entryPoint: path.join(web, 'src/remotion/index.ts'),
       publicDir: path.join(web, 'public'), outDir: temporary, onProgress: () => {}});
