@@ -10,12 +10,21 @@ export interface Health {
     tts_kokoro: {ready: boolean}; tts_parler: {ready: boolean; enabled: boolean}};
   renderer: {bundle_ready: boolean}; queue_length: number;
 }
+export interface VoiceOption {
+  voice: Voice; speaker: string; engine: 'kokoro' | 'parler' | 'mock'; seed?: number | null; seed_policy?: string | null;
+}
+export function voicesFor(config: AppConfig | null, language: Language): VoiceOption[] {
+  if (config?.voice_options) return config.voice_options[language] ?? [];
+  // Older backends do not establish Kannada voice-level approval.
+  return language === 'en' || language === 'hi' ? (config?.voices ?? []).map((voice) => ({voice, speaker: voice, engine: 'kokoro'})) : [];
+}
 export interface AppConfig {
   mock?: boolean;
   languages: {code: Language; name: string; native: string; tier: 'core' | 'bonus'; available: boolean}[];
   levels: Level[];
   target_seconds: {min: number; max: number; step: number; default: number};
   voices: Voice[]; speeds: number[];
+  voice_options?: Partial<Record<Language, VoiceOption[]>>;
   defaults: {language: Language; level: Level; voice: Voice; speed: number};
 }
 export interface CreateLessonRequest {
@@ -121,6 +130,20 @@ export async function getConfig(signal?: AbortSignal): Promise<AppConfig> {
   check(strings(v.levels) && v.levels.length > 0 && v.levels.every((level) => ['beginner', 'intermediate'].includes(level)));
   check(strings(v.voices) && v.voices.length > 0 && v.voices.every((voice) => ['female', 'male'].includes(voice)));
   check(Array.isArray(v.speeds) && v.speeds.length > 0 && v.speeds.every((speed) => number(speed) && speed >= 0.8 && speed <= 1.2));
+  if (v.voice_options !== undefined) {
+    for (const [language, options] of Object.entries(record(v.voice_options))) {
+      check(languages.includes(language) && Array.isArray(options));
+      const seen = new Set<string>();
+      for (const raw of options) {
+        const option = record(raw);
+        check(string(option.voice) && v.voices.includes(option.voice) && !seen.has(option.voice));
+        seen.add(option.voice);
+        check(string(option.speaker) && option.speaker.length > 0 && ['kokoro', 'parler', 'mock'].includes(String(option.engine)));
+        check(option.seed === undefined || option.seed === null || (number(option.seed) && Number.isInteger(option.seed) && option.seed >= 0));
+        check(option.seed_policy === undefined || option.seed_policy === null || string(option.seed_policy));
+      }
+    }
+  }
   const seconds = record(v.target_seconds);
   check(number(seconds.min) && number(seconds.max) && number(seconds.step) && number(seconds.default) &&
     seconds.min >= 30 && seconds.max <= 90 && seconds.max >= seconds.min && seconds.step > 0 &&

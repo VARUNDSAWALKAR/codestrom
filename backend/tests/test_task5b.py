@@ -233,7 +233,8 @@ class SelectionAndLanguageTests(Harness):
         self.assertNotIn("'hi'", bonus)  # must not suggest languages production rejects
         hindi = self.client.post("/api/lessons", json={**BODY, "language": "kn"}).json()["error"]["message"]
         self.assertIn("APPROVED_LANGUAGES=en,hi", hindi)
-        self.assertIn("Task 7", hindi)
+        self.assertIn("PARLER_SEED=21", hindi)
+        self.assertIn("PARLER_MAX_NEW_TOKENS=1500", hindi)
         self.assertEqual(self.events, [])  # rejected before any job ran
 
     def test_config_reports_what_the_pipeline_accepts(self) -> None:

@@ -204,6 +204,10 @@ class Orchestrator:
             for path in (folder.parent / "plan.json", folder / "localization.json"):
                 artifact = path.stat() if path.is_file() else None
                 key += (artifact.st_mtime_ns, artifact.st_size) if artifact else (0, 0)
+        if folder.name.startswith("kn-"):
+            profile = folder / "voice-profile.json"
+            artifact = profile.stat() if profile.is_file() else None
+            key += (artifact.st_mtime_ns, artifact.st_size) if artifact else (0, 0)
         with self._verify_lock:
             known = self._verified.get(folder)
             if known is None or known[0] != key:  # unchanged files are not re-probed on every GET

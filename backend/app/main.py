@@ -22,7 +22,7 @@ from .contracts import (
 )
 from .jobs import JobRunner
 from .lessons_api import register_lesson_routes
-from .language_policy import approved_languages
+from .language_policy import approved_languages, voice_options
 from .localize.model import translator_ready
 from .speech.parler_engine import parler_ready
 from .mock_pipeline import build_mock_ops
@@ -113,7 +113,7 @@ def create_app(settings: Settings | None = None, ops: PipelineOps | None = None)
         orchestrator = request.app.state.orchestrator
         accepted = CORE_LANGUAGES if orchestrator is not None and orchestrator.ops.mock else approved_languages(settings)
         languages = [option.model_copy(update={"available": option.code in accepted}) for option in LANGUAGES]
-        return ConfigResponse(languages=languages,
+        return ConfigResponse(languages=languages, voice_options=voice_options(settings, mock=orchestrator is not None and orchestrator.ops.mock),
                               target_seconds=LengthOptions(default=settings.default_target_seconds),
                               defaults=Defaults(language=settings.default_language))
 

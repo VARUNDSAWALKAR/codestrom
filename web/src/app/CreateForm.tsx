@@ -1,6 +1,7 @@
 import {useEffect, useState, type FormEvent} from 'react';
 import type {AppConfig, CreateLessonRequest, Health, Level, Subject, Voice} from './api';
 import type {Language} from '../lesson/types';
+import {voicesFor} from './api';
 
 const defaultInput: CreateLessonRequest = {topic: '', level: 'beginner', language: 'en', target_seconds: 60, voice: 'female', speed: 1};
 const coreLanguages = [{code: 'en', name: 'English', native: 'English', available: true},
@@ -19,6 +20,11 @@ export function CreateForm({config, health, busy, fieldErrors, onClearErrors, on
   const languages = coreLanguages.map((language) => ({...language,
     available: config?.languages.some((option) => option.code === language.code && option.available) ?? false}));
   const languageAvailable = languages.some((language) => language.code === input.language && language.available);
+  const voiceOptions = voicesFor(config, input.language);
+  const voiceAvailable = voiceOptions.some((option) => option.voice === input.voice);
+  useEffect(() => {
+    if (voiceOptions.length && !voiceAvailable) setInput((previous) => ({...previous, voice: voiceOptions[0]!.voice}));
+  }, [config, input.language, voiceAvailable]);
   useEffect(() => {rememberedInput = input;}, [input]);
   useEffect(() => { if (config && !initializedFromConfig) {
     initializedFromConfig = true;
@@ -30,6 +36,7 @@ export function CreateForm({config, health, busy, fieldErrors, onClearErrors, on
     if (message) {document.getElementById('topic')?.focus(); return;}
     if (!health?.models.planner.ready || !config || busy) return;
     if (!languageAvailable) {setError('Choose a language enabled by the backend.'); return;}
+    if (!voiceAvailable) {setError('Choose an available voice for this language.'); return;}
     onSubmit({...input, topic: input.topic.trim()});
   };
   const duration = config?.target_seconds ?? {min: 30, max: 90, step: 15, default: 60};
@@ -62,9 +69,9 @@ export function CreateForm({config, health, busy, fieldErrors, onClearErrors, on
         <div className="segmented-control duration-options">{durations.map((seconds) => <label className={`segment-option ${input.target_seconds === seconds ? 'is-selected' : ''}`} key={seconds}>
           <input type="radio" name="target_seconds" value={seconds} checked={input.target_seconds === seconds} onChange={() => setInput({...input, target_seconds: seconds})} /><span>{seconds} sec</span>
         </label>)}</div></fieldset>
-      <fieldset className="setting-group"><legend>Narration voice</legend><div className="segmented-control voice-options">
+      <fieldset className="setting-group"><legend>Narration voice</legend>{input.language === 'kn' && <p className="setting-hint">Approved Kannada voice: Suresh, seed 21. Female Anu is not approved.</p>}<div className="segmented-control voice-options">
         {(config?.voices ?? ['female', 'male']).map((voice) => <label className={`segment-option ${input.voice === voice ? 'is-selected' : ''}`} key={voice}>
-          <input type="radio" name="voice" value={voice} checked={input.voice === voice} onChange={() => setInput({...input, voice: voice as Voice})} /><span>{capitalize(voice)}</span>
+          <input type="radio" name="voice" value={voice} checked={input.voice === voice} disabled={!voiceOptions.some((option) => option.voice === voice)} onChange={() => setInput({...input, voice: voice as Voice})} /><span>{capitalize(voice)}{input.language === 'kn' && voice === 'male' ? ' · Suresh (seed 21)' : ''}</span>
         </label>)}</div></fieldset>
     </div>
     <details className="advanced-settings"><summary>More options</summary><div className="advanced-grid"><label>Subject<select aria-label="Subject" value={input.subject ?? ''} onChange={(event) => setInput((previous) => {
@@ -76,7 +83,7 @@ export function CreateForm({config, health, busy, fieldErrors, onClearErrors, on
       {(config?.speeds ?? [0.85, 1, 1.15]).map((speed) => <option key={speed} value={speed}>{speed}×{speed === 1 ? ' · Natural' : speed < 1 ? ' · Slower' : ' · Faster'}</option>)}</select></label></div></details>
     {Object.entries(fieldErrors).filter(([field]) => field !== 'topic').map(([field, message]) =>
       <p key={field} role="alert" className="field-error">{capitalize(field.replaceAll('_', ' '))}: {message}</p>)}
-    <button className="button primary generate" type="submit" disabled={!health?.models.planner.ready || !config || !languageAvailable || busy} aria-describedby="generation-help"
+    <button className="button primary generate" type="submit" disabled={!health?.models.planner.ready || !config || !languageAvailable || !voiceAvailable || busy} aria-describedby="generation-help"
       title={!health?.models.planner.ready ? 'Start Ollama and make the planner model available' : busy ? 'Submitting your lesson' : 'Generate this lesson locally'}>
       <span aria-hidden="true">✧</span> {busy ? 'Submitting…' : 'Generate Visual Lesson'} <span aria-hidden="true">→</span></button>
     <p className="privacy-note"><span aria-hidden="true">⌑</span> Runs locally · Your lesson stays private</p>

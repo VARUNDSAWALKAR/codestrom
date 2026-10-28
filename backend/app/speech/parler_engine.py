@@ -7,6 +7,7 @@ import gc
 import hashlib
 from importlib.metadata import version
 import json
+import random
 from pathlib import Path
 from threading import RLock
 from time import perf_counter
@@ -21,6 +22,7 @@ from .kn_textnorm import KN_NORMALIZATION_VERSION
 SPEAKERS = {"female": "Anu", "male": "Suresh"}
 GENERATION = {"do_sample": True, "temperature": 1.0, "top_k": 50, "top_p": 1.0,
               "num_beams": 1, "use_cache": True}
+SEQUENCE_POLICY = "seed-once-ordered-utterances-v1"
 _MODEL_LOCK = RLock()  # also serializes torch RNG across direct instances
 
 
@@ -41,6 +43,8 @@ class ParlerEngine:
         self.settings = settings
         self._model = self._prompt = self._description = None
         self._version: str | None = None
+        self._sequence_active = False
+        self._sequence_devices: list[int] = []
         self.last_metrics: dict[str, float | str] = {}
 
     @property
@@ -56,7 +60,8 @@ class ParlerEngine:
             paths += [desc / name for name in ("tokenizer.json", "spiece.model", "tokenizer_config.json", "special_tokens_map.json")]
             files = tuple((str(p), p.stat().st_size, p.stat().st_mtime_ns) for p in paths)
             spec = {"assets": _assets(files), "parler": version("parler-tts"), "transformers": version("transformers"),
-                    "normalization": KN_NORMALIZATION_VERSION, "postprocess": "24k-pcm-v1", "rng": "fork-per-beat-v1",
+                    "normalization": KN_NORMALIZATION_VERSION, "postprocess": "24k-pcm-v1",
+                    "rng": {"Suresh": SEQUENCE_POLICY, "Anu": "fork-per-beat-v1"},
                     "generation": {**GENERATION, "max_new_tokens": self.settings.parler_max_new_tokens},
                     "seed": self.settings.parler_seed, "description": "named-moderate-clear-v1", "speed": "ffmpeg-atempo-v1"}
             self._version = "parler-" + hashlib.sha256(json.dumps(spec, sort_keys=True).encode()).hexdigest()
@@ -102,6 +107,73 @@ class ParlerEngine:
             self._model = self._prompt = self._description = None
             gc.collect()
 
+    @contextmanager
+    def utterance_sequence(self, *, load_model: bool = True):
+        """Experiment semantics: load first, seed once, then advance across utterances.
+
+        The existing operation lock covers the complete stream. Outer RNG state is
+        restored so this profile cannot perturb other jobs or English/Hindi.
+        """
+        import torch
+        with _MODEL_LOCK:
+            if self._sequence_active:
+                raise RuntimeError("Nested Kannada utterance sequence")
+            if load_model:
+                self.load()
+            devices = [torch.cuda.current_device()] if self.settings.resolve_profile() == "gpu" else []
+            python_state, numpy_state = random.getstate(), np.random.get_state()
+            with torch.random.fork_rng(devices=devices):
+                random.seed(self.settings.parler_seed)
+                np.random.seed(self.settings.parler_seed)
+                torch.manual_seed(self.settings.parler_seed)
+                self._sequence_active, self._sequence_devices = True, devices
+                try:
+                    yield self
+                finally:
+                    self._sequence_active, self._sequence_devices = False, []
+                    random.setstate(python_state)
+                    np.random.set_state(numpy_state)
+
+    def capture_rng(self) -> dict:
+        import torch
+        if not self._sequence_active:
+            raise RuntimeError("RNG snapshot requires active sequence")
+        state = np.random.get_state()
+        return {"torch": torch.random.get_rng_state().tolist(), "python": list(random.getstate()),
+                "numpy": [state[0], state[1].tolist(), int(state[2]), int(state[3]), float(state[4])],
+                "cuda": [torch.cuda.get_rng_state(d).tolist() for d in self._sequence_devices]}
+
+    def restore_rng(self, state: dict) -> None:
+        """Data-only cache state, never pickle/unpickle or execute artifact content."""
+        import torch
+        if not self._sequence_active or not isinstance(state, dict) or set(state) != {"torch", "python", "numpy", "cuda"}:
+            raise ValueError("Invalid RNG snapshot")
+        def tensor(value, size):
+            if not isinstance(value, list) or len(value) != size or any(type(v) is not int or not 0 <= v <= 255 for v in value):
+                raise ValueError("Invalid tensor RNG snapshot")
+            return torch.tensor(value, dtype=torch.uint8)
+        cpu = tensor(state['torch'], torch.random.get_rng_state().numel())
+        py, numpy, cuda = state['python'], state['numpy'], state['cuda']
+        if (not isinstance(py, list) or len(py) != 3 or py[0] != 3 or len(py[1]) != 625
+                or not isinstance(numpy, list) or len(numpy) != 5 or numpy[0] != 'MT19937' or len(numpy[1]) != 624
+                or not isinstance(cuda, list) or len(cuda) != len(self._sequence_devices)):
+            raise ValueError("Invalid host/device RNG snapshot")
+        torch.random.set_rng_state(cpu)
+        random.setstate((py[0], tuple(py[1]), py[2]))
+        np.random.set_state((numpy[0], np.asarray(numpy[1], dtype=np.uint32), numpy[2], numpy[3], numpy[4]))
+        for device, value in zip(self._sequence_devices, cuda):
+            torch.cuda.set_rng_state(tensor(value, torch.cuda.get_rng_state(device).numel()), device)
+
+    @contextmanager
+    def _beat_rng(self, devices):
+        import torch
+        if self._sequence_active:
+            yield
+        else:
+            with torch.random.fork_rng(devices=devices):
+                torch.manual_seed(self.settings.parler_seed)
+                yield
+
     def _generate(self, text: str, speaker: str) -> tuple[np.ndarray, int]:
         import torch
         self.load()
@@ -113,8 +185,7 @@ class ParlerEngine:
         if p.input_ids.shape[-1] > 512:
             raise PipelineError("tts_invalid_text", "Kannada beat exceeds the local prompt context")
         devices = [] if device.type == "cpu" else [device.index or 0]
-        with torch.random.fork_rng(devices=devices), torch.inference_mode():
-            torch.manual_seed(self.settings.parler_seed)
+        with self._beat_rng(devices), torch.inference_mode():
             generated = self._model.generate(input_ids=d.input_ids, attention_mask=d.attention_mask,
                 prompt_input_ids=p.input_ids, prompt_attention_mask=p.attention_mask,
                 max_new_tokens=self.settings.parler_max_new_tokens, **GENERATION)

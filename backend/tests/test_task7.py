@@ -223,7 +223,7 @@ def test_speech_only_normalization_preserves_technical_content():
 
 def test_kn_approval_and_disabled_engine_policy(settings):
     for approved, enabled, expected in (("en,hi", True, False), ("en,hi,kn", True, True), ("en,hi,kn", False, False)):
-        config = settings.model_copy(update={"approved_languages": tuple(approved.split(",")), "enable_parler": enabled})
+        config = settings.model_copy(update={"approved_languages": tuple(approved.split(",")), "enable_parler": enabled, "parler_seed": 21, "parler_max_new_tokens": 1500})
         with TestClient(create_app(config)) as client:
             options = {x["code"]: x["available"] for x in client.get("/api/config").json()["languages"]}
             assert options["hi"] and options["kn"] == expected
@@ -254,15 +254,16 @@ def test_real_pipeline_kn_preview_from_cached_plan_and_translation(settings, mon
                 return job
             time.sleep(0.02)
         pytest.fail(f"Synthetic voice + real timeline job timed out: {job}")
-    config = settings.model_copy(update={"approved_languages": ("en", "hi", "kn")})
+    config = settings.model_copy(update={"approved_languages": ("en", "hi", "kn"), "parler_seed": 21, "parler_max_new_tokens": 1500})
     cache = Cache(config.cache_dir)
     key = "c1f63f0ed69b"
     canonical = Lesson.model_validate_json((ROOT / "data/samples/planner/water_cycle.json").read_text(encoding="utf-8"))
     cache.write_json(cache.lesson_dir(key)/"plan.json", canonical.model_dump(mode="json", exclude_unset=True))
     # Transfer validated cached Kannada localization, not a relabelled English fixture.
     from backend.app.localize.translate import fingerprint
-    folder = cache.lesson_dir(key, "kn-female-1")
+    folder = cache.lesson_dir(key, "kn-male-1")
     payload = json.loads((ROOT / "data/samples/localized/water_cycle.kn.localization.json").read_text(encoding="utf-8"))
+    payload["metadata"]["variant"] = "kn-male-1"  # same validated translation; explicit test-only voice variant
     cache.write_json(folder/"lesson.json", payload["lesson"])
     cache.write_json(folder/"localization.json", {"metadata": payload["metadata"], "result": payload, "sha256": fingerprint(payload)})
     engine = FakeParler(config)
@@ -275,13 +276,13 @@ def test_real_pipeline_kn_preview_from_cached_plan_and_translation(settings, mon
     monkeypatch.setattr(IndicTranslator, "translate", lambda *a, **k: pytest.fail("Kannada cache must prevent translation inference"))
     ops = replace(pipeline_ops.production_ops(settings=config), export=lambda run: run.skip("test no-MP4"))
     with TestClient(create_app(config, ops)) as client:
-        submitted = client.post("/api/lessons", json={"topic": "Water Cycle", "subject": "science", "language": "kn"})
+        submitted = client.post("/api/lessons", json={"topic": "Water Cycle", "subject": "science", "language": "kn", "voice": "male"})
         assert submitted.status_code == 202
         job = wait(client, submitted.json()["job_id"])
         assert job["status"] == "done", json.dumps(job, ensure_ascii=False)
         assert job["preview_ready"] and job["export_status"] == "skipped" and job["lesson_id"] == key
         assert job["stages"][0]["status"] == job["stages"][2]["status"] == "cached"
-        response = client.get(f"/api/lessons/{key}?variant=kn-female-1").json()
+        response = client.get(f"/api/lessons/{key}?variant=kn-male-1").json()
         props = RenderProps(lesson=response["lesson"], timeline=response["timeline"])
         assert props.lesson.language == "kn" and props.timeline.voice.engine == "parler"
         assert props.timeline.audio is not None and response["media"]["mp4"] is None

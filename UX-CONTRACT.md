@@ -4,7 +4,7 @@
 
 - Audience: students creating and watching local animated lessons.
 - Primary jobs: create a lesson in a backend-approved language, follow generation, watch as soon as preview files are verified, download MP4/SRT when available.
-- Active locales: English application UI; creation availability comes from `/api/config.languages[].available`. The prepared deployment approves English/Hindi; Kannada requires separate backend approval and voice support.
+- Active locales: English application UI; creation availability comes from `/api/config.languages[].available`. The prepared deployment approves English/Hindi plus Kannada male Suresh/seed 21. Voice availability comes from `/api/config.voice_options`; selecting Kannada visibly selects its available male voice. Female Kannada API requests are rejected, never remapped. See `docs/kannada-enablement.md`.
 - Accessibility target: WCAG 2.2 AA.
 
 ## Business-context sources

@@ -62,11 +62,20 @@ class Defaults(BaseModel):
     speed: float = 1.0
 
 
+class VoiceOption(BaseModel):
+    voice: Literal["female", "male"]
+    speaker: str
+    engine: Literal["kokoro", "parler", "mock"]
+    seed: int | None = None
+    seed_policy: str | None = None
+
+
 class ConfigResponse(BaseModel):
     languages: list[LanguageOption]
     levels: list[Literal["beginner", "intermediate"]] = ["beginner", "intermediate"]
     target_seconds: LengthOptions
     voices: list[Literal["female", "male"]] = ["female", "male"]
+    voice_options: dict[Language, list[VoiceOption]] = Field(default_factory=dict)
     speeds: list[float] = [0.85, 1.0, 1.15]
     defaults: Defaults
 

@@ -74,7 +74,8 @@ def bridge(tmp_path, monkeypatch):
 
 def test_default_approval_and_explicit_kannada_approval(tmp_path):
     for approval in ("en", "en,hi,kn,ta"):
-        settings = Settings(device="cpu", cache_dir=tmp_path / approval.replace(",", "-"), approved_languages=approval)
+        settings = Settings(device="cpu", cache_dir=tmp_path / approval.replace(",", "-"),
+                            approved_languages=approval, parler_seed=21, parler_max_new_tokens=1500)
         with TestClient(create_app(settings)) as client:
             available = {x["code"] for x in client.get("/api/config").json()["languages"] if x["available"]}
             assert available == ({"en"} if approval == "en" else {"en", "hi", "kn"})

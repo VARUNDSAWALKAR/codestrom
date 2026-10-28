@@ -58,8 +58,8 @@ Blu should feel like a **learning observatory for ideas**: a deep midnight canva
 ### Product context and register
 
 - **Audience and primary job:** students who need a difficult concept turned into a short, inspectable visual explanation.
-- **Target markets and evidence:** multilingual Indian learning is the long-term product context; the current production creation flow is English-only per `docs/frontend-integration.md`.
-- **Locales and language policy:** application chrome is English. English lesson generation is enabled. हिन्दी and ಕನ್ನಡ appear only as disabled “Coming soon” choices until translation and voice integration is approved.
+- **Target markets and evidence:** multilingual Indian learning; current creation availability follows `docs/frontend-integration.md` and `docs/kannada-enablement.md`.
+- **Locales and language policy:** application chrome is English. `/api/config` controls language and per-language voice availability: English/Hindi retain female and male; Kannada permits approved male Suresh/seed 21 only. Unavailable choices remain disabled with an explanation.
 - **Usage scene:** laptop-first lesson creation and playback, with touch-friendly phone playback and controls.
 - **Register:** hybrid. The home hero carries brand expression; create, progress, error, and player surfaces prioritize product clarity.
 - **Memorable signature:** the concept observatory orbit and the dark “lesson specimen” showing code, state, output, and captions as one teaching surface.

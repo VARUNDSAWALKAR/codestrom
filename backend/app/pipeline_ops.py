@@ -18,7 +18,7 @@ import httpx
 
 from .config import Settings, get_settings
 from .contracts import LessonRequest
-from .language_policy import approved_languages
+from .language_policy import approved_languages, approved_voices
 from .localize import localize_lesson
 from .localize.translate import localization_artifact_valid
 from .export.ffmpeg import validate_mp4
@@ -36,7 +36,7 @@ logger = logging.getLogger(__name__)
 PROGRESS_INTERVAL = 0.5  # seconds between progress publishes while the exporter runs
 PROBE_TTL = 5.0  # seconds a planner-availability answer is reused by GET /api/health
 LANGUAGE_MESSAGE = ("Hindi requires explicit approval via APPROVED_LANGUAGES=en,hi after human review; "
-                    "Kannada requires separate human approval after Task 7 review (APPROVED_LANGUAGES=en,hi,kn) "
+                    "Kannada requires APPROVED_LANGUAGES=en,hi,kn, PARLER_SEED=21, PARLER_MAX_NEW_TOKENS=1500 "
                     "and ENABLE_PARLER=1")
 
 
@@ -122,6 +122,11 @@ def export_complete(folder: Path, settings: Settings) -> bool:
         lesson, timeline = check_inputs(folder)
         if lesson.language != "en" and not localization_artifact_valid(folder, settings):
             return False
+        if lesson.language == "kn":
+            import json
+            profile = json.loads((folder / "voice-profile.json").read_text(encoding="utf-8"))
+            if profile != kannada_profile(settings, timeline.voice.voice_id):
+                return False
         sha = folder / "props.sha1"
         if not sha.is_file() or sha.read_text(encoding="ascii", errors="replace").strip() != props_sha1(
                 render_props(lesson, timeline, settings)):
@@ -132,9 +137,18 @@ def export_complete(folder: Path, settings: Settings) -> bool:
         return False
 
 
+def kannada_profile(settings: Settings, voice_id: str) -> dict:
+    from .speech.parler_engine import SEQUENCE_POLICY
+    return {"engine_version": get_parler_engine(settings).engine_version, "voice_id": voice_id,
+            "seed": settings.parler_seed, "seed_policy": SEQUENCE_POLICY}
+
+
 def precheck(request: LessonRequest, settings: Settings | None = None) -> None:
-    if request.language not in approved_languages(settings or get_settings()):
+    settings = settings or get_settings()
+    if request.language not in approved_languages(settings):
         raise PipelineError("language_unavailable", LANGUAGE_MESSAGE)
+    if request.voice not in approved_voices(settings, request.language):
+        raise PipelineError("voice_unavailable", "Kannada supports the approved male Suresh seed-21 preset only; female Anu is not approved.")
 
 
 def plan(run: PipelineRun) -> None:
@@ -220,6 +234,8 @@ def production_ops(on_tts_loaded: Callable[[], None] | None = None, *, settings:
         except Exception as exc:
             raise PipelineError("tts_failed", str(exc)) from exc
         run.data["narration"] = context
+        if run.language == "kn":
+            run.cache.write_json(run.folder / "voice-profile.json", kannada_profile(run.settings, context.voice.voice_id))
 
     def timeline(run: PipelineRun) -> None:
         context: NarrationContext = run.data["narration"]

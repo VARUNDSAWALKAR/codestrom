@@ -77,7 +77,7 @@ Speech text = the localized narration after `speech/textnorm.py`: collapse white
 |---|---|---|---|
 | `en` | Kokoro, phonemes `en-us`* | same | `hf_alpha` / `hm_omega` (Indian-accented English) |
 | `hi` | Kokoro, `hi` | same | `hf_alpha` / `hm_omega` |
-| `kn` | Local Indic Parler-TTS | Local Indic Parler-TTS, CPU float32 | `Anu` / `Suresh`; explicit approval + ENABLE_PARLER required |
+| `kn` | Local Indic Parler-TTS | Local Indic Parler-TTS, CPU float32 | Male `Suresh` / seed 21 only; Anu unavailable. Explicit language approval + ENABLE_PARLER + cap 1500 required |
 | `ta` (bonus) | Parler | Kokoro `ta` if it passes the listening test, else "GPU only" | Parler `Jaya` / none → male uses Kokoro |
 | `te` (bonus) | Parler | as above | Parler `Lalitha` / `Prakash` |
 | `bn` (bonus) | Parler | as above | Parler `Aditi` / `Arjun` |
@@ -86,8 +86,12 @@ Speech text = the localized narration after `speech/textnorm.py`: collapse white
 
 - **Kokoro** (`kokoro-onnx`, CPU): `create(text, voice, speed, lang)` → 24 kHz mono. `speed` = the learner's speed.
 - **Parler** (Task 7 Kannada): lazy local model and separate local description
-  tokenizer. Named moderate-pace description, isolated fixed seed per beat,
-  one generation per uncached beat. Requested speed uses FFmpeg atempo, not
+  tokenizer. Approved Suresh moderate-pace description, seed 21 once after model
+  load, sequential RNG across ordered utterances, max_new_tokens 1500. Cached beats
+  restore their post-utterance RNG state; engine/seed/policy/sequence/position version
+  the audio cache. Completed Kannada exports require matching voice-profile.json
+  provenance, and export memoization rechecks profile changes or removal. See
+  kannada-enablement.md. One generation per uncached beat. Requested speed uses FFmpeg atempo, not
   only a prompt hint. Raw 44.1 kHz is processed to 24 kHz PCM. Near-token-cap
   output fails rather than silently truncating speech. No alternate engine fallback.
 - If an engine fails for a beat: try the other engine for that language once, else fail the stage (→ fallback, §11).

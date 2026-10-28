@@ -5,8 +5,9 @@ Stage order and caching: `pipeline.md` §4–6.
 
 Task 7 current status: translation supports six Indic tags. English/Hindi keep
 Kokoro; Kannada has a lazy local Indic Parler-TTS adapter for CPU/configured CUDA.
-Code approval defaults to en; this deployment has en,hi after owner approval on
-27 October 2026. Kannada remains separately unapproved. Bonus voice rows are plans.
+Code approval defaults to en. Hindi was approved on 27 October 2026. On 28 October
+2026 the owner confirmed Kannada Suresh seed-21 approval; Anu remains unapproved.
+The current local configuration and voice-level gates are detailed below. Bonus voice rows are plans.
 
 ---
 
@@ -172,3 +173,29 @@ Load Latin + mono + the lesson's script. Every text element gets `lang="<code>"`
 3. Listening test (Kokoro and/or Parler) → `test-log.md`
 4. Run the fallback lesson in it, check captions and the MP4
 About 20 minutes per language once the core works.
+
+
+### Kannada voice approval alignment — 28 October 2026
+
+The project owner approved Indic Parler **Suresh, seed 21** using the original
+`scratch/benchmark_parler.py` experiment. No separate Anu approval was found.
+Production Kannada therefore accepts `voice=male` only; female/default-female
+Kannada requests receive HTTP 422 `voice_unavailable`, before any planning.
+English and Hindi retain both existing Kokoro voices.
+
+`GET /api/config` adds `voice_options`, keyed by language, with `voice`, `speaker`,
+`engine`, nullable `seed` and `seed_policy`. Existing global `voices` remains for
+compatibility. Clients must use per-language options. Kannada's sole option is
+male/Suresh/Parler/21/`seed-once-ordered-utterances-v1`.
+Availability and submission share the same policy: explicit `APPROVED_LANGUAGES`
+plus enabled Parler, `PARLER_SEED=21` and `PARLER_MAX_NEW_TOKENS=1500`.
+
+Load precedes seeding. Python, NumPy and torch are seeded once per ordered lesson
+utterance sequence, then advance across beats. A cache hit restores the cached
+post-utterance RNG state; sequence inventory and beat position isolate the new
+cache namespace. Legacy audio is preserved, never relabelled. Completed Kannada
+exports require matching `voice-profile.json` provenance. The original speaker
+description, tokenizers, sampling parameters and CPU float32 loader are retained.
+This aligns generation policy; it does not claim identical audio for different
+text, normalization, hardware, or library versions. Existing speech normalization,
+postprocessing and timeline tempo handling remain in effect.

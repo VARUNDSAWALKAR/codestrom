@@ -5,3 +5,4 @@ import './visual-spec.test';
 import './visual-fixtures.test';
 import './backend-array.test';
 import './vq3.test';
+import './voice-options.test';

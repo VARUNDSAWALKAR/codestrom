@@ -16,7 +16,10 @@ this is not a new production lesson API route or acceptance of automatic visuals
 > Kokoro narration and preview are technically connected, but Hindi stays disabled
 > until human review and explicit `APPROVED_LANGUAGES=en,hi`. The owner has now
 > approved Hindi and this deployment has that setting. Task 7 adds Kannada voice,
-> which remains separately unapproved and disabled pending native review.
+> with owner-approved Suresh/seed 21 only (28 October 2026). Availability comes
+> from `/api/config`; use `voice_options[language]`, with female Kannada requests
+> rejected as `voice_unavailable`. This approval does not verify a new production
+> synthesis run. See [kannada-enablement.md](kannada-enablement.md).
 > Real English MP4 export was verified in 5C; Task 6 verifies Hindi preview only,
 > without MP4 rendering. Development mock mode remains separate and labelled.
 
